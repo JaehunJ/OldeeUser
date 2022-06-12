@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <style name="AppTheme" parent="Theme.AppCompat.DayNight">-->
+<!--        <item name="android:windowBackground">@color/main</item>-->
+<!--    </style>-->
+
+    <style name="BoldText" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/spoqa</item>
+    </style>
+
+    <style name="NormalText" parent="android:TextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">@font/spoqa</item>
+    </style>
+</resources>
