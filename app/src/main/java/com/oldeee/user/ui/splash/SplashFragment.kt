@@ -1,9 +1,12 @@
 package com.oldeee.user.ui.splash
 
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
@@ -22,6 +25,15 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
 
     override fun initDataBinding() {
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Handler().postDelayed({
+            val action = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
+            findNavController()?.navigate(action)
+        }, 500)
     }
 
 }

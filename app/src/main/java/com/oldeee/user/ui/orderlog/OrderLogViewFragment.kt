@@ -1,4 +1,4 @@
-package com.oldeee.user.ui.design.detail
+package com.oldeee.user.ui.orderlog
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
@@ -6,14 +6,14 @@ import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
-import com.oldeee.user.databinding.FragmentReformDetailBinding
+import com.oldeee.user.databinding.FragmentOrderLogViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReformDetailFragment :
-    BaseFragment<FragmentReformDetailBinding, ReformDetailViewModel, NavArgs>() {
-    override val layoutId: Int = R.layout.fragment_reform_detail
-    override val viewModel: ReformDetailViewModel by viewModels()
+class OrderLogViewFragment :
+    BaseFragment<FragmentOrderLogViewBinding, OrderLogViewViewModel, NavArgs>() {
+    override val layoutId: Int = R.layout.fragment_order_log_view
+    override val viewModel: OrderLogViewViewModel by viewModels()
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -23,4 +23,5 @@ class ReformDetailFragment :
     override fun initDataBinding() {
 
     }
+
 }

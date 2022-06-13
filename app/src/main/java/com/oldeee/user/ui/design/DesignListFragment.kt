@@ -11,8 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListViewModel, NavArgs>() {
-    override val layoutId: Int
-        get() = R.layout.fragment_design_list
+    override val layoutId: Int = R.layout.fragment_design_list
     override val viewModel: DesignListViewModel by viewModels()
     override val navArgs: NavArgs by navArgs()
 
@@ -23,5 +22,4 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     override fun initDataBinding() {
 
     }
-
 }

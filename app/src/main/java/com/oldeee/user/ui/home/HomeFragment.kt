@@ -16,7 +16,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
-
+        binding.ivDrawer.setOnClickListener {
+            activityFuncFunction.openDrawerMenu()
+        }
     }
 
     override fun initDataBinding() {
