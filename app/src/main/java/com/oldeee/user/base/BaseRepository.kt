@@ -1,13 +1,15 @@
 package com.oldeee.user.base
 
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
+import com.oldeee.user.data.ACCESS_TOKEN
+import com.oldeee.user.data.REFRESH_TOKEN
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.response.BaseResponse
+import com.oldeee.user.network.response.SignInResponseData
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -84,7 +86,7 @@ open class BaseRepository @Inject constructor(
     }
 
 //    suspend fun getImageFromServer(url: String): Bitmap? {
-        //TODO: implementation
+    //TODO: implementation
 //        val result = api.requestImage(getAccessToken(), url).body()
 //
 //        if (result != null) {
@@ -105,18 +107,18 @@ open class BaseRepository @Inject constructor(
 
     fun getIsLoading() = isLoading
 
-//    fun getAccessToken() = "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
-//    private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
-//    private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
-/*
-    fun setToken(data: SignInResponse.SignInData) {
+    fun getAccessToken() = "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
+    private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
+    private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
+
+    fun setToken(data: SignInResponseData) {
         prefs.edit {
             putString(ACCESS_TOKEN, data.accessToken)
             putString(REFRESH_TOKEN, data.refreshToken)
             commit()
         }
     }
-
+/*
     fun setToken(data: NewTokenResponse.TokenData) {
         prefs.edit {
             putString(ACCESS_TOKEN, data.newAccessToken)
