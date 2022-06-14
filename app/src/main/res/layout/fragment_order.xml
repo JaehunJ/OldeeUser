@@ -166,14 +166,16 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:paddingTop="25dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="25dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -197,6 +199,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -218,10 +222,15 @@
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginStart="19dp"
+                        android:layout_marginEnd="19dp"
+                        android:layout_marginBottom="19dp"
                         android:id="@+id/rv_images"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        tools:listitem="@layout/layout_order_add_image_item"
+                        tools:itemCount="4"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="4" />
                 </LinearLayout>
@@ -248,6 +257,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        tools:listitem="@layout/layout_order_price_item"
+                        tools:itemCount="2"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <View
@@ -264,7 +275,7 @@
                         android:orientation="horizontal">
                         <TextView
                             style="@style/BoldText"
-                            android:textSize="14dp"
+                            android:textSize="16dp"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -273,7 +284,7 @@
                         <TextView
                             android:id="@+id/tv_total_price"
                             style="@style/BoldText"
-                            android:textSize="14dp"
+                            android:textSize="16dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="합계"/>
