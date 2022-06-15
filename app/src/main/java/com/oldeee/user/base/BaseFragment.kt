@@ -73,4 +73,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         _binding = null
     }
 
+    fun NextFragment(action:Int){
+
+    }
 }

@@ -127,5 +127,6 @@ dependencies {
     //swipe
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-
+    //naver
+    implementation 'com.navercorp.nid:oauth:5.1.0'
 }

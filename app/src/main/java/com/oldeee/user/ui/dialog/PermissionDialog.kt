@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.oldeee.user.databinding.LayoutDialogOneButtonBinding
+import com.oldeee.user.databinding.LayoutDialogPermissionBinding
 
-class OneButtonDialog:DialogFragment() {
-    private lateinit var binding : LayoutDialogOneButtonBinding
+class PermissionDialog(val onClick: () -> Unit) : DialogFragment() {
+    private lateinit var binding: LayoutDialogPermissionBinding
 
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class OneButtonDialog:DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = LayoutDialogOneButtonBinding.inflate(inflater, container, false)
+        binding = LayoutDialogPermissionBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -27,4 +27,12 @@ class OneButtonDialog:DialogFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnOk.setOnClickListener {
+            dismiss()
+            onClick()
+        }
+    }
 }

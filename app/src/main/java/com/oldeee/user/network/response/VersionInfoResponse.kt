@@ -1,12 +1,12 @@
 package com.oldeee.user.network.response
 
 data class VersionInfoResponse(
-    val count: Int,
-    val status:Int,
-    val message:String,
     val data:VersionInfoData,
     override var errorMessage: String?,
-    override var errorCode: String?
+    override var errorCode: String?,
+    override var count: Int?,
+    override var status: Int?,
+    override var message: String?
 ) : BaseResponse()
 
 data class VersionInfoData(
