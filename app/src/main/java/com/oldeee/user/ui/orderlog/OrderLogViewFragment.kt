@@ -3,6 +3,7 @@ package com.oldeee.user.ui.orderlog
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment

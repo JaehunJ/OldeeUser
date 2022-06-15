@@ -12,6 +12,8 @@ import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavArgs>() {
@@ -30,7 +32,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Handler().postDelayed({
+        viewModel.postDelay({
             val action = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
             findNavController()?.navigate(action)
         }, 500)

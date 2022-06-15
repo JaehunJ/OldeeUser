@@ -17,11 +17,11 @@ class OrderReadyViewFragment : BaseFragment<FragmentOrderReadyViewBinding, Order
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun initDataBinding() {
-        TODO("Not yet implemented")
+
     }
 
 }
