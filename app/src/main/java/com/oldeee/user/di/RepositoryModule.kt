@@ -6,7 +6,7 @@ import com.oldeee.user.BuildConfig
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.repository.CommonRepository
-import com.oldeee.user.repository.SignInRepository
+import com.oldeee.user.repository.SignRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideSingInRepository(api: OldeeService, preferences: SharedPreferences) =
-        SignInRepository(api, preferences)
+    fun provideSignRepository(api: OldeeService, preferences: SharedPreferences) =
+        SignRepository(api, preferences)
 
     @Singleton
     @Provides

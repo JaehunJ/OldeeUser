@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavArgs
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.oldeee.user.CommonActivityFuncImpl
 
@@ -73,7 +74,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         _binding = null
     }
 
-    fun NextFragment(action:Int){
-
+    fun nextFragment(dir:NavDirections){
+        findNavController().navigate(dir)
     }
 }

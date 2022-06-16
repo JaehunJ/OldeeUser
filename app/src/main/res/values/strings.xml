@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="naver_client_id">l_jEYl1o7F5L66MOEcoj</string>
-    <string name="naver_client_secret">aTdlPbwoI6</string>
+    <string name="naver_client_id">G3Ip2_61nYwlMnC1BHXi</string>
+    <string name="naver_client_secret">6FE4Sqlns9</string>
+    <string name="naver_app_name">올디(Oldee)</string>
 </resources>

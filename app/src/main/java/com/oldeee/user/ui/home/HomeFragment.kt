@@ -19,6 +19,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         binding.ivDrawer.setOnClickListener {
             activityFuncFunction.openDrawerMenu()
         }
+
+        binding.clDesignTitle.setOnClickListener {
+            nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
+        }
     }
 
     override fun initDataBinding() {

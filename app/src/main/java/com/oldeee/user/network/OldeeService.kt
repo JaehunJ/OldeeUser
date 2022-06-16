@@ -39,7 +39,7 @@ interface OldeeService {
     @POST("/api/v1/sns/naverlogin")
     suspend fun requestSignInFromNaver(
         @Header("Authorization") authorization: String = "clo",
-        @Body data: SignInRequest
+        @Body data: NaverSignInRequest
     ): Response<SignInResponse>
 
     @POST("/api/v1/user/secession")

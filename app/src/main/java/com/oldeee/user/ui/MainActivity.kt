@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
+import com.navercorp.nid.NaverIdLoginSDK
 import com.oldeee.user.CommonActivityFuncImpl
 import com.oldeee.user.R
 import com.oldeee.user.databinding.ActivityMainBinding
@@ -34,6 +35,11 @@ class MainActivity : AppCompatActivity(),CommonActivityFuncImpl {
             hideDrawerMenu()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_orderLogFragment)
         }
+
+        val cId = getString(R.string.naver_client_id)
+        val sce = getString(R.string.naver_client_secret)
+        val name = getString(R.string.naver_app_name)
+        NaverIdLoginSDK.initialize(this, cId, sce, name)
     }
 
     override fun showProgress() {

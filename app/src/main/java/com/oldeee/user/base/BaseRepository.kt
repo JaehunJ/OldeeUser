@@ -41,6 +41,13 @@ open class BaseRepository @Inject constructor(
             is RemoteData.Success ->
                 return result.output
             is RemoteData.ApiError -> {
+
+                if (result.errorCode == "404") {
+
+                }else{
+                    onError?.invoke(result)
+                    return null
+                }
                 //token 에러일 경우
                 /*if (result.errorCode == "404") {
                     val msgLower = result.errorMessage
