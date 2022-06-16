@@ -34,7 +34,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
 
         viewModel.postDelay({
             val action = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
-            findNavController()?.navigate(action)
+            findNavController().navigate(action)
         }, 500)
     }
 

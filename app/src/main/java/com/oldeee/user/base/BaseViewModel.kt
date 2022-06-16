@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel(var repository: BaseRepository) : ViewModel() {
+abstract class BaseViewModel(private var repository: BaseRepository) : ViewModel() {
     fun isLoading() = repository.getIsLoading()
 
     fun postDelay(callback:()->Unit, time:Long){
@@ -17,6 +17,8 @@ abstract class BaseViewModel(var repository: BaseRepository) : ViewModel() {
             callback()
         }
     }
+
+    fun <T: BaseRepository> getRepository() = (repository  as T)
 
     /*
     fun setImage(imageView: ImageView, url: String) {
