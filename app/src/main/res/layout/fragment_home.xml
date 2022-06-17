@@ -39,6 +39,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             android:fillViewport="true">
 
             <LinearLayout
@@ -137,6 +138,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
                         android:id="@+id/rv_design_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,6 +166,7 @@
                         android:textSize="20dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
                         android:id="@+id/rv_designer_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

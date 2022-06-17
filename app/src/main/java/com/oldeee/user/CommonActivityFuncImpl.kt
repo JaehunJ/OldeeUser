@@ -7,4 +7,5 @@ interface CommonActivityFuncImpl {
     fun showSnackBar(msg: String)
     fun openDrawerMenu()
     fun hideDrawerMenu()
+    fun setDrawerName(name:String)
 }

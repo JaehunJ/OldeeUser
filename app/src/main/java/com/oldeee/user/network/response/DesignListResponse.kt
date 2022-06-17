@@ -11,7 +11,7 @@ data class DesignListResponse(
 ) : BaseResponse()
 
 data class DesignListItem(
-    val mainImageName: String,
+    val mainImageName: String?,
     val expertName: String,
     val heartCheck: Int,
     val contents: String,

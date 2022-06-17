@@ -17,12 +17,16 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+//        binding.ivBack.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
     }
 
     override fun initDataBinding() {
+
+    }
+
+    override fun initViewCreated() {
 
     }
 

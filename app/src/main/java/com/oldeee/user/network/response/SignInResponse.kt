@@ -10,12 +10,12 @@ data class SignInResponse(
 ) : BaseResponse()
 
 data class SignInResponseData(
-    val userPolicyYn: Int,
+    val userPolicyYn: Boolean,
     val userPhone: String,
-    val userAlertYn: Int,
+    val userAlertYn: Boolean,
     val userEmail: String,
     val accessToken: String,
     val refreshToken: String,
     val userName: String,
-    val userMarketingYn: Int
+    val userMarketingYn: Boolean
 )

@@ -27,4 +27,8 @@ class OrderLogDetailFragment : BaseFragment<FragmentOrderLogDetailBinding, Order
 
     }
 
+    override fun initViewCreated() {
+
+    }
+
 }

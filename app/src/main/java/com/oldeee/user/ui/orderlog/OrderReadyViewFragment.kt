@@ -24,4 +24,8 @@ class OrderReadyViewFragment : BaseFragment<FragmentOrderReadyViewBinding, Order
 
     }
 
+    override fun initViewCreated() {
+
+    }
+
 }

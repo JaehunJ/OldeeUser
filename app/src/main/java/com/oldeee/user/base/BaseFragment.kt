@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.oldeee.user.CommonActivityFuncImpl
+import com.oldeee.user.R
 
 abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArgs> : Fragment() {
     var navController: NavController? = null
@@ -40,6 +42,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
      */
     abstract fun initDataBinding()
 
+    abstract fun initViewCreated()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,10 +67,25 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
                 activityFuncFunction.hideProgress()
         }
 
+        val backView = _binding?.root?.findViewById<ConstraintLayout>(R.id.iv_back)
+
+        backView?.let{
+            it.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
+
+
         initView(savedInstanceState)
         initDataBinding()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViewCreated()
     }
 
     override fun onDestroyView() {

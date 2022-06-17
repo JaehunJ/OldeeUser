@@ -25,4 +25,8 @@ class OrderLogViewFragment :
 
     }
 
+    override fun initViewCreated() {
+
+    }
+
 }

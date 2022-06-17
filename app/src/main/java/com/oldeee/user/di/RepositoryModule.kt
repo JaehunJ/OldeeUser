@@ -6,6 +6,8 @@ import com.oldeee.user.BuildConfig
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.repository.CommonRepository
+import com.oldeee.user.repository.DesignRepository
+import com.oldeee.user.repository.HomeRepository
 import com.oldeee.user.repository.SignRepository
 import dagger.Module
 import dagger.Provides
@@ -27,6 +29,16 @@ object RepositoryModule {
     @Provides
     fun provideSignRepository(api: OldeeService, preferences: SharedPreferences) =
         SignRepository(api, preferences)
+
+    @Singleton
+    @Provides
+    fun provideHomeRepository(api: OldeeService, preferences: SharedPreferences) =
+        HomeRepository(api, preferences)
+
+    @Singleton
+    @Provides
+    fun provideDesignRepository(api: OldeeService, preferences: SharedPreferences) =
+        DesignRepository(api, preferences)
 
     @Singleton
     @Provides

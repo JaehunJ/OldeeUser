@@ -1,160 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/bg_round_top_left_white"
-        android:layout_gravity="end"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tv_name"
-            style="@style/BoldText"
-            android:textSize="20dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="심지현"/>
-
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
         <LinearLayout
-            android:layout_marginTop="26dp"
-            android:paddingTop="33dp"
-            android:paddingBottom="33dp"
-            android:paddingStart="35dp"
-            android:paddingEnd="0dp"
-            android:background="@color/main"
-            android:layout_gravity="start"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/bg_round_top_left_white"
+            android:layout_gravity="end"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/BoldText"
+                android:textSize="20dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="심지현"/>
 
             <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ll"
+                android:layout_marginTop="26dp"
+                android:paddingTop="33dp"
+                android:paddingBottom="33dp"
+                android:paddingStart="35dp"
+                android:paddingEnd="0dp"
+                android:background="@color/main"
+                android:layout_gravity="start"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    style="@style/BoldText"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="저장"
-                    android:textSize="16dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_cart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_basket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    style="@style/BoldText"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_marginStart="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="저장"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_cart"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="수선바구니"
-                    android:textSize="16dp"/>
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_basket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_marginStart="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수선바구니"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_order_log"
+                    android:layout_marginTop="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_marginStart="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="주문내역"
+                        android:textSize="16dp"/>
+                    <ImageView
+                        android:layout_marginStart="7dp"
+                        android:id="@+id/iv_order_new"
+                        android:src="@drawable/ic_badge_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        style="@style/BoldText"
+                        android:layout_marginStart="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="문의내역"
+                        android:textSize="16dp"/>
+                    <ImageView
+                        android:id="@+id/iv_qna_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/ll_order_log"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_gravity="start"
+                android:orientation="vertical">
+
                 <TextView
-                    style="@style/BoldText"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
+                    style="@style/NormalText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="주문내역"
-                    android:textSize="16dp"/>
-                <ImageView
-                    android:layout_marginStart="7dp"
-                    android:id="@+id/iv_order_new"
-                    android:src="@drawable/ic_badge_new"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_marginTop="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="14dp"
+                    android:text="공지사항"/>
+
                 <TextView
-                    style="@style/BoldText"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="30dp"
+                    style="@style/NormalText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="문의내역"
-                    android:textSize="16dp"/>
-                <ImageView
-                    android:id="@+id/iv_qna_new"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="14dp"
+                    android:text="설정"/>
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    style="@style/NormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="고객센터"/>
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    style="@style/NormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="전문가신청"/>
+
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="32dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/NormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="공지사항"/>
-
-            <TextView
-                android:layout_marginTop="30dp"
-                style="@style/NormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="설정"/>
-
-            <TextView
-                android:layout_marginTop="30dp"
-                style="@style/NormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="고객센터"/>
-
-            <TextView
-                android:layout_marginTop="30dp"
-                style="@style/NormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="전문가신청"/>
 
         </LinearLayout>
+<!--    </com.google.android.material.navigation.NavigationView>-->
 
-    </LinearLayout>
 </layout>

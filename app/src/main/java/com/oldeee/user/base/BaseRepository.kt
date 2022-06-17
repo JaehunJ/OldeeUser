@@ -1,6 +1,8 @@
 package com.oldeee.user.base
 
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
@@ -41,10 +43,11 @@ open class BaseRepository @Inject constructor(
             is RemoteData.Success ->
                 return result.output
             is RemoteData.ApiError -> {
+//                return result.output
 
                 if (result.errorCode == "404") {
 
-                }else{
+                } else {
                     onError?.invoke(result)
                     return null
                 }
@@ -92,16 +95,15 @@ open class BaseRepository @Inject constructor(
         return null
     }
 
-//    suspend fun getImageFromServer(url: String): Bitmap? {
-    //TODO: implementation
-//        val result = api.requestImage(getAccessToken(), url).body()
-//
-//        if (result != null) {
-//            return BitmapFactory.decodeStream(result.byteStream())
-//        }
-//
-//        return null
-//    }
+    suspend fun getImageFromServer(url: String): Bitmap? {
+        val result = api.requestImage(getAccessToken(), url).body()
+
+        if (result != null) {
+            return BitmapFactory.decodeStream(result.byteStream())
+        }
+
+        return null
+    }
 
 //    suspend fun getNewToken(): NewTokenResponse? {
 //        val accessToken = getAccessTokenRaw()
@@ -114,7 +116,11 @@ open class BaseRepository @Inject constructor(
 
     fun getIsLoading() = isLoading
 
-    fun getAccessToken() = "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
+    fun getAccessToken(): String {
+        Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
+        return "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
+    }
+
     private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 

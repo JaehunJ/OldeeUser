@@ -29,12 +29,15 @@
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.oldeee.user.ui.signin.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -45,7 +48,8 @@
     <fragment
         android:id="@+id/designListFragment"
         android:name="com.oldeee.user.ui.design.DesignListFragment"
-        android:label="DesignListFragment" >
+        android:label="DesignListFragment"
+        tools:layout="@layout/fragment_design_list">
         <action
             android:id="@+id/action_designListFragment_to_reformDetailFragment"
             app:destination="@id/reformDetailFragment" />
@@ -53,7 +57,8 @@
     <fragment
         android:id="@+id/reformDetailFragment"
         android:name="com.oldeee.user.ui.design.detail.ReformDetailFragment"
-        android:label="ReformDetailFragment" >
+        android:label="ReformDetailFragment"
+        tools:layout="@layout/fragment_reform_detail">
         <action
             android:id="@+id/action_reformDetailFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
@@ -61,15 +66,18 @@
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.oldeee.user.ui.design.order.OrderFragment"
-        android:label="OrderFragment" />
+        android:label="OrderFragment"
+        tools:layout="@layout/fragment_order"/>
     <fragment
         android:id="@+id/orderLogFragment"
         android:name="com.oldeee.user.ui.orderlog.OrderLogFragment"
-        android:label="OrderLogFragment" />
+        android:label="OrderLogFragment"
+        tools:layout="@layout/fragment_order_log"/>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.oldeee.user.ui.cart.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"/>
     <action
         android:id="@+id/action_global_cartFragment"
         app:destination="@id/cartFragment"
@@ -80,5 +88,16 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.oldeee.user.ui.signup.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="snsId"
+            app:argType="string" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
 </navigation>

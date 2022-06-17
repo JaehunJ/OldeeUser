@@ -12,7 +12,7 @@ data class ExpertListResponse(
 data class ExpertListItem(
     val expertName:String,
     val expertEmail:String,
-    val expertPrifileImg:String,
+    val expertPrifileImg:String?,
     val expertStoreName:String,
     val expertPhone:String,
     val userId:String

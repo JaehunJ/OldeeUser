@@ -2,10 +2,8 @@ package com.oldeee.user.ui.splash
 
 import android.Manifest
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
@@ -16,8 +14,6 @@ import com.oldeee.user.custom.checkPermission
 import com.oldeee.user.databinding.FragmentSplashBinding
 import com.oldeee.user.ui.dialog.PermissionDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavArgs>() {
@@ -55,27 +51,31 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
         showPermissionInfoDialog()
     }
 
-    fun showPermissionInfoDialog(){
+    fun showPermissionInfoDialog() {
         val check = checkPermission(requireContext(), *permissions)
 
-        if(!check){
-            val dialog = PermissionDialog{
+        if (!check) {
+            val dialog = PermissionDialog {
                 requestPermissionResult.launch(permissions)
             }
             dialog.isCancelable = false
 
-            activity?.let{
+            activity?.let {
                 dialog.show(it.supportFragmentManager, "permission")
             }
-        }else{
+        } else {
             loadNext()
         }
     }
 
-    fun loadNext(){
+    fun loadNext() {
         viewModel.postDelay({
             val action = SplashFragmentDirections.actionSplashFragmentToSignInFragment()
             findNavController()?.navigate(action)
         }, 500)
+    }
+
+    override fun initViewCreated() {
+
     }
 }

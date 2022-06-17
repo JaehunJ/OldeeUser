@@ -20,84 +20,91 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(repository: SignRepository):BaseViewModel(repository){
+class SignInViewModel @Inject constructor(repository: SignRepository) : BaseViewModel(repository) {
 
-    val isNaverOAuthSuccess = MutableLiveData<Boolean>()
-    val nIdProfile = MutableLiveData<NidProfileResponse>()
-    val goToSignUp = MutableLiveData<Boolean>()
-    val isSignInSuccess = MutableLiveData<Boolean>()
+    val nProfile = MutableLiveData<NidProfile?>()
+    val needSignIn = MutableLiveData<Boolean>()
 
     init {
-        isNaverOAuthSuccess.value = false
-        goToSignUp.value = false
+        needSignIn.value = false
+        nProfile.value = null
     }
 
-    fun startNaverLogin(context: Context){
-        NaverIdLoginSDK.authenticate(context, object : OAuthLoginCallback{
-            override fun onError(errorCode: Int, message: String) {
-                onFailure(errorCode, message)
-            }
+    fun startNaverLogin(context: Context) {
+        viewModelScope.launch {
+            NaverIdLoginSDK.authenticate(context, object : OAuthLoginCallback {
+                override fun onError(errorCode: Int, message: String) {
+                    onFailure(errorCode, message)
+                }
 
-            override fun onFailure(httpStatus: Int, message: String) {
-                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-                val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
+                override fun onFailure(httpStatus: Int, message: String) {
+                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                    val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
 
-                Log.e("#debug", "naver error code->${errorCode} \n msg->${errorMsg}")
-            }
+                    Log.e("#debug", "naver error code->${errorCode} \n msg->${errorMsg}")
+                }
 
-            override fun onSuccess() {
-                Log.e("#debug", "naver login success")
-//                val token = NaverIdLoginSDK.getAccessToken()
+                override fun onSuccess() {
+                    Log.e("#debug", "naver login success")
+                    getProfileData()
+                }
+            })
+        }
 
-                getProfileData()
-            }
-
-        })
     }
 
-    fun getProfileData(){
-        NidOAuthLogin().callProfileApi(object :NidProfileCallback<NidProfileResponse>{
-            override fun onError(errorCode: Int, message: String) {
-                onFailure(errorCode, message)
-            }
+    fun getProfileData() {
+        viewModelScope.launch {
+            NidOAuthLogin().callProfileApi(object : NidProfileCallback<NidProfileResponse> {
+                override fun onError(errorCode: Int, message: String) {
+                    onFailure(errorCode, message)
+                }
 
-            override fun onFailure(httpStatus: Int, message: String) {
-                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-                val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
+                override fun onFailure(httpStatus: Int, message: String) {
+                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                    val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
 
-                Log.e("#debug", "profile error code->${errorCode} \n msg->${errorMsg}")
-            }
+                    Log.e("#debug", "profile error code->${errorCode} \n msg->${errorMsg}")
+                }
 
-            override fun onSuccess(result: NidProfileResponse) {
-                requestNaverSignIn(result.profile)
-            }
-        })
+                override fun onSuccess(result: NidProfileResponse) {
+                    Log.e("#debug", "get profile data success")
+                    nProfile.postValue(result.profile)
+                }
+            })
+        }
     }
 
-    fun requestNaverSignIn(profile: NidProfile?){
+    fun requestNaverSignIn(profile: NidProfile?, onNext: (String) -> Unit, onError: () -> Unit) {
         viewModelScope.launch {
             val accessToken = NaverIdLoginSDK.getAccessToken()
             val refreshToken = NaverIdLoginSDK.getRefreshToken()
-            val date = Date(NaverIdLoginSDK.getExpiresAt()*1000L)
+            val date = Date(NaverIdLoginSDK.getExpiresAt() * 1000L)
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             simpleDateFormat.timeZone = TimeZone.getDefault()
 
 
-            if(accessToken != null && refreshToken != null && profile!=null){
+            if (accessToken != null && refreshToken != null && profile != null) {
                 val data = NaverSignInRequest(
-                    accessToken, refreshToken, simpleDateFormat.format(date), profile.email?:"", profile.id?:""
+                    accessToken,
+                    refreshToken,
+                    simpleDateFormat.format(date),
+                    profile.email ?: "",
+                    profile.id ?: ""
                 )
 
-                val result = getRepository<SignRepository>().requestNaverSignIn(data){
-                    it.errorMessage?.let{str->
-                        if(str.contains("User")){
-                            goToSignUp.postValue(true)
-                        }
-                    }
+                val result = getRepository<SignRepository>().requestNaverSignIn(data) {
+
                 }
 
-                result?.let{
-                    Log.e("#debug", "call next fragment")
+                nProfile.value = null
+                needSignIn.value = false
+
+                if (result == null) {
+                    onError()
+                } else {
+                    getRepository<SignRepository>().setToken(result.data)
+                    onNext(result.data.userName)
                 }
             }
         }
