@@ -95,15 +95,6 @@ open class BaseRepository @Inject constructor(
         return null
     }
 
-    suspend fun getImageFromServer(url: String): Bitmap? {
-        val result = api.requestImage(getAccessToken(), url).body()
-
-        if (result != null) {
-            return BitmapFactory.decodeStream(result.byteStream())
-        }
-
-        return null
-    }
 
 //    suspend fun getNewToken(): NewTokenResponse? {
 //        val accessToken = getAccessTokenRaw()
@@ -114,8 +105,6 @@ open class BaseRepository @Inject constructor(
 //        return result.body()
 //    }
 
-    fun getIsLoading() = isLoading
-
     fun getAccessToken(): String {
         Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
         return "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
@@ -124,13 +113,6 @@ open class BaseRepository @Inject constructor(
     private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 
-    fun setToken(data: SignInResponseData) {
-        prefs.edit {
-            putString(ACCESS_TOKEN, data.accessToken)
-            putString(REFRESH_TOKEN, data.refreshToken)
-            commit()
-        }
-    }
 /*
     fun setToken(data: NewTokenResponse.TokenData) {
         prefs.edit {

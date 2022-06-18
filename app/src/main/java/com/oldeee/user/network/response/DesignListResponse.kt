@@ -14,9 +14,12 @@ data class DesignListItem(
     val mainImageName: String?,
     val expertName: String,
     val heartCheck: Int,
+    val beforeImageName: String,
     val contents: String,
     val price: Int,
     val reformId: Int,
+    val afterImageName: String,
+    val storeName: String,
     val expertUUId: Int,
     val reformName: String,
     val heartId: Any

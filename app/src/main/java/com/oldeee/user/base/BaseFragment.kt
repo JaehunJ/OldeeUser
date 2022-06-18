@@ -60,7 +60,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         activityFuncFunction = activity as CommonActivityFuncImpl
-        viewModel.isLoading().observe(viewLifecycleOwner) {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
             if (it)
                 activityFuncFunction.showProgress()
             else

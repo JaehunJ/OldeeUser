@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 style="@style/BoldText"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <android.widget.Button
                 android:id="@+id/btn_ok"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:elevation="0dp"
                 android:stateListAnimator="@null"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <android.widget.Button
                 android:id="@+id/btn_close"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"

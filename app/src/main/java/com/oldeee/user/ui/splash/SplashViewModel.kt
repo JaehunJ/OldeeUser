@@ -9,15 +9,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(repository: CommonRepository):BaseViewModel(repository) {
+class SplashViewModel @Inject constructor():BaseViewModel() {
 
-    fun requestVersionInfo(){
-        viewModelScope.launch {
-            val result = getRepository<CommonRepository>().requestVersionInfo()
-
-            result?.let{
-
-            }
-        }
-    }
+//    fun requestVersionInfo(){
+//        viewModelScope.launch {
+//            val result = getRepository<CommonRepository>().requestVersionInfo()
+//
+//            result?.let{
+//
+//            }
+//        }
+//    }
 }

@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import com.oldeee.user.BuildConfig
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
-import com.oldeee.user.repository.CommonRepository
-import com.oldeee.user.repository.DesignRepository
-import com.oldeee.user.repository.HomeRepository
-import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,13 +29,13 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideHomeRepository(api: OldeeService, preferences: SharedPreferences) =
-        HomeRepository(api, preferences)
+    fun provideDesignRepository(api: OldeeService, preferences: SharedPreferences) =
+        DesignRepository(api, preferences)
 
     @Singleton
     @Provides
-    fun provideDesignRepository(api: OldeeService, preferences: SharedPreferences) =
-        DesignRepository(api, preferences)
+    fun provideExpertRepository(api: OldeeService, preferences: SharedPreferences) =
+        ExpertRepository(api, preferences)
 
     @Singleton
     @Provides

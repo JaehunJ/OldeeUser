@@ -12,4 +12,8 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
 
     suspend fun requestDesignList(limit: Int, page: Int) =
         call { api.requestDesignList(getAccessToken(), limit, page) }
+
+    suspend fun requestDesignDetail(id:Int) = call{
+        api.requestDesignDetail(getAccessToken(), id)
+    }
 }

@@ -1,54 +1,37 @@
 package com.oldeee.user.base
 
-import android.widget.ImageView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel(private var repository: BaseRepository) : ViewModel() {
-    fun isLoading() = repository.getIsLoading()
+abstract class BaseViewModel() : ViewModel() {
 
-    fun postDelay(callback:()->Unit, time:Long){
+    private val _isLoading = MutableLiveData<Boolean>()
+
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    fun remote(useProgressBar:Boolean = true, action: suspend () -> Unit) {
         viewModelScope.launch {
-            delay(time)
-            callback()
-        }
-    }
+            if(useProgressBar){
+                _isLoading.postValue(true)
+            }
 
-    fun <T: BaseRepository> getRepository() = (repository  as T)
+            action()
 
-
-    fun setImage(imageView: ImageView, url: String) {
-        viewModelScope.launch {
-            val bitmap = repository.getImageFromServer(url)
-            if (bitmap != null) {
-                Glide.with(imageView.context).load(bitmap).into(imageView)
+            if(useProgressBar){
+                _isLoading.postValue(false)
             }
         }
     }
 
-    fun setImageCircle(imageView: ImageView, url: String){
+    fun postDelay(action:()->Unit, milisec:Long){
         viewModelScope.launch {
-            val bitmap = repository.getImageFromServer(url)
-            if (bitmap != null) {
-                Glide.with(imageView.context).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
-            }
+            delay(milisec)
+            action()
         }
     }
-
-    /*
-    fun setImageCircle(imageView: ImageView, url: String) {
-        viewModelScope.launch {
-            val bitmap = repository.getImageFromServer(url)
-            if (bitmap != null) {
-                Glide.with(imageView.context).load(bitmap).apply(RequestOptions().circleCrop())
-                    .into(imageView)
-            }
-        }
-    }
-    */
-
 }

@@ -13,6 +13,8 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.NaverSignInRequest
 import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.usercase.SetNaverSignInUseCase
+import com.oldeee.user.usercase.SetTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -20,7 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(repository: SignRepository) : BaseViewModel(repository) {
+class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: SetNaverSignInUseCase, private val setTokenUseCase: SetTokenUseCase) : BaseViewModel() {
 
     val nProfile = MutableLiveData<NidProfile?>()
     val needSignIn = MutableLiveData<Boolean>()
@@ -76,15 +78,14 @@ class SignInViewModel @Inject constructor(repository: SignRepository) : BaseView
     }
 
     fun requestNaverSignIn(profile: NidProfile?, onNext: (String) -> Unit, onError: () -> Unit) {
-        viewModelScope.launch {
-            val accessToken = NaverIdLoginSDK.getAccessToken()
-            val refreshToken = NaverIdLoginSDK.getRefreshToken()
-            val date = Date(NaverIdLoginSDK.getExpiresAt() * 1000L)
-            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            simpleDateFormat.timeZone = TimeZone.getDefault()
+        val accessToken = NaverIdLoginSDK.getAccessToken()
+        val refreshToken = NaverIdLoginSDK.getRefreshToken()
+        val date = Date(NaverIdLoginSDK.getExpiresAt() * 1000L)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        simpleDateFormat.timeZone = TimeZone.getDefault()
 
-
-            if (accessToken != null && refreshToken != null && profile != null) {
+        if (accessToken != null && refreshToken != null && profile != null) {
+            remote {
                 val data = NaverSignInRequest(
                     accessToken,
                     refreshToken,
@@ -92,8 +93,7 @@ class SignInViewModel @Inject constructor(repository: SignRepository) : BaseView
                     profile.email ?: "",
                     profile.id ?: ""
                 )
-
-                val result = getRepository<SignRepository>().requestNaverSignIn(data) {
+                val result = setNaverSignInUseCase.invoke(data){
 
                 }
 
@@ -103,7 +103,7 @@ class SignInViewModel @Inject constructor(repository: SignRepository) : BaseView
                 if (result == null) {
                     onError()
                 } else {
-                    getRepository<SignRepository>().setToken(result.data)
+                    setTokenUseCase.invoke(result.data)
                     onNext(result.data.userName)
                 }
             }

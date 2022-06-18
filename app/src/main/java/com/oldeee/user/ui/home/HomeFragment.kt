@@ -1,8 +1,8 @@
 package com.oldeee.user.ui.home
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
@@ -29,7 +29,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
             nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
         }
 
-        designAdapter = DesignListAdapter()
+        designAdapter = DesignListAdapter({
+            val action = HomeFragmentDirections.actionHomeFragmentToReformDetailFragment(it)
+            findNavController().navigate(action)
+        }) { iv, path ->
+            viewModel.setImage(iv, path)
+        }
         expertAdapter = ExpertListAdapter { iv, path ->
             viewModel.setImageCircle(iv, path)
         }
@@ -51,11 +56,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
             }
         }
 
-        viewModel.designList.observe(viewLifecycleOwner){
-            it?.let{
-                if(it.size <= 3){
+        viewModel.designList.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.size <= 3) {
                     designAdapter.setData(it)
-                }else{
+                } else {
                     designAdapter.setData(it.subList(0, it.size - 1))
                 }
             }

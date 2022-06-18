@@ -2,15 +2,19 @@ package com.oldeee.user.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oldeee.user.databinding.LayoutHomeDesignItemBinding
 import com.oldeee.user.network.response.DesignListItem
 
-class DesignListAdapter : RecyclerView.Adapter<DesignListAdapter.DesignListItemViewHolder>() {
+class DesignListAdapter(
+    val navigateCallBack: (Int) -> Unit,
+    val imageCallback: (ImageView, String) -> Unit
+) : RecyclerView.Adapter<DesignListAdapter.DesignListItemViewHolder>() {
 
     var dataSet = listOf<DesignListItem>()
 
-    fun setData(list:List<DesignListItem>){
+    fun setData(list: List<DesignListItem>) {
         dataSet = list
         notifyItemRangeChanged(0, dataSet.size)
     }
@@ -23,7 +27,7 @@ class DesignListAdapter : RecyclerView.Adapter<DesignListAdapter.DesignListItemV
         DesignListItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: DesignListItemViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(dataSet[position], navigateCallBack, imageCallback)
     }
 
     class DesignListItemViewHolder(val binding: LayoutHomeDesignItemBinding) :
@@ -36,8 +40,18 @@ class DesignListAdapter : RecyclerView.Adapter<DesignListAdapter.DesignListItemV
             }
         }
 
-        fun bind(data:DesignListItem){
+        fun bind(
+            data: DesignListItem,
+            navigateCallBack: (Int) -> Unit,
+            imageCallback: (ImageView, String) -> Unit
+        ) {
             binding.res = data
+            binding.clRoot.setOnClickListener {
+                navigateCallBack(data.reformId)
+            }
+
+            imageCallback(binding.ivBefore, data.beforeImageName)
+            imageCallback(binding.ivAfter, data.afterImageName)
         }
     }
 }

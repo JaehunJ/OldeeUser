@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
@@ -23,7 +24,10 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     var page = 0
 
     override fun initView(savedInstanceState: Bundle?) {
-        adapter = DesignListAdapter { iv, str ->
+        adapter = DesignListAdapter({
+            val action = DesignListFragmentDirections.actionDesignListFragmentToReformDetailFragment(it)
+            findNavController().navigate(action)
+        }) { iv, str ->
             viewModel.setImage(iv, str)
         }
         binding.rvDesignList.adapter = adapter

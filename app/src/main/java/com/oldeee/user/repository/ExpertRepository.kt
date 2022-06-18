@@ -7,7 +7,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HomeRepository @Inject constructor(api:OldeeService, preferences: SharedPreferences):BaseRepository(api, preferences) {
-    suspend fun requestDesignList() = call { api.requestDesignList(getAccessToken(),10, 0) }
+class ExpertRepository @Inject constructor(api: OldeeService, preferences: SharedPreferences):BaseRepository(api, preferences){
     suspend fun requestExpertList() = call { api.requestExpertList(getAccessToken())}
 }

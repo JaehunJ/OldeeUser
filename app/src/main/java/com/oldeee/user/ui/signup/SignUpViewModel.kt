@@ -5,12 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.SignUpRequest
 import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.usercase.SetSignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(repository: SignRepository) : BaseViewModel(repository) {
+class SignUpViewModel @Inject constructor(private val setSignUpUseCase: SetSignUpUseCase) :BaseViewModel() {
     var nickName = ""
     var email = ""
     var phone = ""
@@ -28,7 +29,7 @@ class SignUpViewModel @Inject constructor(repository: SignRepository) : BaseView
 
 
     fun requestSignUp(phone: String, snsId: String, ) {
-        viewModelScope.launch {
+        remote {
             val data = SignUpRequest(
                 nickName,
                 email,
@@ -40,7 +41,7 @@ class SignUpViewModel @Inject constructor(repository: SignRepository) : BaseView
                 "naver",
                 snsId
             )
-            val result = getRepository<SignRepository>().requestSignUp(data)
+            val result = setSignUpUseCase.invoke(data)
 
             result?.let{
                 it.data?.let{str->

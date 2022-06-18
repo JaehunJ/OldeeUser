@@ -9,6 +9,7 @@
             type="com.oldeee.user.network.response.DesignListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -31,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:adjustViewBounds="true"
                     android:background="@color/gray_3"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,11 +63,12 @@
                 style="@style/BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="상점이름"
+                tools:text="@{res.storeName}"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
 
             <TextView
+                android:layout_marginStart="4dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_store_name"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oldeee.user.databinding.LayoutDesignListItemBinding
 import com.oldeee.user.network.response.DesignListItem
 
-class DesignListAdapter(val imageCallBack: (ImageView, String) -> Unit) :
+class DesignListAdapter(val navigateCallback:(Int)->Unit,val imageCallBack: (ImageView, String) -> Unit) :
     RecyclerView.Adapter<DesignListAdapter.DesignListItemViewHolder>() {
     var dataSet = mutableListOf<DesignListItem>()
 
@@ -35,7 +35,7 @@ class DesignListAdapter(val imageCallBack: (ImageView, String) -> Unit) :
         DesignListItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: DesignListItemViewHolder, position: Int) {
-        holder.bind(dataSet[position], imageCallBack)
+        holder.bind(dataSet[position], navigateCallback, imageCallBack)
     }
 
     override fun getItemCount() = dataSet.size
@@ -51,10 +51,13 @@ class DesignListAdapter(val imageCallBack: (ImageView, String) -> Unit) :
             }
         }
 
-        fun bind(data: DesignListItem, imageCallBack: (ImageView, String) -> Unit) {
+        fun bind(data: DesignListItem, navigateCallback:(Int)->Unit, imageCallBack: (ImageView, String) -> Unit) {
             binding.res = data
             data.mainImageName?.let{
                 imageCallBack(binding.ivImage, it)
+            }
+            binding.clRoot.setOnClickListener {
+                navigateCallback(data.reformId)
             }
         }
     }
