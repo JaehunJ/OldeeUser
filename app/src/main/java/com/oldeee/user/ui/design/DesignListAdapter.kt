@@ -5,16 +5,23 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oldeee.user.databinding.LayoutDesignListItemBinding
+import com.oldeee.user.databinding.LayoutHomeDesignItemBinding
 import com.oldeee.user.network.response.DesignListItem
 
 class DesignListAdapter(val navigateCallback:(Int)->Unit,val imageCallBack: (ImageView, String) -> Unit) :
     RecyclerView.Adapter<DesignListAdapter.DesignListItemViewHolder>() {
     var dataSet = mutableListOf<DesignListItem>()
 
-    private fun setData(list: MutableList<DesignListItem>) {
+    fun setData(list: MutableList<DesignListItem>) {
         dataSet = list.toMutableList()
         val size = dataSet.size
         notifyItemRangeChanged(0, size)
+    }
+
+    fun removeAll(){
+        val size = dataSet.size
+        dataSet.clear()
+        notifyItemRangeRemoved(0, size)
     }
 
     fun addData(newData:MutableList<DesignListItem>){
@@ -40,25 +47,28 @@ class DesignListAdapter(val navigateCallback:(Int)->Unit,val imageCallBack: (Ima
 
     override fun getItemCount() = dataSet.size
 
-    class DesignListItemViewHolder(val binding: LayoutDesignListItemBinding) :
+    class DesignListItemViewHolder(val binding: LayoutHomeDesignItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): DesignListItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val bind = LayoutDesignListItemBinding.inflate(layoutInflater, parent, false)
-
+                val bind = LayoutHomeDesignItemBinding.inflate(layoutInflater, parent, false)
                 return DesignListItemViewHolder(bind)
             }
         }
 
-        fun bind(data: DesignListItem, navigateCallback:(Int)->Unit, imageCallBack: (ImageView, String) -> Unit) {
+        fun bind(
+            data: DesignListItem,
+            navigateCallBack: (Int) -> Unit,
+            imageCallback: (ImageView, String) -> Unit
+        ) {
             binding.res = data
-            data.mainImageName?.let{
-                imageCallBack(binding.ivImage, it)
-            }
             binding.clRoot.setOnClickListener {
-                navigateCallback(data.reformId)
+                navigateCallBack(data.reformId)
             }
+
+            imageCallback(binding.ivBefore, data.beforeImageName)
+            imageCallback(binding.ivAfter, data.afterImageName)
         }
     }
 }

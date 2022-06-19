@@ -41,7 +41,7 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-                adapter.addData(it)
+                adapter.setData(it)
             }
         }
     }
@@ -51,5 +51,6 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
         limit = 0
         page = 0
         viewModel.requestDesignList(limit, page)
+        adapter.removeAll()
     }
 }

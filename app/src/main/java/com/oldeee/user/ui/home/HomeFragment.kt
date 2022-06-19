@@ -20,6 +20,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
     lateinit var designAdapter: DesignListAdapter
     lateinit var expertAdapter: ExpertListAdapter
 
+    val max = 6
+
     override fun initView(savedInstanceState: Bundle?) {
         binding.ivDrawer.setOnClickListener {
             activityFuncFunction.openDrawerMenu()
@@ -46,8 +48,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
     override fun initDataBinding() {
         viewModel.expertList.observe(viewLifecycleOwner) {
             it?.let { list ->
-                val max = 6
-                if (list.size <= 6) {
+//                val max = 6
+                if (list.size <= max) {
                     expertAdapter.setData(list)
                 } else {
                     expertAdapter.setData(list.subList(0, max - 1))
@@ -58,7 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
 
         viewModel.designList.observe(viewLifecycleOwner) {
             it?.let {
-                if (it.size <= 3) {
+                if (it.size <= max) {
                     designAdapter.setData(it)
                 } else {
                     designAdapter.setData(it.subList(0, it.size - 1))

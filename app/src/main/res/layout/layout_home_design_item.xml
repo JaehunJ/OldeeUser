@@ -86,7 +86,7 @@
                 android:layout_marginEnd="4dp"
                 android:elevation="0dp"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="8dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@id/cv_after"
@@ -94,8 +94,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:clipToOutline="true"
+                    android:background="@drawable/bg_round_8dp_white"
                     android:adjustViewBounds="true"
-                    android:background="@color/gray_3"
+                    android:backgroundTint="@color/gray_3"
                     android:id="@+id/iv_before"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -109,7 +111,6 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
                 android:elevation="0dp"
-                app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
@@ -118,8 +119,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:background="@drawable/bg_round_8dp_white"
+                    android:clipToOutline="true"
                     android:adjustViewBounds="true"
-                    android:background="@color/gray_3"
+                    android:backgroundTint="@color/gray_3"
                     android:id="@+id/iv_after"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

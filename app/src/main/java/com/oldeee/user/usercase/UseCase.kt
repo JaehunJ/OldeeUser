@@ -40,3 +40,7 @@ class GetExpertListUseCase @Inject constructor(private val repo:ExpertRepository
 class GetImageUseCase @Inject constructor(private val repo: CommonRepository) {
     suspend operator fun invoke(path: String) = repo.getImageFromServer(path)
 }
+
+class SetHeartCheckUseCase @Inject constructor(private val repo:DesignRepository){
+
+}

@@ -59,10 +59,9 @@
                     android:id="@+id/rv_design_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/layout_design_list_item"
+                    tools:listitem="@layout/layout_home_design_item"
                     android:orientation="vertical"
-                    app:spanCount="2"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

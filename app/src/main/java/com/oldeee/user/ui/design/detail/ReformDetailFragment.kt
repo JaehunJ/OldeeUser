@@ -1,6 +1,8 @@
 package com.oldeee.user.ui.design.detail
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -30,10 +32,16 @@ class ReformDetailFragment :
         binding.vpImage.adapter = imageAdapter
         binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
-                viewModel.currentImageIdx.postValue(position)
+                viewModel.currentImageIdx.postValue(position+1)
             }
         })
         binding.vm = viewModel
+
+        binding.cbLike.setOnClickListener {
+            if(it is CheckBox){
+                Log.e("#debug", if(it.isChecked) "true" else "false")
+            }
+        }
     }
 
     override fun initDataBinding() {

@@ -16,4 +16,8 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
     suspend fun requestDesignDetail(id:Int) = call{
         api.requestDesignDetail(getAccessToken(), id)
     }
+
+//    suspend fun requestHeartState(id:Int, checked:Int) = {
+//        call { api.request }
+//    }
 }

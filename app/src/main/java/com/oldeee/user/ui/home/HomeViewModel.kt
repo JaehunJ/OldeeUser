@@ -45,7 +45,8 @@ class HomeViewModel @Inject constructor(
     fun setImage(imageView: ImageView, path:String){
         remote(false) {
             val bitmap = getImageUseCase.invoke(path)
-            imageView.setImageBitmap(bitmap)
+            imageView.clipToOutline = true
+            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
         }
     }
 
