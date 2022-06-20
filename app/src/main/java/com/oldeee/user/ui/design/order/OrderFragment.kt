@@ -23,12 +23,13 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, NavArgs>() {
+class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFragmentArgs>() {
     override val layoutId: Int = R.layout.fragment_order
     override val viewModel: OrderVIewModel by viewModels()
-    override val navArgs: NavArgs by navArgs()
+    override val navArgs: OrderFragmentArgs by navArgs()
 
     var currentPhotoPath: String? = null
     var photoUri: Uri? = null
@@ -39,15 +40,30 @@ class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, NavArgs
     }
 
     lateinit var photoAdapter: OrderAddPhotoAdapter
+    lateinit var prepareAdapter: OrderPrepareItemAdapter
+    var reformId = 0
 
     override fun initView(savedInstanceState: Bundle?) {
-//        binding.ivBack.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
+        viewModel.reformData = navArgs.reformInfo
+        photoAdapter = OrderAddPhotoAdapter({
+            showFileSelector()
+        },{iv,uri->
+            viewModel.setImage(iv, uri)
+        },{pos->
+
+        })
+        binding.rvImages.adapter = photoAdapter
+
+        prepareAdapter = OrderPrepareItemAdapter()
+        binding.rvPrepareItem.adapter = prepareAdapter
     }
 
     override fun initDataBinding() {
-
+        viewModel.imageData.observe(viewLifecycleOwner){
+            it?.let{list->
+                photoAdapter.setData(list.toList())
+            }
+        }
     }
 
     override fun initViewCreated() {

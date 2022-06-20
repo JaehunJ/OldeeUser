@@ -23,9 +23,7 @@ class ReformDetailFragment :
     lateinit var imageAdapter: ReformImageAdapter
 
     override fun initView(savedInstanceState: Bundle?) {
-        prepareAdapter = ReformPrepareItemAdapter { iv, path ->
-            viewModel.setImage(iv, path)
-        }
+        prepareAdapter = ReformPrepareItemAdapter()
         imageAdapter = ReformImageAdapter { iv, path ->
             viewModel.setImage(iv, path)
         }
@@ -43,6 +41,13 @@ class ReformDetailFragment :
                 Log.e("#debug", if(it.isChecked) "true" else "false")
             }
         }
+
+        binding.btnOrder.setOnClickListener {
+            val res = viewModel.res.value
+            res?.let{
+                nextFragment(ReformDetailFragmentDirections.actionReformDetailFragmentToOrderFragment(it))
+            }
+        }
     }
 
     override fun initDataBinding() {
@@ -52,11 +57,13 @@ class ReformDetailFragment :
 
                 val prepareItemList = mutableListOf<ReformPrepareItemAdapter.PrepareItem>()
                 val reformNameList = it.getReformItemNameList()
+                val reformIdList = it.getItemCode()
                 it.getIconImageIdList().forEachIndexed { index, s ->
                     prepareItemList.add(
                         ReformPrepareItemAdapter.PrepareItem(
                             s,
-                            reformNameList[index]
+                            reformNameList[index],
+                            reformIdList[index]
                         )
                     )
                 }

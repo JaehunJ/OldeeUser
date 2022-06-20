@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.databinding.FragmentHomeBinding
+import com.oldeee.user.ui.home.adapter.BannerAdapter
 import com.oldeee.user.ui.home.adapter.DesignListAdapter
 import com.oldeee.user.ui.home.adapter.ExpertListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragmentArgs>() {
@@ -21,8 +26,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
 
     lateinit var designAdapter: DesignListAdapter
     lateinit var expertAdapter: ExpertListAdapter
+    lateinit var bannerAdapter: BannerAdapter
 
     val max = 6
+    lateinit var autoScrollJob : Job
+    var bannerPosition = 0
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.ivDrawer.setOnClickListener {
@@ -38,8 +46,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
         expertAdapter = ExpertListAdapter { iv, path ->
             viewModel.setImageCircle(iv, path)
         }
+        bannerAdapter = BannerAdapter()
+        bannerAdapter.setData(listOf(R.drawable.banner, R.drawable.banner_02))
+        binding.tvBannerTotal.text = "2"
+
+
         binding.rvDesignList.adapter = designAdapter
         binding.rvDesignerList.adapter = expertAdapter
+        binding.vpBanner.adapter = bannerAdapter
+        binding.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.tvBannerCurrent.text = (position%2).toString()
+                bannerPosition = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                when(state){
+                    ViewPager2.SCROLL_STATE_IDLE->{
+                        if(!autoScrollJob.isActive) createScrollJob()
+                    }
+                    ViewPager2.SCROLL_STATE_DRAGGING->{
+                        autoScrollJob.cancel()
+                    }
+                }
+            }
+        })
+
         activityFuncFunction.setDrawerName(navArgs.name)
 
         binding.tvDesignTitle.setOnClickListener {
@@ -78,9 +112,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
         showSkeleton(true)
 
         viewModel.call { showSkeleton(false) }
+        createScrollJob()
 
 //        viewModel.requestExpertList()
 //        viewModel.requestDesignList({ showSkeleton(false) })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        autoScrollJob.cancel()
     }
 
     fun showSkeleton(show: Boolean) {
@@ -102,6 +142,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
             binding.llSkeletonExpertList.visibility = View.GONE
 
 
+        }
+    }
+
+    fun createScrollJob(){
+        autoScrollJob = lifecycleScope.launchWhenResumed {
+            delay(3000)
+            binding.vpBanner.setCurrentItem(++bannerPosition, true)
         }
     }
 }

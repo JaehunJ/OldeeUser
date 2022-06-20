@@ -91,17 +91,17 @@ val PrepareItemMappingList = listOf(
     PrepareItem.Etc
 )
 
-//val PrepareItemMappingStringList = mapOf(
-//    Pair("00", R.drawable.ic_asset_01),
-//    Pair("01", R.drawable.ic_asset_02),
-//    Pair("02", R.drawable.ic_asset_03),
-//    Pair("03", R.drawable.ic_asset_04),
-//    Pair("04", R.drawable.ic_asset_05),
-//    Pair("05", R.drawable.ic_asset_06),
-//    Pair("06", R.drawable.ic_asset_07),
-//    Pair("07", R.drawable.ic_asset_08),
-//    Pair("08", R.drawable.ic_asset_09),
-//    Pair("09", R.drawable.ic_asset_10),
-//    Pair("10", R.drawable.ic_asset_11),
-//    Pair("11", R.drawable.ic_asset_12),
-//)
+val PrepareItemMappingStringList = mapOf(
+    Pair("00", R.drawable.ic_asset_01),
+    Pair("01", R.drawable.ic_asset_02),
+    Pair("02", R.drawable.ic_asset_03),
+    Pair("03", R.drawable.ic_asset_04),
+    Pair("04", R.drawable.ic_asset_05),
+    Pair("05", R.drawable.ic_asset_06),
+    Pair("06", R.drawable.ic_asset_07),
+    Pair("07", R.drawable.ic_asset_08),
+    Pair("08", R.drawable.ic_asset_09),
+    Pair("09", R.drawable.ic_asset_10),
+    Pair("10", R.drawable.ic_asset_11),
+    Pair("11", R.drawable.ic_asset_12),
+)

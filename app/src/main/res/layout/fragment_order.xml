@@ -101,10 +101,12 @@
                         android:textSize="14dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/rv_prepare_item"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:spanCount="4"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
                 </LinearLayout>
 
                 <LinearLayout

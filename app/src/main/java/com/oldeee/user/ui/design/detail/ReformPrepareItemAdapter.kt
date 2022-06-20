@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.oldeee.user.data.PrepareItemMappingList
+import com.oldeee.user.data.PrepareItemMappingStringList
 import com.oldeee.user.databinding.LayoutDesignDetailPrepareItemBinding
 
-class ReformPrepareItemAdapter(val imageCallback:(ImageView, String)->Unit) : RecyclerView.Adapter<ReformPrepareItemAdapter.ReformPrepareItemViewHolder>() {
+class ReformPrepareItemAdapter() : RecyclerView.Adapter<ReformPrepareItemAdapter.ReformPrepareItemViewHolder>() {
     var dataSet = listOf<PrepareItem>()
 
     fun setData(new:List<PrepareItem>){
@@ -16,7 +19,7 @@ class ReformPrepareItemAdapter(val imageCallback:(ImageView, String)->Unit) : Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ReformPrepareItemViewHolder.from(parent)
     override fun onBindViewHolder(holder: ReformPrepareItemViewHolder, position: Int) {
-        holder.bind(dataSet[position], imageCallback)
+        holder.bind(dataSet[position])
     }
 
     override fun getItemCount(): Int {
@@ -33,11 +36,13 @@ class ReformPrepareItemAdapter(val imageCallback:(ImageView, String)->Unit) : Re
             }
         }
 
-        fun bind(data:PrepareItem, imageCallback: (ImageView, String) -> Unit){
+        fun bind(data:PrepareItem){
             binding.tvName.text = data.name
-            imageCallback(binding.ivImage, data.image)
+            val imageRes = PrepareItemMappingStringList[data.code]
+            Glide.with(binding.ivImage.context).load(imageRes).into(binding.ivImage)
+//            imageCallback(binding.ivImage, data.image)
         }
     }
 
-    data class PrepareItem(val image:String, val name:String)
+    data class PrepareItem(val image:String, val name:String, val code:String)
 }

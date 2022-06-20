@@ -1,22 +1,26 @@
 package com.oldeee.user.ui.design.order
 
 import android.net.Uri
+import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.oldeee.user.base.BaseViewModel
+import com.oldeee.user.network.response.DesignDetailData
+import com.oldeee.user.usercase.GetImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderVIewModel @Inject constructor() : BaseViewModel() {
+class OrderVIewModel @Inject constructor(val getImageUseCase: GetImageUseCase) : BaseViewModel() {
     var detailInfo:String = ""
 
     val imageData = MutableLiveData<MutableList<Uri>>()
 
-    fun addPhoto(uri:Uri){
-        val newList =imageData.value?: mutableListOf()
-        newList.add(uri)
+    var reformData:DesignDetailData? = null
 
-        imageData.postValue(newList.toMutableList())
+
+    fun setImage(imageView: ImageView, uri:Uri){
+        Glide.with(imageView.context).load(uri).into(imageView)
     }
 
     fun addPhoto(newData:List<Uri>){

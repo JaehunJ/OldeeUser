@@ -75,8 +75,8 @@
         android:label="OrderFragment"
         tools:layout="@layout/fragment_order">
         <argument
-            android:name="id"
-            app:argType="integer" />
+            android:name="reformInfo"
+            app:argType="com.oldeee.user.network.response.DesignDetailData" />
     </fragment>
     <fragment
         android:id="@+id/orderLogFragment"

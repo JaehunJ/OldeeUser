@@ -54,21 +54,21 @@
                     android:layout_height="120dp"
                     android:background="@android:color/white">
 
-                    <ImageView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/banner" />
-                    <!--                    <androidx.viewpager2.widget.ViewPager2-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="parent"-->
-                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--                        android:id="@+id/vp_banner"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"/>-->
+<!--                    <ImageView-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/banner" />-->
+                                        <androidx.viewpager2.widget.ViewPager2
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            android:id="@+id/vp_banner"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                             style="@style/NormalText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text="2"
                             android:textColor="@android:color/white" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

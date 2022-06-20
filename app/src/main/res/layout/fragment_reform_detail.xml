@@ -116,6 +116,7 @@
                             android:gravity="center_vertical">
 
                             <androidx.appcompat.widget.AppCompatCheckBox
+                                android:visibility="gone"
                                 android:button="@drawable/selector_ic_like"
                                 android:id="@+id/cb_like"
                                 android:layout_width="24dp"
@@ -200,8 +201,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="4" />
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="vertical"/>
 
                     </LinearLayout>
 

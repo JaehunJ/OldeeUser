@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,10 +23,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:textSize="16dp"
+            tools:text="asd"
             app:layout_constraintBottom_toBottomOf="@id/iv_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/iv_image"
             app:layout_constraintTop_toTopOf="@id/iv_image" />
+
+        <CheckBox
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/cb_prepare"
+            android:background="@drawable/selector_sign_up_checkbox"
+            android:button="@android:color/transparent"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
