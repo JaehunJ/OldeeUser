@@ -129,4 +129,7 @@ dependencies {
 
     //naver
     implementation 'com.navercorp.nid:oauth:5.1.0'
+
+    //skeleton
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
 }

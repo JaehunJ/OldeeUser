@@ -85,7 +85,7 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
         simpleDateFormat.timeZone = TimeZone.getDefault()
 
         if (accessToken != null && refreshToken != null && profile != null) {
-            remote {
+            remote(false) {
                 val data = NaverSignInRequest(
                     accessToken,
                     refreshToken,
@@ -93,6 +93,10 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
                     profile.email ?: "",
                     profile.id ?: ""
                 )
+
+                Log.e("#debug", "accessToken:${accessToken}")
+                Log.e("#debug", "refreshToken:${refreshToken}")
+
                 val result = setNaverSignInUseCase.invoke(data){
 
                 }

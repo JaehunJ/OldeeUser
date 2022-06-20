@@ -47,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
@@ -106,6 +108,25 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_design_list_skeleton"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:visibility="visible">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/sf_design_list_skeleton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include
+                            layout="@layout/skeleton_home_desilt_list"
+                            android:visibility="visible"/>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_design_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -119,6 +140,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/iv_design_arr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_arr_right"
@@ -128,6 +150,7 @@
 
                         <TextView
                             style="@style/BoldText"
+                            android:id="@+id/tv_design_title"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="디자인 구경하기"
@@ -138,6 +161,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="16dp"
                         android:overScrollMode="never"
                         android:id="@+id/rv_design_list"
                         android:layout_width="match_parent"
@@ -151,6 +175,25 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_skeleton_expert_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="48dp"
+                    android:padding="24dp">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/sf_expert_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/skeleton_home_expert"/>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_expert_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -178,6 +221,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <android.widget.Button
+                        android:visibility="gone"
                         android:id="@+id/btn_designer_more"
                         android:layout_marginTop="16dp"
                         android:minHeight="0dp"

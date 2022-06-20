@@ -2,6 +2,7 @@ package com.oldeee.user.ui.home
 
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.oldeee.user.base.BaseViewModel
@@ -11,6 +12,7 @@ import com.oldeee.user.usercase.GetDesignListUseCase
 import com.oldeee.user.usercase.GetExpertListUseCase
 import com.oldeee.user.usercase.GetImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,8 +25,16 @@ class HomeViewModel @Inject constructor(
     val designList = MutableLiveData<List<DesignListItem>>()
     val expertList = MutableLiveData<List<ExpertListItem>>()
 
-    fun requestDesignList() {
-        remote {
+    fun call(onEnd: () -> Unit){
+        viewModelScope.launch {
+            requestExpertListSuspend()
+            requestDesignListSuspend()
+            onEnd()
+        }
+    }
+
+    fun requestDesignList(onEnd:()->Unit) {
+        remote(false) {
             val result = getDesignListUseCase.invoke(10, 0)
             result?.let {
                 designList.postValue(it.data)
@@ -32,8 +42,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    suspend fun requestExpertListSuspend(){
+        val result = expertListUseCase.invoke()
+
+        result?.let {
+            expertList.postValue(it.data)
+        }
+
+
+    }
+
+    suspend fun requestDesignListSuspend(){
+        val result = getDesignListUseCase.invoke(10, 0)
+        result?.let {
+            designList.postValue(it.data)
+        }
+    }
+
     fun requestExpertList() {
-        remote {
+        remote(false) {
             val result = expertListUseCase.invoke()
 
             result?.let {

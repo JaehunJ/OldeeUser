@@ -2,6 +2,7 @@ package com.oldeee.user.ui.design.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -72,11 +73,40 @@ class ReformDetailFragment :
 
                 viewModel.currentImageIdx.postValue(1)
                 viewModel.totalImageCnt.postValue(list.size)
+
+                viewModel.postDelay({showSkeleton(false)}, 500)
             }
         }
     }
 
     override fun initViewCreated() {
+        showSkeleton(true)
         viewModel.requestDesignDetail(navArgs.id)
+    }
+
+    fun showSkeleton(show:Boolean){
+        if(show){
+            binding.clDesignDetail.visibility = View.GONE
+            binding.llSkeleton.visibility = View.VISIBLE
+            binding.skeletonDetail.apply {
+                sfBeforeAfter.startShimmer()
+                sfMainImage.startShimmer()
+                sfMainInfo.startShimmer()
+                sfOrderInfo.startShimmer()
+                sfPrepareItem.startShimmer()
+                sfWarning.startShimmer()
+            }
+        }else{
+            binding.clDesignDetail.visibility = View.VISIBLE
+            binding.llSkeleton.visibility = View.GONE
+            binding.skeletonDetail.apply {
+                sfBeforeAfter.stopShimmer()
+                sfMainImage.stopShimmer()
+                sfMainInfo.stopShimmer()
+                sfOrderInfo.stopShimmer()
+                sfPrepareItem.stopShimmer()
+                sfWarning.stopShimmer()
+            }
+        }
     }
 }

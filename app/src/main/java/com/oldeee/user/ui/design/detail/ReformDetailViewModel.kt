@@ -22,7 +22,7 @@ class ReformDetailViewModel @Inject constructor(
     val currentImageIdx = MutableLiveData<Int>()
 
     fun requestDesignDetail(id:Int){
-        remote {
+        remote(false) {
             val result = getDesignDetailUseCase.invoke(id)
 
             result?.let{

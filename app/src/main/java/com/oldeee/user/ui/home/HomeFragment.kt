@@ -1,6 +1,8 @@
 package com.oldeee.user.ui.home
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,10 +29,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
             activityFuncFunction.openDrawerMenu()
         }
 
-        binding.clDesignTitle.setOnClickListener {
-            nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
-        }
-
         designAdapter = DesignListAdapter({
             val action = HomeFragmentDirections.actionHomeFragmentToReformDetailFragment(it)
             findNavController().navigate(action)
@@ -43,6 +41,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
         binding.rvDesignList.adapter = designAdapter
         binding.rvDesignerList.adapter = expertAdapter
         activityFuncFunction.setDrawerName(navArgs.name)
+
+        binding.tvDesignTitle.setOnClickListener {
+            nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
+        }
+        binding.ivDesignArr.setOnClickListener {
+            nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
+        }
     }
 
     override fun initDataBinding() {
@@ -70,7 +75,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
     }
 
     override fun initViewCreated() {
-        viewModel.requestExpertList()
-        viewModel.requestDesignList()
+        showSkeleton(true)
+
+        viewModel.call { showSkeleton(false) }
+
+//        viewModel.requestExpertList()
+//        viewModel.requestDesignList({ showSkeleton(false) })
+    }
+
+    fun showSkeleton(show: Boolean) {
+        if (show) {
+            Log.e("#debug", "start")
+            binding.llDesignListSkeleton.visibility = View.VISIBLE
+            binding.llSkeletonExpertList.visibility = View.VISIBLE
+            binding.llDesignList.visibility = View.GONE
+            binding.llExpertList.visibility = View.GONE
+            binding.sfDesignListSkeleton.startShimmer()
+            binding.sfExpertList.startShimmer()
+            //            binding.sfDesignListSkeleton.bringToFront()
+        } else {
+            binding.sfDesignListSkeleton.stopShimmer()
+            binding.sfExpertList.stopShimmer()
+            binding.llDesignList.visibility = View.VISIBLE
+            binding.llExpertList.visibility = View.VISIBLE
+            binding.llDesignListSkeleton.visibility = View.GONE
+            binding.llSkeletonExpertList.visibility = View.GONE
+
+
+        }
     }
 }
