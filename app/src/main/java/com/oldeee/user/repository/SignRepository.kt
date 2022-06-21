@@ -1,6 +1,7 @@
 package com.oldeee.user.repository
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.RemoteData
@@ -17,5 +18,13 @@ class SignRepository @Inject constructor(api:OldeeService, prefs:SharedPreferenc
 
     suspend fun requestSignUp(data:SignUpRequest) = call{
         api.requestSignUp("clo", data)
+    }
+
+    fun getAutoLoginValue() = prefs.getBoolean("auto", false)
+    fun setAutoLoginValue(boolean: Boolean){
+        prefs.edit {
+            putBoolean("auto", boolean)
+            commit()
+        }
     }
 }

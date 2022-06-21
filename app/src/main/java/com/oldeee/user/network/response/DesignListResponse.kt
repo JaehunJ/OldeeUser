@@ -22,5 +22,5 @@ data class DesignListItem(
     val storeName: String,
     val expertUUId: Int,
     val reformName: String,
-    val heartId: Any
+    val heartId: Any?
 )

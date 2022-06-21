@@ -23,7 +23,7 @@ data class DesignDetailData(
     val afterImageName: String,
     val reformCode: String,
     val reformName: String,
-    val heartId: Int,
+    val heartId: Int?,
     val minDay: Int,
     val reformItemName: String,
     val iconImageId: String,
@@ -32,7 +32,7 @@ data class DesignDetailData(
     val price: Int,
     val maxDay: Int,
     val expertUUId: Int,
-    val profileImg: String
+    val profileImg: String?
 ) : Parcelable {
     fun getItemCode() = itemCode.split(',')
 

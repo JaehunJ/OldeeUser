@@ -19,6 +19,15 @@ import javax.inject.Inject
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
     @Provides
+    fun provideGetAutoLoginUseCase(repo:SignRepository) = GetAutoLoginValue(repo)
+
+    @Provides
+    fun provideGetNoticeListUseCase(repo:CommonRepository) = GetNoticeListUseCase(repo)
+
+    @Provides
+    fun provideSetAutoLoginUseCase(repo:SignRepository) = SetAutoLoginValue(repo)
+
+    @Provides
     fun provideGetDesignListUseCase(repository:DesignRepository) = GetDesignListUseCase(repository)
 
     @Provides

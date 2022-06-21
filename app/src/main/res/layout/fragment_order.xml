@@ -308,7 +308,7 @@
 
                 </LinearLayout>
 
-                <android.widget.Button
+                <Button
                     android:id="@+id/btn_order"
                     style="@style/BoldText"
                     android:layout_width="match_parent"
@@ -318,7 +318,7 @@
                     android:layout_marginEnd="25dp"
                     android:layout_marginBottom="48dp"
                     android:background="@drawable/bg_round_8dp_white"
-                    android:backgroundTint="@color/sky_3"
+                    app:backgroundTint="@color/sky_3"
                     android:elevation="0dp"
                     android:stateListAnimator="@null"
                     android:text="수선바구니 담기"

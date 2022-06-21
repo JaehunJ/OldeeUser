@@ -55,12 +55,12 @@ class ReformDetailFragment :
             it?.let {
                 binding.res = it
 
-                val prepareItemList = mutableListOf<ReformPrepareItemAdapter.PrepareItem>()
+                val prepareItemList = mutableListOf<PrepareItem>()
                 val reformNameList = it.getReformItemNameList()
                 val reformIdList = it.getItemCode()
                 it.getIconImageIdList().forEachIndexed { index, s ->
                     prepareItemList.add(
-                        ReformPrepareItemAdapter.PrepareItem(
+                        PrepareItem(
                             s,
                             reformNameList[index],
                             reformIdList[index]

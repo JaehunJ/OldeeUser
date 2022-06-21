@@ -119,13 +119,16 @@
 
             <LinearLayout
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="22dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_notice"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     style="@style/NormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,7 +136,10 @@
                     android:text="공지사항"/>
 
                 <TextView
-                    android:layout_marginTop="30dp"
+                    android:id="@+id/tv_setting"
+                    android:layout_marginTop="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     style="@style/NormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,7 +147,10 @@
                     android:text="설정"/>
 
                 <TextView
-                    android:layout_marginTop="30dp"
+                    android:id="@+id/tv_qna"
+                    android:layout_marginTop="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     style="@style/NormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,7 +158,10 @@
                     android:text="고객센터"/>
 
                 <TextView
-                    android:layout_marginTop="30dp"
+                    android:id="@+id/tv_sign_up_expert"
+                    android:layout_marginTop="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     style="@style/NormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

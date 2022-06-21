@@ -32,9 +32,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
     override fun initDataBinding() {
         viewModel.nProfile.observe(viewLifecycleOwner) {
             it?.let {
-                viewModel.requestNaverSignIn(it, {
-                    onNext(it)
-                }) {
+                viewModel.requestNaverSignIn(it) {
                     findNavController().navigate(
                         SignInFragmentDirections.actionSignInFragmentToSignUpFragment(
                             it.email ?: "",
@@ -45,6 +43,12 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
                 }
             }
         }
+
+        viewModel.res.observe(viewLifecycleOwner){
+            it?.let{
+                onNext(it.userName)
+            }
+        }
     }
 
     fun onNext(str:String) {
@@ -52,6 +56,8 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
     }
 
     override fun initViewCreated() {
-
+        if(viewModel.getAutoLogin()){
+            viewModel.startNaverLogin(requireContext())
+        }
     }
 }

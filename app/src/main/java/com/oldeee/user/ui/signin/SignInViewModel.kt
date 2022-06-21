@@ -12,7 +12,10 @@ import com.navercorp.nid.profile.data.NidProfile
 import com.navercorp.nid.profile.data.NidProfileResponse
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.NaverSignInRequest
-import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.network.response.SignInResponse
+import com.oldeee.user.network.response.SignInResponseData
+import com.oldeee.user.usercase.GetAutoLoginValue
+import com.oldeee.user.usercase.SetAutoLoginValue
 import com.oldeee.user.usercase.SetNaverSignInUseCase
 import com.oldeee.user.usercase.SetTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,15 +25,24 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: SetNaverSignInUseCase, private val setTokenUseCase: SetTokenUseCase) : BaseViewModel() {
+class SignInViewModel @Inject constructor(
+    private val setNaverSignInUseCase: SetNaverSignInUseCase,
+    private val setTokenUseCase: SetTokenUseCase,
+    private val getAutoLoginValue: GetAutoLoginValue,
+    private val setAutoLoginValue: SetAutoLoginValue
+) : BaseViewModel() {
 
     val nProfile = MutableLiveData<NidProfile?>()
     val needSignIn = MutableLiveData<Boolean>()
+    val res = MutableLiveData<SignInResponseData>()
 
     init {
         needSignIn.value = false
         nProfile.value = null
     }
+
+    fun getAutoLogin() = getAutoLoginValue.invoke()
+    fun setAutoLogin(boolean: Boolean) = setAutoLoginValue.invoke(boolean)
 
     fun startNaverLogin(context: Context) {
         viewModelScope.launch {
@@ -77,7 +89,7 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
         }
     }
 
-    fun requestNaverSignIn(profile: NidProfile?, onNext: (String) -> Unit, onError: () -> Unit) {
+    fun requestNaverSignIn(profile: NidProfile?, onError: () -> Unit) {
         val accessToken = NaverIdLoginSDK.getAccessToken()
         val refreshToken = NaverIdLoginSDK.getRefreshToken()
         val date = Date(NaverIdLoginSDK.getExpiresAt() * 1000L)
@@ -85,7 +97,7 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
         simpleDateFormat.timeZone = TimeZone.getDefault()
 
         if (accessToken != null && refreshToken != null && profile != null) {
-            remote(false) {
+            remote(true) {
                 val data = NaverSignInRequest(
                     accessToken,
                     refreshToken,
@@ -97,7 +109,7 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
                 Log.e("#debug", "accessToken:${accessToken}")
                 Log.e("#debug", "refreshToken:${refreshToken}")
 
-                val result = setNaverSignInUseCase.invoke(data){
+                val result = setNaverSignInUseCase.invoke(data) {
 
                 }
 
@@ -107,8 +119,10 @@ class SignInViewModel @Inject constructor(private val setNaverSignInUseCase: Set
                 if (result == null) {
                     onError()
                 } else {
+                    setAutoLogin(true)
                     setTokenUseCase.invoke(result.data)
-                    onNext(result.data.userName)
+                    res.postValue(result.data)
+//                    onNext(result.data.userName)
                 }
             }
         }

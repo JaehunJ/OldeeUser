@@ -42,6 +42,19 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
             hideDrawerMenu()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_orderLogFragment)
         }
+        drawerBinding.tvNotice.setOnClickListener {
+            hideDrawerMenu()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_noticeListFragment)
+        }
+        drawerBinding.tvQna.setOnClickListener {
+
+        }
+        drawerBinding.tvSetting.setOnClickListener {
+
+        }
+        drawerBinding.tvSignUpExpert.setOnClickListener {
+
+        }
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             currentDesId = destination.id

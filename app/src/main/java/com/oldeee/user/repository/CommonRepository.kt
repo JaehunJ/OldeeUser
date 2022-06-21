@@ -8,6 +8,7 @@ import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.data.ACCESS_TOKEN
 import com.oldeee.user.data.REFRESH_TOKEN
 import com.oldeee.user.network.OldeeService
+import com.oldeee.user.network.response.NoticeResponse
 import com.oldeee.user.network.response.SignInResponseData
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,5 +36,9 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
             putString(REFRESH_TOKEN, data.refreshToken)
             commit()
         }
+    }
+
+    suspend fun requestNoticeList() = call {
+        api.requestNoticeList(getAccessToken())
     }
 }

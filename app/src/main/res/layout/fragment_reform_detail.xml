@@ -424,7 +424,7 @@
 
                     </LinearLayout>
 
-                    <android.widget.Button
+                    <Button
                         android:id="@+id/btn_order"
                         app:layout_constraintTop_toBottomOf="@id/ll_order_info"
                         app:layout_constraintStart_toStartOf="parent"
@@ -438,7 +438,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_round_8dp_white"
                         android:text="리폼 신청하기"
-                        android:backgroundTint="@color/sky_3"
+                        app:backgroundTint="@color/sky_3"
                         android:textColor="@android:color/white"
                         style="@style/BoldText"
                         android:elevation="0dp"

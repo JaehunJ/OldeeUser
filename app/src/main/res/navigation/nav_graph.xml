@@ -110,4 +110,12 @@
             android:name="phone"
             app:argType="string" />
     </fragment>
+    <fragment
+        tools:layout="@layout/fragment_notice_list"
+        android:id="@+id/noticeListFragment"
+        android:name="com.oldeee.user.ui.notice.NoticeListFragment"
+        android:label="NoticeListFragment" />
+    <action
+        android:id="@+id/action_global_noticeListFragment"
+        app:destination="@id/noticeListFragment" />
 </navigation>

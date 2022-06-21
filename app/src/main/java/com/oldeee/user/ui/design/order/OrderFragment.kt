@@ -11,19 +11,17 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.BuildConfig
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.databinding.FragmentOrderBinding
+import com.oldeee.user.ui.design.detail.PrepareItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFragmentArgs>() {
@@ -47,20 +45,33 @@ class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFr
         viewModel.reformData = navArgs.reformInfo
         photoAdapter = OrderAddPhotoAdapter({
             showFileSelector()
-        },{iv,uri->
+        }, { iv, uri ->
             viewModel.setImage(iv, uri)
-        },{pos->
+        }, { pos ->
 
         })
         binding.rvImages.adapter = photoAdapter
 
-        prepareAdapter = OrderPrepareItemAdapter()
+        prepareAdapter = OrderPrepareItemAdapter() { str, b ->
+
+        }
         binding.rvPrepareItem.adapter = prepareAdapter
+        val prepareItemList = mutableListOf<PrepareItem>()
+        viewModel.reformData?.let { d ->
+            val codes = d.getItemCode()
+            val names = d.getReformItemNameList()
+
+            codes.forEachIndexed { index, s ->
+                prepareItemList.add(PrepareItem("", name = names[index], code = s))
+            }
+        }
+
+        prepareAdapter.setData(prepareItemList.toList())
     }
 
     override fun initDataBinding() {
-        viewModel.imageData.observe(viewLifecycleOwner){
-            it?.let{list->
+        viewModel.imageData.observe(viewLifecycleOwner) {
+            it?.let { list ->
                 photoAdapter.setData(list.toList())
             }
         }
