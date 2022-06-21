@@ -1,6 +1,7 @@
 package com.oldeee.user.usercase
 
 import com.oldeee.user.network.RemoteData
+import com.oldeee.user.network.request.AddCartRequest
 import com.oldeee.user.network.request.NaverSignInRequest
 import com.oldeee.user.network.request.SignUpRequest
 import com.oldeee.user.network.response.SignInResponseData
@@ -41,8 +42,8 @@ class GetDesignDetailUseCase @Inject constructor(private val repo: DesignReposit
     suspend operator fun invoke(id: Int) = repo.requestDesignDetail(id)
 }
 
-class PostReformRequestUseCase @Inject constructor(private val repo: DesignRepository) {
-
+class PostAddCartUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(data:AddCartRequest) = repo.requestAddCart(data)
 }
 
 class GetExpertListUseCase @Inject constructor(private val repo: ExpertRepository) {

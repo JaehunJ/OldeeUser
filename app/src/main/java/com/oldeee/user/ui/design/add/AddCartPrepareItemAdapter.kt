@@ -1,4 +1,4 @@
-package com.oldeee.user.ui.design.order
+package com.oldeee.user.ui.design.add
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import com.oldeee.user.data.PrepareItemMappingStringList
 import com.oldeee.user.databinding.LayoutOrderCheckPrepareItemBinding
 import com.oldeee.user.ui.design.detail.PrepareItem
 
-class OrderPrepareItemAdapter(val onClick: (String, Boolean) -> Unit) :
-    RecyclerView.Adapter<OrderPrepareItemAdapter.PrepareItemViewHolder>() {
+class AddCartPrepareItemAdapter(val onClick: (String, Boolean) -> Unit) :
+    RecyclerView.Adapter<AddCartPrepareItemAdapter.PrepareItemViewHolder>() {
     var dataSet = listOf<PrepareItem>()
 
     fun setData(new: List<PrepareItem>) {

@@ -1,4 +1,4 @@
-package com.oldeee.user.ui.design.order
+package com.oldeee.user.ui.design.add
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oldeee.user.databinding.LayoutOrderAddImageItemBinding
 
-class OrderAddPhotoAdapter(
+class AddCartAddPhotoAdapter(
     val addCallback: () -> Unit,
     val imageCallBack: (ImageView, Uri) -> Unit,
     val deleteCallBack: (Int)->Unit

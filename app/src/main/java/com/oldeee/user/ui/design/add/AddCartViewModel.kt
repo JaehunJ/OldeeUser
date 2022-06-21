@@ -1,4 +1,4 @@
-package com.oldeee.user.ui.design.order
+package com.oldeee.user.ui.design.add
 
 import android.net.Uri
 import android.widget.ImageView
@@ -11,12 +11,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderVIewModel @Inject constructor(val getImageUseCase: GetImageUseCase) : BaseViewModel() {
+class AddCartViewModel @Inject constructor(val getImageUseCase: GetImageUseCase) : BaseViewModel() {
     var detailInfo:String = ""
 
     val imageData = MutableLiveData<MutableList<Uri>>()
 
     var reformData:DesignDetailData? = null
+
+//    var prepareItemList
 
 
     fun setImage(imageView: ImageView, uri:Uri){
@@ -30,5 +32,9 @@ class OrderVIewModel @Inject constructor(val getImageUseCase: GetImageUseCase) :
         }
 
         imageData.postValue(oldList.toMutableList())
+    }
+
+    fun setPrepareItem(code:String){
+
     }
 }

@@ -1,4 +1,4 @@
-package com.oldeee.user.ui.design.order
+package com.oldeee.user.ui.design.add
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.oldeee.user.BuildConfig
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
-import com.oldeee.user.databinding.FragmentOrderBinding
+import com.oldeee.user.databinding.FragmentAddCartBinding
 import com.oldeee.user.ui.design.detail.PrepareItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -24,10 +24,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFragmentArgs>() {
-    override val layoutId: Int = R.layout.fragment_order
-    override val viewModel: OrderVIewModel by viewModels()
-    override val navArgs: OrderFragmentArgs by navArgs()
+class AddCartFragment :
+    BaseFragment<FragmentAddCartBinding, AddCartViewModel, AddCartFragmentArgs>() {
+    override val layoutId: Int = R.layout.fragment_add_cart
+    override val viewModel: AddCartViewModel by viewModels()
+    override val navArgs: AddCartFragmentArgs by navArgs()
 
     var currentPhotoPath: String? = null
     var photoUri: Uri? = null
@@ -37,13 +38,13 @@ class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFr
         pushImageData(it.resultCode, it.data)
     }
 
-    lateinit var photoAdapter: OrderAddPhotoAdapter
-    lateinit var prepareAdapter: OrderPrepareItemAdapter
+    lateinit var photoAdapter: AddCartAddPhotoAdapter
+    lateinit var prepareAdapter: AddCartPrepareItemAdapter
     var reformId = 0
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel.reformData = navArgs.reformInfo
-        photoAdapter = OrderAddPhotoAdapter({
+        photoAdapter = AddCartAddPhotoAdapter({
             showFileSelector()
         }, { iv, uri ->
             viewModel.setImage(iv, uri)
@@ -52,8 +53,11 @@ class OrderFragment : BaseFragment<FragmentOrderBinding, OrderVIewModel, OrderFr
         })
         binding.rvImages.adapter = photoAdapter
 
-        prepareAdapter = OrderPrepareItemAdapter() { str, b ->
+        prepareAdapter = AddCartPrepareItemAdapter() { str, b ->
+            //str->code, b->checked
+            if(b){
 
+            }
         }
         binding.rvPrepareItem.adapter = prepareAdapter
         val prepareItemList = mutableListOf<PrepareItem>()

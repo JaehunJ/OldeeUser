@@ -68,6 +68,12 @@ interface OldeeService {
         @Query("reformId") reformId: Int
     ): Response<DesignDetailResponse>
 
+    @POST("/api/v1/user/survey/reform")
+    suspend fun requestAddCart(
+        @Header("Authorization") token: String,
+        @Body data:AddCartRequest
+    ):Response<AddCartResponse>
+
 //    @POST("/api/v1/user/reform/heart")
 //    suspend fun requestHeartSave(
 //        @Header("Authorization") token: String,
