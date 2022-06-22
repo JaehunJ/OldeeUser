@@ -22,6 +22,10 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
     suspend fun requestAddCart(onError:(RemoteData.ApiError)->Unit, data: AddCartRequest) =
         call { api.requestAddCart(getAccessToken(), data) }
 
+    suspend fun requestCartList() = call {
+        api.requestBasketList(getAccessToken())
+    }
+
 //    suspend fun requestReformRequest(data:)
 
 //    suspend fun requestHeartState(id:Int, checked:Int) = {

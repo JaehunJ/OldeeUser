@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oldeee.user.databinding.LayoutCartOrderItemBinding
 import com.oldeee.user.network.response.BasketListItem
 
-class CartOrderAdapter(val checkItem: (data: BasketListItem) -> Unit) :
+class CartOrderAdapter(val checkedChange:(position:Int, checked:Boolean)->Unit, val checkItem: (data: BasketListItem) -> Unit) :
     RecyclerView.Adapter<CartOrderAdapter.CartOrderViewHolder>() {
     var dataSet = mutableListOf<BasketListItem>()
 
@@ -20,10 +20,12 @@ class CartOrderAdapter(val checkItem: (data: BasketListItem) -> Unit) :
         CartOrderViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: CartOrderViewHolder, position: Int) {
-
+        holder.bind(position, dataSet[position], checkedChange, checkItem)
     }
 
     override fun getItemCount() = dataSet.size
+
+//    fun getItem() = getAda
 
     class CartOrderViewHolder(val binding: LayoutCartOrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,10 +38,13 @@ class CartOrderAdapter(val checkItem: (data: BasketListItem) -> Unit) :
             }
         }
 
-        fun bind(data: BasketListItem, checkItem: (BasketListItem) -> Unit) {
+        fun bind(position: Int, data: BasketListItem, checkedChange: (Int, Boolean) -> kotlin.Unit, checkItem: (BasketListItem) -> Unit) {
             binding.data = data
             binding.llSub.setOnClickListener {
                 binding.cbSub.isChecked
+            }
+            binding.cbSub.setOnCheckedChangeListener { compoundButton, b ->
+                checkedChange(position, b)
             }
         }
     }

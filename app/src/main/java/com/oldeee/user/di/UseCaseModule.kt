@@ -53,6 +53,9 @@ object UseCaseModule {
     @Provides
     fun providePostAddCart(repo:DesignRepository) = PostAddCartUseCase(repo)
 
+    @Provides
+    fun provideGetCartList(repo:DesignRepository) = GetCartListUserCase(repo)
+
 
 //
 //    class GetImageUseCase @Inject constructor(private val repo: CommonRepository) {

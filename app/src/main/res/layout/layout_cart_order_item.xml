@@ -21,6 +21,7 @@
             style="@style/BoldText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="변화주기"
             android:textSize="20dp"
             tools:text="오래쓰기" />
 
@@ -38,15 +39,25 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
+                android:text="@{data.reformName}"
                 tools:text="바지수선" />
 
-            <CheckBox
-                android:id="@+id/cb_sub"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/selector_sign_up_checkbox"
-                android:clickable="false"/>
+            <LinearLayout
+                android:id="@+id/ll_check"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/cb_sub"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/selector_sign_up_checkbox"
+                    android:clickable="false"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -61,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/NormalText"
+                android:text="@{data.itemName}"
                 android:textSize="16dp"
                 tools:text="신발"/>
             <TextView
@@ -68,6 +80,7 @@
                 style="@style/BoldText"
                 android:textColor="@color/sky_3"
                 android:id="@+id/tv_price"
+                wonText="@{Integer.valueOf(data.reformPrice)}"
                 tools:text="20,000원"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

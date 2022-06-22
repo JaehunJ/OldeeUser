@@ -63,6 +63,11 @@ class GetNoticeListUseCase @Inject constructor(private val repo:CommonRepository
     suspend operator fun invoke() = repo.requestNoticeList()
 }
 
+//cart
+class GetCartListUserCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke() = repo.requestCartList()
+}
+
 class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepository) {
 
 }
