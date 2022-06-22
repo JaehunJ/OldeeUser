@@ -100,13 +100,13 @@
                         android:text="리폼을 신청할 준비물을 한가지 골라주세요"
                         android:textSize="14dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <RadioGroup
                         android:layout_marginTop="16dp"
-                        android:id="@+id/rv_prepare_item"
+                        android:id="@+id/rg_prepare_item"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -267,15 +267,24 @@
                         android:text="총 결제금액"
                         android:textSize="20dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <LinearLayout
                         android:layout_marginTop="18dp"
-                        android:id="@+id/rv_price"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:listitem="@layout/layout_order_price_item"
-                        tools:itemCount="2"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/layout_order_item_price"
+                            layout="@layout/layout_order_price_item"/>
+                    </LinearLayout>
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:layout_marginTop="18dp"-->
+<!--                        android:id="@+id/rv_price"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        tools:listitem="@layout/layout_order_price_item"-->
+<!--                        tools:itemCount="2"-->
+<!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
 
                     <View
                         android:layout_marginTop="6dp"
@@ -303,7 +312,7 @@
                             android:textSize="16dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="합계"/>
+                            tools:text="합계"/>
                     </LinearLayout>
 
                 </LinearLayout>

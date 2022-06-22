@@ -3,6 +3,7 @@ package com.oldeee.user.repository
 import android.content.SharedPreferences
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
+import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.request.AddCartRequest
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +19,7 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
         api.requestDesignDetail(getAccessToken(), id)
     }
 
-    suspend fun requestAddCart(data: AddCartRequest) =
+    suspend fun requestAddCart(onError:(RemoteData.ApiError)->Unit, data: AddCartRequest) =
         call { api.requestAddCart(getAccessToken(), data) }
 
 //    suspend fun requestReformRequest(data:)

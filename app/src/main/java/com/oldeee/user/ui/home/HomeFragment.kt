@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
         binding.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.tvBannerCurrent.text = (position%2).toString()
+                binding.tvBannerCurrent.text = ((position%2)+1).toString()
                 bannerPosition = position
             }
 

@@ -16,9 +16,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
-//        binding.ivBack.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
+
     }
 
     override fun initDataBinding() {
@@ -28,5 +26,4 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
     override fun initViewCreated() {
 
     }
-
 }

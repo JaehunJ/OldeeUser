@@ -5,11 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.core.content.edit
 import com.oldeee.user.base.BaseRepository
+import com.oldeee.user.custom.getTextBody
 import com.oldeee.user.data.ACCESS_TOKEN
 import com.oldeee.user.data.REFRESH_TOKEN
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.response.NoticeResponse
 import com.oldeee.user.network.response.SignInResponseData
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,6 +30,10 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
         }
 
         return null
+    }
+
+    suspend fun postImageToServer(list:List<MultipartBody.Part>) = call{
+        api.requestPostImage(getAccessToken(), list, getTextBody("refom"))
     }
 
     fun setToken(data: SignInResponseData) {

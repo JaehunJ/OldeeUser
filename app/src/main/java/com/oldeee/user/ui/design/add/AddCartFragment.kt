@@ -8,15 +8,24 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
+import com.bumptech.glide.Glide
 import com.oldeee.user.BuildConfig
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
+import com.oldeee.user.custom.setWonText
+import com.oldeee.user.data.PrepareItemMappingStringList
 import com.oldeee.user.databinding.FragmentAddCartBinding
+import com.oldeee.user.databinding.LayoutOrderCheckPrepareItemBinding
 import com.oldeee.user.ui.design.detail.PrepareItem
+import com.oldeee.user.ui.dialog.TwoButtonDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
@@ -38,9 +47,9 @@ class AddCartFragment :
         pushImageData(it.resultCode, it.data)
     }
 
+    val checkBoxes = mutableListOf<LayoutOrderCheckPrepareItemBinding>()
+
     lateinit var photoAdapter: AddCartAddPhotoAdapter
-    lateinit var prepareAdapter: AddCartPrepareItemAdapter
-    var reformId = 0
 
     override fun initView(savedInstanceState: Bundle?) {
         viewModel.reformData = navArgs.reformInfo
@@ -53,13 +62,6 @@ class AddCartFragment :
         })
         binding.rvImages.adapter = photoAdapter
 
-        prepareAdapter = AddCartPrepareItemAdapter() { str, b ->
-            //str->code, b->checked
-            if(b){
-
-            }
-        }
-        binding.rvPrepareItem.adapter = prepareAdapter
         val prepareItemList = mutableListOf<PrepareItem>()
         viewModel.reformData?.let { d ->
             val codes = d.getItemCode()
@@ -68,9 +70,22 @@ class AddCartFragment :
             codes.forEachIndexed { index, s ->
                 prepareItemList.add(PrepareItem("", name = names[index], code = s))
             }
+
+            setWonText(binding.layoutOrderItemPrice.tvPrice, d.price)
+            setWonText(binding.tvTotalPrice, d.price)
+        }
+        setPrepareItem()
+
+        binding.btnOrder.setOnClickListener {
+//            showSuccessDialog()
+            if (viewModel.isValidate()) {
+                viewModel.requestAddCart(requireContext())
+            } else {
+                activityFuncFunction.showToast("누락된 정보가 있습니다.")
+            }
         }
 
-        prepareAdapter.setData(prepareItemList.toList())
+        binding.vm = viewModel
     }
 
     override fun initDataBinding() {
@@ -79,10 +94,68 @@ class AddCartFragment :
                 photoAdapter.setData(list.toList())
             }
         }
+        viewModel.res.observe(viewLifecycleOwner) {
+            it?.let {
+                showSuccessDialog()
+            }
+        }
     }
 
     override fun initViewCreated() {
 
+    }
+
+    fun showSuccessDialog() {
+        val dialog = TwoButtonDialog(
+            "", "수선바구니에 담았어요", "보러가기", "닫기", {
+                val option = navOptions {
+                    popUpTo(R.id.homeFragment)
+                }
+                findNavController().navigate(R.id.action_global_cartFragment, null, option)
+            }, {findNavController().popBackStack(R.id.homeFragment, false)}
+        )
+        dialog.isCancelable = false
+        activity?.let { ay ->
+            dialog.show(ay.supportFragmentManager, "success")
+        }
+    }
+
+    fun setPrepareItem() {
+        val data = viewModel.reformData
+        data?.let { d ->
+            val size = d.getIconImageIdList().size
+            val itemCodeList = d.getItemCode()
+            val itemNameList = d.getReformItemNameList()
+            val reformItemId = d.getReformItemIdList()
+
+            for (i in 0 until size) {
+                val cbinding = LayoutOrderCheckPrepareItemBinding.inflate(
+                    LayoutInflater.from(requireContext()),
+                    binding.rgPrepareItem,
+                    true
+                )
+                Glide.with(requireContext()).load(PrepareItemMappingStringList[itemCodeList[i]])
+                    .into(cbinding.ivImage)
+                cbinding.tvName.text = itemNameList[i]
+                cbinding.clRoot.setOnClickListener {
+                    cbinding.cbPrepare.isChecked = !cbinding.cbPrepare.isChecked
+
+                    if (cbinding.cbPrepare.isChecked) {
+                        viewModel.checkedReformItemId.postValue(reformItemId[i].toInt())
+                    }
+
+                    checkBoxes.forEach {
+                        if (it != cbinding) {
+                            it.cbPrepare.isChecked = !cbinding.cbPrepare.isChecked
+                        }
+                    }
+                }
+                cbinding.cbPrepare.setOnCheckedChangeListener { buttonView, isChecked ->
+                    cbinding.clRoot.alpha = if (isChecked) 1f else 0.4f
+                }
+                checkBoxes.add(cbinding)
+            }
+        }
     }
 
     fun showFileSelector() {

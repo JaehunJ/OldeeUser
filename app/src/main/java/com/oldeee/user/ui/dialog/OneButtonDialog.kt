@@ -10,7 +10,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.oldeee.user.databinding.LayoutDialogOneButtonBinding
 
-class OneButtonDialog:DialogFragment() {
+class OneButtonDialog(val title:String, val contents:String, val okText:String, val onClick:()->Unit):DialogFragment() {
     private lateinit var binding : LayoutDialogOneButtonBinding
 
 
@@ -20,6 +20,17 @@ class OneButtonDialog:DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = LayoutDialogOneButtonBinding.inflate(inflater, container, false)
+
+        if(title.isEmpty())
+            binding.tvTitle.visibility = View.GONE
+        binding.tvTitle.text = title
+        if(contents.isEmpty())
+            binding.tvContents.visibility = View.GONE
+        binding.tvContents.text = contents
+        binding.btnOk.setOnClickListener {
+            dialog?.dismiss()
+            onClick.invoke()
+        }
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)

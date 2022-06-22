@@ -9,6 +9,7 @@ import com.oldeee.user.repository.CommonRepository
 import com.oldeee.user.repository.DesignRepository
 import com.oldeee.user.repository.ExpertRepository
 import com.oldeee.user.repository.SignRepository
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
@@ -43,7 +44,7 @@ class GetDesignDetailUseCase @Inject constructor(private val repo: DesignReposit
 }
 
 class PostAddCartUseCase @Inject constructor(private val repo:DesignRepository){
-    suspend operator fun invoke(data:AddCartRequest) = repo.requestAddCart(data)
+    suspend operator fun invoke(onError: (RemoteData.ApiError) -> Unit, data:AddCartRequest) = repo.requestAddCart(onError, data)
 }
 
 class GetExpertListUseCase @Inject constructor(private val repo: ExpertRepository) {
@@ -52,6 +53,10 @@ class GetExpertListUseCase @Inject constructor(private val repo: ExpertRepositor
 
 class GetImageUseCase @Inject constructor(private val repo: CommonRepository) {
     suspend operator fun invoke(path: String) = repo.getImageFromServer(path)
+}
+
+class PostImageUseCase @Inject constructor(private val repo:CommonRepository){
+    suspend operator fun invoke(list:List<MultipartBody.Part>) = repo.postImageToServer(list)
 }
 
 class GetNoticeListUseCase @Inject constructor(private val repo:CommonRepository){

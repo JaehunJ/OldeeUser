@@ -8,7 +8,9 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:background="@drawable/bg_round_24dp_white"
             android:padding="25dp"
+            android:minWidth="327dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,27 +32,35 @@
                 android:id="@+id/tv_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/BoldText"/>
+                style="@style/NormalText"/>
 
             <android.widget.Button
                 android:id="@+id/btn_ok"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
                 android:background="@drawable/bg_round_8dp_white"
                 android:backgroundTint="@color/sky_3"
                 android:textColor="@android:color/white"
+                android:textSize="16dp"
                 style="@style/BoldText"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"/>
 
             <android.widget.Button
                 android:id="@+id/btn_close"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textSize="16dp"
                 android:background="@drawable/bg_round_8dp_white_stroke_black"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black"
                 style="@style/BoldText"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"/>

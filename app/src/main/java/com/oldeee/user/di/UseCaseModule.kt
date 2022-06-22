@@ -24,6 +24,8 @@ object UseCaseModule {
     @Provides
     fun provideGetNoticeListUseCase(repo:CommonRepository) = GetNoticeListUseCase(repo)
 
+
+
     @Provides
     fun provideSetAutoLoginUseCase(repo:SignRepository) = SetAutoLoginValue(repo)
 
@@ -41,6 +43,9 @@ object UseCaseModule {
 
     @Provides
     fun provideExpertListUseCase(repo:ExpertRepository) = GetExpertListUseCase(repo)
+
+    @Provides
+    fun providePostImageUseCase(repo:CommonRepository) = PostImageUseCase(repo)
 
     @Provides
     fun provideGetImageUseCase(repo:CommonRepository) = GetImageUseCase(repo)

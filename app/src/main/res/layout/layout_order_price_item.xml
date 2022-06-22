@@ -11,7 +11,7 @@
             style="@style/NormalText"
             android:textSize="16dp"
             android:id="@+id/tv_name"
-            android:text="리폼 이름"
+            android:text="리폼"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>

@@ -46,7 +46,20 @@ open class BaseRepository @Inject constructor(
 //                return result.output
 
                 if (result.errorCode == "404") {
+                    val msgLower = result.errorMessage
 
+                    if(msgLower == null){
+                        onError?.invoke(result)
+                        return null
+                    }
+
+                    msgLower.let{msg->
+                        val lower = msg.lowercase()
+
+                        if(lower.contains("discontinued")){
+                            onError?.invoke(result)
+                        }
+                    }
                 } else {
                     onError?.invoke(result)
                     return null

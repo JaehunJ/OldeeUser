@@ -48,4 +48,4 @@ class ReformPrepareItemAdapter() :
 
 }
 
-data class PrepareItem(val image: String, val name: String, val code: String)
+data class PrepareItem(val image: String, val name: String, val code: String, val id:String="")
