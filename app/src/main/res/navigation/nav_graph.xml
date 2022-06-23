@@ -87,7 +87,11 @@
         android:id="@+id/cartFragment"
         android:name="com.oldeee.user.ui.cart.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_cartFragment"
         app:destination="@id/cartFragment"
@@ -118,4 +122,13 @@
     <action
         android:id="@+id/action_global_noticeListFragment"
         app:destination="@id/noticeListFragment" />
+    <fragment
+        tools:layout="@layout/fragment_payment"
+        android:id="@+id/paymentFragment"
+        android:name="com.oldeee.user.ui.payment.PaymentFragment"
+        android:label="PaymentFragment" >
+        <argument
+            android:name="datas"
+            app:argType="com.oldeee.user.network.response.BasketListItem[]" />
+    </fragment>
 </navigation>

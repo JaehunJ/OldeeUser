@@ -82,6 +82,16 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         return binding.root
     }
 
+    fun setOnInvokeBackAction(onClick:()->Unit){
+        val backView = _binding?.root?.findViewById<ConstraintLayout>(R.id.iv_back)
+
+        backView?.let{
+            it.setOnClickListener {
+                onClick()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

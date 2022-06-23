@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
@@ -34,15 +35,23 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
 
         }
         binding.vm = viewModel
+
+        binding.btnConfirm.setOnClickListener {
+            val res = viewModel.res.value
+            res?.let{ datas->
+                val action = CartFragmentDirections.actionCartFragmentToPaymentFragment(datas.toTypedArray())
+                findNavController().navigate(action)
+            }
+        }
     }
 
     override fun initDataBinding() {
         viewModel.res.observe(viewLifecycleOwner){
             it?.let{
                 setCartList(it)
-                if(!binding.cbTotal.isChecked)
-                    binding.llTotalSelect.performClick()
-//                adapter.setData(it.toList())
+                viewModel.totalPrice.postValue(0)
+//                if(!binding.cbTotal.isChecked)
+//                    binding.llTotalSelect.performClick()
             }
         }
     }
@@ -90,5 +99,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                 }
             }
         }
+
     }
 }
