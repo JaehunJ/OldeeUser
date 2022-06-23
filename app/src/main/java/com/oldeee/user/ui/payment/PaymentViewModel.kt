@@ -13,6 +13,12 @@ import javax.inject.Inject
 class PaymentViewModel @Inject constructor(val getImageUseCase: GetImageUseCase):BaseViewModel(){
     val datas = MutableLiveData<List<BasketListItem>>()
 
+    var name = ""
+    var phone = ""
+    var postNum = ""
+    var address = ""
+    var extendAddress = ""
+
     var totalPrice = 0
 
     fun setImage(imageView: ImageView, path:String){

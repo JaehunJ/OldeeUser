@@ -92,6 +92,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:text="@={vm.name}"
                         style="@style/NormalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,6 +115,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:text="@={vm.phone}"
                         style="@style/NormalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,6 +144,7 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:text="@={vm.postNum}"
                             android:id="@+id/et_post"
                             style="@style/NormalText"
                             android:layout_width="0dp"
@@ -190,6 +193,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:text="@={vm.address}"
                         android:layout_marginTop="8dp"
                         android:id="@+id/et_basic_address"
                         style="@style/NormalText"
@@ -215,6 +219,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:text="@={vm.extendAddress}"
                         android:layout_marginTop="8dp"
                         android:id="@+id/et_extend_address"
                         style="@style/NormalText"
