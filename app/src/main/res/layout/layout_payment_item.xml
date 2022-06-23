@@ -8,6 +8,7 @@
             type="com.oldeee.user.network.response.BasketListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="wrap_content">
@@ -35,6 +36,7 @@
                 android:textSize="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{res.reformName}"
                 tools:text="리폼이름"/>
 
             <LinearLayout
@@ -53,6 +55,7 @@
                     android:id="@+id/tv_prepare_item_name"
                     style="@style/NormalText"
                     android:textSize="16dp"
+                    android:text="@{res.itemName}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="모자"/>
@@ -63,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_marginTop="10dp"
+                android:text="@{res.contents}"
                 tools:text="모자 정 중앙에 위치하게 해주세요.\n문의드린 내용대로 진행되게 해주세요\n모자 정 중앙에 위치하게 해주세요.\n문의드린 내용대로 진행되게 해주세요"
                 style="@style/NormalText"/>
 
@@ -73,7 +77,6 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_image"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:spanCount="4"

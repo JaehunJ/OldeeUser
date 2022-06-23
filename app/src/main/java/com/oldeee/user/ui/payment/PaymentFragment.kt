@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.databinding.FragmentPaymentBinding
 import com.oldeee.user.databinding.LayoutPaymentItemBinding
-import com.oldeee.user.databinding.LayoutPaymentItemImageBinding
 import com.oldeee.user.network.response.BasketListItem
+import com.oldeee.user.ui.dialog.PostDialog
 import com.oldeee.user.ui.dialog.TwoButtonDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,12 +32,24 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
 
         binding.vm = viewModel
         viewModel.datas.postValue(navArgs.datas.toList())
+        binding.btnPost.setOnClickListener {
+            val dialog = PostDialog()
+            dialog.show(requireActivity().supportFragmentManager, "")
+//            startActivity(Intent(requireContext(), PostActivity::class.java))
+        }
     }
 
     override fun initDataBinding() {
         viewModel.datas.observe(viewLifecycleOwner){
             it?.let{
                 setContainer(it)
+
+                var price = 0
+                it.forEach {item->
+                    price += item.reformPrice.toInt()
+                }
+
+                viewModel.totalPrice = price
             }
         }
     }

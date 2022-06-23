@@ -19,7 +19,15 @@ class PaymentViewModel @Inject constructor(val getImageUseCase: GetImageUseCase)
     var address = ""
     var extendAddress = ""
 
-    var totalPrice = 0
+    var totalPrice = MutableLiveData<Int>()
+
+    init {
+        name = "정재훈"
+        phone = "01088335697"
+        postNum = "08763"
+        address = "서울특별시 관악구 남부순환로165길 59 (신림동, 미래)"
+        extendAddress = "204호"
+    }
 
     fun setImage(imageView: ImageView, path:String){
         remote(false) {

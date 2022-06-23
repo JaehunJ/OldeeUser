@@ -92,6 +92,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:inputType="text"
                         android:text="@={vm.name}"
                         style="@style/NormalText"
                         android:layout_width="match_parent"
@@ -115,13 +116,14 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:inputType="phone"
                         android:text="@={vm.phone}"
                         style="@style/NormalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_round_8dp_stroke_gray_1"
-                        android:hint="수령인을 입력하세요."
+                        android:hint="휴대폰번호를 입력하세요."
                         android:paddingStart="16dp"
                         android:paddingTop="12dp"
                         android:paddingEnd="12dp"
@@ -219,6 +221,7 @@
                         android:textSize="16dp" />
 
                     <EditText
+                        android:inputType="text"
                         android:text="@={vm.extendAddress}"
                         android:layout_marginTop="8dp"
                         android:id="@+id/et_extend_address"

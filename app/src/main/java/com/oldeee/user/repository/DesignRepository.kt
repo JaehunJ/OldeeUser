@@ -26,6 +26,16 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
         api.requestBasketList(getAccessToken())
     }
 
+    suspend fun requestPaymentList(successYn:Int) = call {
+        api.requestPaymentList(
+            token = getAccessToken(),
+            orderId = null,
+            successYn = successYn,
+            limit = null,
+            page = null
+        )
+    }
+
 //    suspend fun requestReformRequest(data:)
 
 //    suspend fun requestHeartState(id:Int, checked:Int) = {

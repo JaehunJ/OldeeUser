@@ -21,4 +21,10 @@
     <style name="BasicButton" parent="Widget.AppCompat.Button">
         <item name="fontFamily">@font/spoqa</item>
     </style>
+
+    <style name="FullScreenDialogFragment" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
 </resources>

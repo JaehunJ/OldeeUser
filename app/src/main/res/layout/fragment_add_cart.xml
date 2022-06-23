@@ -175,6 +175,7 @@
                         android:background="@drawable/bg_round_8dp_stroke_gray_1"
                         android:gravity="top"
                         android:hint="입력"
+                        style="@style/NormalText"
                         android:text="@={vm.detailInfo}"
                         android:padding="16dp"
                         android:textSize="16dp" />

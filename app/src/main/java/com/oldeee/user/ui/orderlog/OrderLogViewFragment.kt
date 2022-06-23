@@ -22,11 +22,15 @@ class OrderLogViewFragment :
     }
 
     override fun initDataBinding() {
+        viewModel.res.observe(viewLifecycleOwner){
+            it?.let{
 
+            }
+        }
     }
 
     override fun initViewCreated() {
-
+        viewModel.requestPaymentList()
     }
 
 }
