@@ -5,7 +5,8 @@ data class NewTokenResponse (
     override var status: Int?,
     override var message: String?,
     override var errorMessage: String?,
-    override var errorCode: String?
+    override var errorCode: String?,
+    val data: NewTokenData
 ):BaseResponse()
 
 data class NewTokenData(

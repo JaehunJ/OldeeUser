@@ -33,7 +33,10 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
         binding.vm = viewModel
         viewModel.datas.postValue(navArgs.datas.toList())
         binding.btnPost.setOnClickListener {
-            val dialog = PostDialog()
+            val dialog = PostDialog{road, zone ->
+                viewModel.address.postValue(road)
+                viewModel.postNum.postValue(zone)
+            }
             dialog.show(requireActivity().supportFragmentManager, "")
 //            startActivity(Intent(requireContext(), PostActivity::class.java))
         }
@@ -49,7 +52,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
                     price += item.reformPrice.toInt()
                 }
 
-                viewModel.totalPrice = price
+                viewModel.totalPrice.postValue(price)
             }
         }
     }

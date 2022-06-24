@@ -59,6 +59,9 @@ object UseCaseModule {
     @Provides
     fun provideGetPaymentList(repo:DesignRepository) = GetPaymentListUseCase(repo)
 
+    @Provides
+    fun providePayment(repo:DesignRepository) = PostPaymentUseCase(repo)
+
 
 //
 //    class GetImageUseCase @Inject constructor(private val repo: CommonRepository) {

@@ -5,6 +5,7 @@ import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.request.AddCartRequest
+import com.oldeee.user.network.request.PaymentRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,6 +35,10 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
             limit = null,
             page = null
         )
+    }
+
+    suspend fun requestPayment(data:PaymentRequest) = call{
+        api.requestPayment(getAccessToken(), data)
     }
 
 //    suspend fun requestReformRequest(data:)

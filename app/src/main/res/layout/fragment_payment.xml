@@ -266,6 +266,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -273,6 +274,22 @@
                     android:padding="24dp">
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_confirm"
+                    style="@style/BoldText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="48dp"
+                    android:background="@drawable/bg_round_8dp_white"
+                    app:backgroundTint="@color/sky_3"
+                    android:elevation="0dp"
+                    android:stateListAnimator="@null"
+                    android:text="주문하기"
+                    android:textColor="@android:color/white" />
 
 
             </LinearLayout>

@@ -1,8 +1,6 @@
 package com.oldeee.user.base
 
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +8,10 @@ import com.oldeee.user.data.ACCESS_TOKEN
 import com.oldeee.user.data.REFRESH_TOKEN
 import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.RemoteData
+import com.oldeee.user.network.request.NewTokenRequest
 import com.oldeee.user.network.response.BaseResponse
-import com.oldeee.user.network.response.SignInResponseData
+import com.oldeee.user.network.response.NewTokenData
+import com.oldeee.user.network.response.NewTokenResponse
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -48,16 +48,29 @@ open class BaseRepository @Inject constructor(
                 if (result.errorCode == "404") {
                     val msgLower = result.errorMessage
 
-                    if(msgLower == null){
+                    if (msgLower == null) {
                         onError?.invoke(result)
                         return null
                     }
 
-                    msgLower.let{msg->
+                    msgLower.let { msg ->
                         val lower = msg.lowercase()
 
-                        if(lower.contains("discontinued")){
+                        if (lower.contains("discontinued")) {
                             onError?.invoke(result)
+                        } else if (lower.contains("token")) {
+                            val re = getNewToken()
+
+                            if(re == null){
+                                Log.e("#debug", "token refresh exception")
+                                null
+                            }else{
+                                setToken(re.data)
+                                return call(onError) { apiCall() }
+                            }
+                        }else{
+                            onError?.invoke(result)
+                            return null
                         }
                     }
                 } else {
@@ -109,14 +122,14 @@ open class BaseRepository @Inject constructor(
     }
 
 
-//    suspend fun getNewToken(): NewTokenResponse? {
-//        val accessToken = getAccessTokenRaw()
-//        val refreshToken = getRefreshToken()
-//        val data = NewTokenRequest(accessToken ?: "", refreshToken ?: "")
-//        val result = api.requestNewToken("clo", data)
-//
-//        return result.body()
-//    }
+    suspend fun getNewToken(): NewTokenResponse? {
+        val accessToken = getAccessTokenRaw()
+        val refreshToken = getRefreshToken()
+        val data = NewTokenRequest(accessToken ?: "", refreshToken ?: "")
+        val result = api.requestNewToken("clo", data)
+
+        return result.body()
+    }
 
     fun getAccessToken(): String {
         Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
@@ -126,14 +139,16 @@ open class BaseRepository @Inject constructor(
     private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 
-/*
-    fun setToken(data: NewTokenResponse.TokenData) {
+
+    fun setToken(data: NewTokenData) {
         prefs.edit {
             putString(ACCESS_TOKEN, data.newAccessToken)
             putString(REFRESH_TOKEN, data.newRefreshToken)
             commit()
         }
     }
+
+    /*
 //
 //    fun loadPrevSignData():String?{
 //        val str = prefs.getString(USER_ID, "")

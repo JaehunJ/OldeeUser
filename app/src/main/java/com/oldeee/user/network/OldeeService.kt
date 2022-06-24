@@ -15,6 +15,12 @@ interface OldeeService {
         @Query("osType") osType: String = "android"
     ): Response<VersionInfoResponse>
 
+    @POST("/api/v1/token/refresh")
+    suspend fun requestNewToken(
+        @Header("Authorization") authorization: String = "clo",
+        @Body data:NewTokenRequest
+    ):Response<NewTokenResponse>
+
     @Multipart
     @POST("/api/v1/user/image")
     suspend fun requestPostImage(
@@ -99,9 +105,9 @@ interface OldeeService {
     ): Response<BaseStringResponse>
 
     @POST("/api/v1/user/order")
-    suspend fun requestPaymentLogSave(
+    suspend fun requestPayment(
         @Header("Authorization") token: String,
-        @Body data: PaymentLogSaveRequest
+        @Body data: PaymentRequest
     ): Response<BaseStringResponse>
 
     @GET("/api/v1/user/order/list")

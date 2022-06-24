@@ -52,20 +52,22 @@ android {
         def STORE_URL = "STORE_URL"
         def TERM_PRIVACY = "TERM_PRIVACY"
         def TERM_SERVICE = "TERM_SERVICE"
+        def POST_NUM_PATH = "POST_NUM_PATH"
 
         trial {
             buildConfigField "String", BASE_URL, '"https://oldeedev.tk/"'
             buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
+            buildConfigField "String", POST_NUM_PATH, '"api/v1/address"'
         }
 
         real {
             buildConfigField "String", BASE_URL, '"https://oldee.tk/"'
-//            buildConfigField "String", BASE_URL, '"https://oldeedev.tk/"'
             buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
+            buildConfigField "String", POST_NUM_PATH, '"api/v1/address"'
         }
     }
 

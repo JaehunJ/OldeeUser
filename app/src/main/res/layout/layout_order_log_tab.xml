@@ -20,6 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/BoldText"
             android:textSize="16dp"
+            android:textColor="@color/black"
             android:id="@+id/tv_item_name"
             android:textAlignment="center"
             android:layout_width="match_parent"

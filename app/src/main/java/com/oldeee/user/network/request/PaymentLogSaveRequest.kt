@@ -1,14 +1,14 @@
 package com.oldeee.user.network.request
 
-data class PaymentLogSaveRequest(
+data class PaymentRequest(
     val addressId:Int,
-    val basketList:List<PaymentLogBasketItem>,
+    val basketList:List<PaymentBasketItem>,
     val orderPrice:Int,
     val shippingFee:Int,
     val totalPrice:Int
 )
 
-data class PaymentLogBasketItem(
+data class PaymentBasketItem(
     val basketId:Int,
     val orderDetailTitle:String,
     val surveySeq:Int
