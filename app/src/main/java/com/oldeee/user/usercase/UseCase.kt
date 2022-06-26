@@ -1,16 +1,11 @@
 package com.oldeee.user.usercase
 
 import com.oldeee.user.network.RemoteData
-import com.oldeee.user.network.request.AddCartRequest
-import com.oldeee.user.network.request.NaverSignInRequest
-import com.oldeee.user.network.request.PaymentRequest
-import com.oldeee.user.network.request.SignUpRequest
+import com.oldeee.user.network.request.*
 import com.oldeee.user.network.response.SignInResponseData
-import com.oldeee.user.repository.CommonRepository
-import com.oldeee.user.repository.DesignRepository
-import com.oldeee.user.repository.ExpertRepository
-import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.repository.*
 import okhttp3.MultipartBody
+import java.io.PipedReader
 import javax.inject.Inject
 
 class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
@@ -21,6 +16,14 @@ class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
 
 class GetAutoLoginValue @Inject constructor(private val repo: SignRepository) {
     operator fun invoke() = repo.getAutoLoginValue()
+}
+
+class GetUserData @Inject constructor(private val repo:UserRepository){
+    operator fun invoke() = repo.getUserData()
+}
+
+class SetUserData @Inject constructor(private val repo:UserRepository){
+    operator fun invoke(name:String, email:String, phone:String) = repo.setUserData(name, email, phone)
 }
 
 class SetAutoLoginValue @Inject constructor(private val repo: SignRepository) {
@@ -52,6 +55,23 @@ class PostPaymentUseCase @Inject constructor(private val repo:DesignRepository){
     suspend operator fun invoke(data:PaymentRequest) = repo.requestPayment(data)
 }
 
+//log
+class GetPaymentListUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(successYn:Int) = repo.requestPaymentList(successYn)
+}
+
+class GetAddressListUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke() = repo.requestAddressList()
+}
+
+class GetAddressByIdUserCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(id:Int) = repo.requestAddressById(id)
+}
+
+class PostAddressUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(data: AddShippingAddressRequest) = repo.requestAddAddress(data)
+}
+
 class GetExpertListUseCase @Inject constructor(private val repo: ExpertRepository) {
     suspend operator fun invoke() = repo.requestExpertList()
 }
@@ -73,10 +93,7 @@ class GetCartListUserCase @Inject constructor(private val repo:DesignRepository)
     suspend operator fun invoke() = repo.requestCartList()
 }
 
-//log
-class GetPaymentListUseCase @Inject constructor(private val repo:DesignRepository){
-    suspend operator fun invoke(successYn:Int) = repo.requestPaymentList(successYn)
-}
+
 
 class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepository) {
 

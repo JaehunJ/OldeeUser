@@ -14,10 +14,7 @@ import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.NaverSignInRequest
 import com.oldeee.user.network.response.SignInResponse
 import com.oldeee.user.network.response.SignInResponseData
-import com.oldeee.user.usercase.GetAutoLoginValue
-import com.oldeee.user.usercase.SetAutoLoginValue
-import com.oldeee.user.usercase.SetNaverSignInUseCase
-import com.oldeee.user.usercase.SetTokenUseCase
+import com.oldeee.user.usercase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -29,7 +26,8 @@ class SignInViewModel @Inject constructor(
     private val setNaverSignInUseCase: SetNaverSignInUseCase,
     private val setTokenUseCase: SetTokenUseCase,
     private val getAutoLoginValue: GetAutoLoginValue,
-    private val setAutoLoginValue: SetAutoLoginValue
+    private val setAutoLoginValue: SetAutoLoginValue,
+    private val setUserData:SetUserData
 ) : BaseViewModel() {
 
     val nProfile = MutableLiveData<NidProfile?>()
@@ -126,5 +124,9 @@ class SignInViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun setUserData(name:String, email:String, phone:String){
+        setUserData.invoke(name, email, phone)
     }
 }

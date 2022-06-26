@@ -55,10 +55,17 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
                 viewModel.totalPrice.postValue(price)
             }
         }
+
+        viewModel.latestAddress.observe(viewLifecycleOwner){
+            it?.let{
+                viewModel.address.postValue(it.shippingAddress)
+                viewModel.extendAddress.postValue(it.shippingAddressDetail)
+            }
+        }
     }
 
     override fun initViewCreated() {
-
+        viewModel.requestAddressList()
     }
 
     override fun onAttach(context: Context) {

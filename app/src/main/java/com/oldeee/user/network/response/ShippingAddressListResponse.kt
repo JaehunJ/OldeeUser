@@ -15,6 +15,7 @@ data class ShippingAddressListItem(
     val postalCode:String,
     val userPhone:String,
     val shippingAddress:String,
+    val shippingAddressDetail:String,
     val userUUId:Int,
     val addressId:Int
 )

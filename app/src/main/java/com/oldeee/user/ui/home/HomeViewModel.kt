@@ -11,6 +11,7 @@ import com.oldeee.user.network.response.ExpertListItem
 import com.oldeee.user.usercase.GetDesignListUseCase
 import com.oldeee.user.usercase.GetExpertListUseCase
 import com.oldeee.user.usercase.GetImageUseCase
+import com.oldeee.user.usercase.GetUserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getDesignListUseCase: GetDesignListUseCase,
     private val expertListUseCase: GetExpertListUseCase,
-    private val getImageUseCase: GetImageUseCase
+    private val getImageUseCase: GetImageUseCase,
+    private val getUserData:GetUserData
 ) : BaseViewModel() {
 
     val designList = MutableLiveData<List<DesignListItem>>()
@@ -40,6 +42,12 @@ class HomeViewModel @Inject constructor(
                 designList.postValue(it.data)
             }
         }
+    }
+
+    fun getUserName():String{
+        val data = getUserData.invoke()?.userName
+
+        return data?:""
     }
 
     suspend fun requestExpertListSuspend(){

@@ -29,9 +29,6 @@
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
-        <argument
-            android:name="name"
-            app:argType="string" />
         <action
             android:id="@+id/action_homeFragment_to_reformDetailFragment"
             app:destination="@id/reformDetailFragment" />

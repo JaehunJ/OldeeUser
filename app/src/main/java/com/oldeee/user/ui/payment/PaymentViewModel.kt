@@ -2,16 +2,26 @@ package com.oldeee.user.ui.payment
 
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.oldeee.user.base.BaseViewModel
+import com.oldeee.user.network.request.AddShippingAddressRequest
+import com.oldeee.user.network.request.PaymentRequest
 import com.oldeee.user.network.response.BasketListItem
-import com.oldeee.user.usercase.GetImageUseCase
-import com.oldeee.user.usercase.PostPaymentUseCase
+import com.oldeee.user.network.response.ShippingAddressListItem
+import com.oldeee.user.usercase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentViewModel @Inject constructor(val getImageUseCase: GetImageUseCase, val postPaymentUseCase: PostPaymentUseCase) : BaseViewModel() {
+class PaymentViewModel @Inject constructor(
+    val getImageUseCase: GetImageUseCase,
+    val postPaymentUseCase: PostPaymentUseCase,
+    val postAddressUseCase: PostAddressUseCase,
+    val getAddressListUseCase: GetAddressListUseCase,
+    val getAddressByIdUserCase: GetAddressByIdUserCase
+) : BaseViewModel() {
     val datas = MutableLiveData<List<BasketListItem>>()
 
     var name = MutableLiveData<String>()
@@ -21,6 +31,12 @@ class PaymentViewModel @Inject constructor(val getImageUseCase: GetImageUseCase,
     var extendAddress = MutableLiveData<String>()
 
     var totalPrice = MutableLiveData<Int>()
+
+    //res data
+    val latestAddress = MutableLiveData<ShippingAddressListItem?>()
+
+    val id: Int?
+        get() = latestAddress.value?.addressId
 
     init {
         name.value = "정재훈"
@@ -35,13 +51,110 @@ class PaymentViewModel @Inject constructor(val getImageUseCase: GetImageUseCase,
                 && !postNum.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
                 && !extendAddress.value.isNullOrEmpty()
 
-    fun requestPayment(onError:()->Unit) {
-        if(isValidation()){
-//            postPaymentUseCase.invoke()
-        }else{
-            onError()
+    fun requestAddressList() {
+        remote {
+            val result = getAddressListUseCase.invoke()
+
+            result?.let {
+                val data = it.data
+
+                if (data.isNotEmpty()) {
+                    latestAddress.postValue(data[0])
+                } else {
+                    latestAddress.postValue(null)
+                }
+            }
         }
     }
+
+    suspend fun requestGetAddressById(id: Int): Boolean {
+        val result = getAddressByIdUserCase.invoke(id)
+
+        result?.let {
+            val items = it.data
+
+            return items.isNotEmpty()
+        }
+
+        return false
+    }
+
+    suspend fun isAddressModified(
+        oldAdd: String,
+        oldAddDetail: String,
+        newAdd: String,
+        newAddDetail: String
+    ): Boolean {
+        return oldAdd != newAdd || oldAddDetail != newAddDetail
+    }
+
+    fun requestPaymentProcess(onError: () -> Unit) {
+        viewModelScope.launch {
+            if(isValidation()){
+                //주소 먼저 등록할지 안할지
+                val addressId = getPaymentAddressId()
+
+                val result = postPaymentUseCase
+            }else{
+                onError.invoke()
+            }
+        }
+    }
+
+    suspend fun getPaymentAddressId(): Int? {
+        if (latestAddress.value != null) {
+            val oldData = latestAddress.value
+            val isPostingNewAddress = isAddressModified(
+                oldAdd = oldData!!.shippingAddress,
+                oldAddDetail = oldData.shippingAddressDetail,
+                newAdd = address.value ?: "",
+                newAddDetail = extendAddress.value ?: ""
+            )
+
+            if(isPostingNewAddress){ //새로 주소를 등록해야함
+                val newId = requestPostAddress()
+
+                return if(newId == -1){
+                    null
+                }else{
+                    newId
+                }
+            }else{
+                return latestAddress.value?.addressId
+            }
+        }
+
+        return null
+    }
+
+    suspend fun requestPostAddress(): Int {
+        val requestData = AddShippingAddressRequest(
+            postalCode = postNum.value ?: "",
+            shippingAddress = "",
+            shippingAddressDetail = "",
+            userPhone = "",
+            shippingName = "",
+            shippingLastYn = 0
+        )
+
+        val result = postAddressUseCase.invoke(requestData)
+
+        result?.let {
+            return it.data.addressId
+        }
+
+        return -1
+    }
+
+//    suspend fun getPaymentData(addressId: Int): PaymentRequest {
+//        return PaymentRequest(
+//
+//        )
+//    }
+
+//    suspend fun requestPayment(addressId:Int, onError: () -> Unit) {
+//        val result = postPaymentUseCase.invoke()
+//    }
 
     fun setImage(imageView: ImageView, path: String) {
         remote(false) {

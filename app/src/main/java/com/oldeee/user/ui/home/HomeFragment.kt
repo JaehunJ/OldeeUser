@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -19,10 +20,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragmentArgs>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>() {
     override val layoutId: Int = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModels()
-    override val navArgs: HomeFragmentArgs by navArgs()
+    override val navArgs: NavArgs by navArgs()
 
     lateinit var designAdapter: DesignListAdapter
     lateinit var expertAdapter: ExpertListAdapter
@@ -74,7 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
             }
         })
 
-        activityFuncFunction.setDrawerName(navArgs.name)
+
 
         binding.tvDesignTitle.setOnClickListener {
             nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
@@ -109,6 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, HomeFragme
     }
 
     override fun initViewCreated() {
+        activityFuncFunction.setDrawerName(viewModel.getUserName())
         showSkeleton(true)
 
         viewModel.call { showSkeleton(false) }

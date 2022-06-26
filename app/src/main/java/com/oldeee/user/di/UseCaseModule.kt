@@ -4,10 +4,7 @@ import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.request.NaverSignInRequest
 import com.oldeee.user.network.request.SignUpRequest
 import com.oldeee.user.network.response.SignInResponseData
-import com.oldeee.user.repository.CommonRepository
-import com.oldeee.user.repository.DesignRepository
-import com.oldeee.user.repository.ExpertRepository
-import com.oldeee.user.repository.SignRepository
+import com.oldeee.user.repository.*
 import com.oldeee.user.usercase.*
 import dagger.Module
 import dagger.Provides
@@ -24,7 +21,11 @@ object UseCaseModule {
     @Provides
     fun provideGetNoticeListUseCase(repo:CommonRepository) = GetNoticeListUseCase(repo)
 
+    @Provides
+    fun provideSetUserDataUseCase(repo:UserRepository) = SetUserData(repo)
 
+    @Provides
+    fun provideGetUserDataUseCase(repo:UserRepository) = GetUserData(repo)
 
     @Provides
     fun provideSetAutoLoginUseCase(repo:SignRepository) = SetAutoLoginValue(repo)
@@ -51,16 +52,25 @@ object UseCaseModule {
     fun provideGetImageUseCase(repo:CommonRepository) = GetImageUseCase(repo)
 
     @Provides
-    fun providePostAddCart(repo:DesignRepository) = PostAddCartUseCase(repo)
+    fun providePostAddCartUseCase(repo:DesignRepository) = PostAddCartUseCase(repo)
 
     @Provides
-    fun provideGetCartList(repo:DesignRepository) = GetCartListUserCase(repo)
+    fun provideGetCartListUseCase(repo:DesignRepository) = GetCartListUserCase(repo)
 
     @Provides
-    fun provideGetPaymentList(repo:DesignRepository) = GetPaymentListUseCase(repo)
+    fun provideGetPaymentListUseCase(repo:DesignRepository) = GetPaymentListUseCase(repo)
 
     @Provides
-    fun providePayment(repo:DesignRepository) = PostPaymentUseCase(repo)
+    fun providePaymentUseCase(repo:DesignRepository) = PostPaymentUseCase(repo)
+
+    @Provides
+    fun provideGetAddressListUseCase(repo: DesignRepository) = GetAddressListUseCase(repo)
+
+    @Provides
+    fun providePostAddressUseCase(repo: DesignRepository) = PostAddressUseCase(repo)
+
+    @Provides
+    fun providesGetAddressById(repo:DesignRepository) = GetAddressByIdUserCase(repo)
 
 
 //

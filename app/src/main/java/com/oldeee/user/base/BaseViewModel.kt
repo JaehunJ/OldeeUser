@@ -28,6 +28,18 @@ abstract class BaseViewModel() : ViewModel() {
         }
     }
 
+    suspend fun remoteSuspend(useProgressBar:Boolean = true, action: suspend () -> Unit){
+        if(useProgressBar){
+            _isLoading.postValue(true)
+        }
+
+        action()
+
+        if(useProgressBar){
+            _isLoading.postValue(false)
+        }
+    }
+
     fun postDelay(action:()->Unit, milisec:Long){
         viewModelScope.launch {
             delay(milisec)

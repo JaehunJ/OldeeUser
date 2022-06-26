@@ -123,7 +123,7 @@ interface OldeeService {
     suspend fun requestAddShippingAddress(
         @Header("Authorization") token: String,
         @Body data: AddShippingAddressRequest
-    ): Response<BaseStringResponse>
+    ): Response<ModifyShippingAddressResponse>
 
     @PUT("/api/v1/user/order/address")
     suspend fun requestModifyShippingAddress(
@@ -140,8 +140,8 @@ interface OldeeService {
     @GET("/api/v1/user/order/address/list")
     suspend fun requestShippingAddressList(
         @Header("Authorization") token: String,
-        @Query("shippingLastYn") shippingLastYn: Int?,
-        @Query("addressId") addressId: Int
+        @Query("shippingLastYn") shippingLastYn: Int? = null,
+        @Query("addressId") addressId: Int? = null
     ): Response<ShippingAddressListResponse>
 
     //book mark
