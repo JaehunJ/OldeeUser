@@ -40,6 +40,14 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
             dialog.show(requireActivity().supportFragmentManager, "")
 //            startActivity(Intent(requireContext(), PostActivity::class.java))
         }
+
+        binding.btnConfirm.setOnClickListener {
+            viewModel.requestPaymentProcess({
+
+            }){
+
+            }
+        }
     }
 
     override fun initDataBinding() {

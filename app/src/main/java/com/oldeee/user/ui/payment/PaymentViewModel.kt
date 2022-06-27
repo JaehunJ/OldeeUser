@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.AddShippingAddressRequest
+import com.oldeee.user.network.request.PaymentBasketItem
 import com.oldeee.user.network.request.PaymentRequest
 import com.oldeee.user.network.response.BasketListItem
 import com.oldeee.user.network.response.ShippingAddressListItem
@@ -88,14 +89,21 @@ class PaymentViewModel @Inject constructor(
         return oldAdd != newAdd || oldAddDetail != newAddDetail
     }
 
-    fun requestPaymentProcess(onError: () -> Unit) {
+    fun requestPaymentProcess(onComplete:()->Unit, onError: () -> Unit) {
         viewModelScope.launch {
-            if(isValidation()){
+            if (isValidation()) {
                 //주소 먼저 등록할지 안할지
                 val addressId = getPaymentAddressId()
+                val paymentData = getPaymentData(addressId?:0)
 
-                val result = postPaymentUseCase
-            }else{
+                val result = postPaymentUseCase.invoke(paymentData)
+
+                result?.let{
+                    if(it.data == "success"){
+                        onComplete()
+                    }
+                }
+            } else {
                 onError.invoke()
             }
         }
@@ -111,15 +119,15 @@ class PaymentViewModel @Inject constructor(
                 newAddDetail = extendAddress.value ?: ""
             )
 
-            if(isPostingNewAddress){ //새로 주소를 등록해야함
+            if (isPostingNewAddress) { //새로 주소를 등록해야함
                 val newId = requestPostAddress()
 
-                return if(newId == -1){
+                return if (newId == -1) {
                     null
-                }else{
+                } else {
                     newId
                 }
-            }else{
+            } else {
                 return latestAddress.value?.addressId
             }
         }
@@ -146,11 +154,31 @@ class PaymentViewModel @Inject constructor(
         return -1
     }
 
-//    suspend fun getPaymentData(addressId: Int): PaymentRequest {
-//        return PaymentRequest(
-//
-//        )
-//    }
+    suspend fun getPaymentData(addressId: Int): PaymentRequest {
+        var list = mutableListOf<PaymentBasketItem>()
+
+        val oldList = datas.value
+
+        oldList?.let {
+            it.forEach { item ->
+                list.add(
+                    PaymentBasketItem(
+                        basketId = item.basketId,
+                        orderDetailTitle = item.reformName,
+                        surveySeq = item.surveySeq
+                    )
+                )
+            }
+        }
+
+        return PaymentRequest(
+            addressId = addressId,
+            basketList = list,
+            orderPrice = this.totalPrice.value?:0,
+            shippingFee = 0,
+            totalPrice = this.totalPrice.value?:0,
+        )
+    }
 
 //    suspend fun requestPayment(addressId:Int, onError: () -> Unit) {
 //        val result = postPaymentUseCase.invoke()

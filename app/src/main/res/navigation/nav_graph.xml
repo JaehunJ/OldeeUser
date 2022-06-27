@@ -127,5 +127,13 @@
         <argument
             android:name="datas"
             app:argType="com.oldeee.user.network.response.BasketListItem[]" />
+        <action
+            android:id="@+id/action_paymentFragment_to_paymentDoneFragment"
+            app:destination="@id/paymentDoneFragment" />
     </fragment>
+    <fragment
+        tools:layout="@layout/fragment_payment_done"
+        android:id="@+id/paymentDoneFragment"
+        android:name="com.oldeee.user.ui.payment.done.PaymentDoneFragment"
+        android:label="PaymentDoneFragment" />
 </navigation>
