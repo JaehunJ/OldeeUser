@@ -27,6 +27,7 @@ class OneButtonDialog(val title:String, val contents:String, val okText:String, 
         if(contents.isEmpty())
             binding.tvContents.visibility = View.GONE
         binding.tvContents.text = contents
+        binding.btnOk.text = okText
         binding.btnOk.setOnClickListener {
             dialog?.dismiss()
             onClick.invoke()

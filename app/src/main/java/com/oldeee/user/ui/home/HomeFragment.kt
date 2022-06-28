@@ -118,6 +118,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
         viewModel.call { showSkeleton(false) }
         createScrollJob()
+        backCallback.isEnabled = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        backCallback.isEnabled = false
     }
 
     override fun onAttach(context: Context) {

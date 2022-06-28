@@ -15,7 +15,7 @@ class OrderLogViewViewModel @Inject constructor(private val getPaymentListUseCas
 
     fun requestPaymentList(){
         remote {
-            val result = getPaymentListUseCase.invoke(1)
+            val result = getPaymentListUseCase.invoke(OrderLogFragment.LOGGING)
 
             result?.let{
                 res.postValue(it.data)

@@ -12,13 +12,15 @@ import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.databinding.FragmentPaymentBinding
 import com.oldeee.user.databinding.LayoutPaymentItemBinding
 import com.oldeee.user.network.response.BasketListItem
+import com.oldeee.user.ui.dialog.OneButtonDialog
 import com.oldeee.user.ui.dialog.PostDialog
 import com.oldeee.user.ui.dialog.TwoButtonDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, PaymentFragmentArgs>() {
+class PaymentFragment :
+    BaseFragment<FragmentPaymentBinding, PaymentViewModel, PaymentFragmentArgs>() {
     override val layoutId: Int = R.layout.fragment_payment
     override val viewModel: PaymentViewModel by viewModels()
     override val navArgs: PaymentFragmentArgs by navArgs()
@@ -33,7 +35,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
         binding.vm = viewModel
         viewModel.datas.postValue(navArgs.datas.toList())
         binding.btnPost.setOnClickListener {
-            val dialog = PostDialog{road, zone ->
+            val dialog = PostDialog { road, zone ->
                 viewModel.address.postValue(road)
                 viewModel.postNum.postValue(zone)
             }
@@ -41,21 +43,48 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
         }
 
         binding.btnConfirm.setOnClickListener {
-            viewModel.requestPaymentProcess({
+            if (viewModel.isValidation()) {
+                val dialog = TwoButtonDialog(
+                    title = "주문을 신청학시겠어요?",
+                    contents = "",
+                    okText = "신청",
+                    cancelText = "취소", {
+                        viewModel.requestPaymentProcess({
+                            val dialog = OneButtonDialog(
+                                title = "주문이 완료되었습니다.",
+                                contents = "",
+                                okText = "확인"
+                            ){
+                                findNavController().popBackStack(R.id.homeFragment, false)
+                            }
+                            dialog.show(requireActivity().supportFragmentManager, "")
+                        }) {
 
-            }){
+                        }
+                    }
+                ) {
 
+                }
+
+                dialog.show(requireActivity().supportFragmentManager, "")
+            } else {
+                activityFuncFunction.showToast("누락된 정보가 있습니다.")
             }
+//            viewModel.requestPaymentProcess({
+//
+//            }){
+//
+//            }
         }
     }
 
     override fun initDataBinding() {
-        viewModel.datas.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.datas.observe(viewLifecycleOwner) {
+            it?.let {
                 setContainer(it)
 
                 var price = 0
-                it.forEach {item->
+                it.forEach { item ->
                     price += item.reformPrice.toInt()
                 }
 
@@ -63,10 +92,11 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
             }
         }
 
-        viewModel.latestAddress.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.latestAddress.observe(viewLifecycleOwner) {
+            it?.let {
                 viewModel.address.postValue(it.shippingAddress)
                 viewModel.extendAddress.postValue(it.shippingAddressDetail)
+                viewModel.postNum.postValue(it.postalCode)
             }
         }
     }
@@ -91,7 +121,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
         backCallback.remove()
     }
 
-    fun setContainer(datas:List<BasketListItem>){
+    fun setContainer(datas: List<BasketListItem>) {
         binding.llContainer.removeAllViews()
 
         //add child
@@ -100,7 +130,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
             val viewBinding = LayoutPaymentItemBinding.inflate(inflater, binding.llContainer, true)
 
             viewBinding.res = it
-            viewBinding.rvImage.adapter = PaymentImageAdapter{iv,path->
+            viewBinding.rvImage.adapter = PaymentImageAdapter { iv, path ->
                 viewModel.setImage(iv, path)
             }
 

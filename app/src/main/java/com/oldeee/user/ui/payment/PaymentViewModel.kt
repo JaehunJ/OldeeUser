@@ -40,14 +40,14 @@ class PaymentViewModel @Inject constructor(
         get() = latestAddress.value?.addressId
 
     init {
-        name.value = "정재훈"
-        phone.value = "01088335697"
+//        name.value = "정재훈"
+//        phone.value = "01088335697"
 //        postNum.value = "08763"
 //        address.value = "서울특별시 관악구 남부순환로165길 59 (신림동, 미래)"
-        extendAddress.value = "204호"
+//        extendAddress.value = "204호"
     }
 
-    private fun isValidation() =
+    fun isValidation() =
         !name.value.isNullOrEmpty() && !phone.value.isNullOrEmpty()
                 && !postNum.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
                 && !extendAddress.value.isNullOrEmpty()

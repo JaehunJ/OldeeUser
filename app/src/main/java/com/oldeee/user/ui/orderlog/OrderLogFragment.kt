@@ -20,6 +20,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel, NavArgs>() {
+    companion object{
+        val READY = 0
+        val LOGGING = 1
+    }
+
     override val layoutId: Int = R.layout.fragment_order_log
     override val viewModel: OrderLogViewModel by viewModels()
     override val navArgs: NavArgs by navArgs()

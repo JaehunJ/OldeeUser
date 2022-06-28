@@ -26,7 +26,6 @@
                 android:id="@+id/iv_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/test_img"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"/>
         </androidx.cardview.widget.CardView>
@@ -83,7 +82,7 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="10,000원"
+            android:text="@{data.orderStatusName}"
             android:textColor="@color/blush_3"
             android:textSize="12dp"/>
 
