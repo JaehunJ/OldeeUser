@@ -38,7 +38,6 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding, PaymentViewModel, P
                 viewModel.postNum.postValue(zone)
             }
             dialog.show(requireActivity().supportFragmentManager, "")
-//            startActivity(Intent(requireContext(), PostActivity::class.java))
         }
 
         binding.btnConfirm.setOnClickListener {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     lateinit var binding: ActivityMainBinding
     lateinit var drawerBinding: LayoutHomeRightSlideMenuBinding
-
-    var currentDesId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,19 +46,14 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_noticeListFragment)
         }
         drawerBinding.tvQna.setOnClickListener {
-
+            hideDrawerMenu()
         }
         drawerBinding.tvSetting.setOnClickListener {
-
+            hideDrawerMenu()
         }
         drawerBinding.tvSignUpExpert.setOnClickListener {
-
+            hideDrawerMenu()
         }
-
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            currentDesId = destination.id
-        }
-
     }
 
     override fun showProgress() {
@@ -71,7 +65,7 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     }
 
     override fun showToast(msg: String) {
-
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun showSnackBar(msg: String) {
@@ -92,25 +86,18 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         drawer.closeDrawer(menu.root)
     }
 
-//    @SuppressLint("RestrictedApi")
-    override fun onBackPressed() {
-        Log.e("#debug", "call onBackPressed")
-        if(currentDesId != R.id.homeFragment){
-            super.onBackPressed()
-            return
-        }
-
-        Log.e("#debug", "call onBackPressed drawer")
-        val drawer = binding.mainDrawer
-        val menu = binding.menuDrawer
-        if (drawer.isDrawerOpen(menu.root)) {
-            drawer.closeDrawer(menu.root)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     override fun setDrawerName(name: String) {
         binding.menuDrawer.tvName.text = name
+    }
+
+    override fun goFinish() {
+        this.finish()
+    }
+
+    override fun isDrawerOpen(): Boolean {
+        val drawer = binding.mainDrawer
+        val menu = binding.menuDrawer
+
+        return drawer.isDrawerOpen(menu.root)
     }
 }

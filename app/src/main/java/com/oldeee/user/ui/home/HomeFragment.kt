@@ -1,8 +1,10 @@
 package com.oldeee.user.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavArgs
@@ -32,6 +34,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     val max = 6
     lateinit var autoScrollJob : Job
     var bannerPosition = 0
+    private var backTime = 0L
+
+    lateinit var backCallback:OnBackPressedCallback
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.ivDrawer.setOnClickListener {
@@ -75,8 +80,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
             }
         })
 
-
-
         binding.tvDesignTitle.setOnClickListener {
             nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
         }
@@ -115,9 +118,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
         viewModel.call { showSkeleton(false) }
         createScrollJob()
+    }
 
-//        viewModel.requestExpertList()
-//        viewModel.requestDesignList({ showSkeleton(false) })
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        backCallback = object :OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(activityFuncFunction.isDrawerOpen()){
+                    activityFuncFunction.hideDrawerMenu()
+                    return
+                }
+
+                if (System.currentTimeMillis() - backTime > 1500) {
+                    //show toast
+                    backTime = System.currentTimeMillis()
+                    activityFuncFunction.showToast("한번 더 누르시면 앱을 종료합니다.")
+                } else {
+                    activityFuncFunction.goFinish()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        backCallback.remove()
     }
 
     override fun onPause() {
@@ -142,8 +170,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
             binding.llExpertList.visibility = View.VISIBLE
             binding.llDesignListSkeleton.visibility = View.GONE
             binding.llSkeletonExpertList.visibility = View.GONE
-
-
         }
     }
 

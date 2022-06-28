@@ -8,4 +8,6 @@ interface CommonActivityFuncImpl {
     fun openDrawerMenu()
     fun hideDrawerMenu()
     fun setDrawerName(name:String)
+    fun goFinish()
+    fun isDrawerOpen():Boolean
 }

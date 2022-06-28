@@ -4,14 +4,13 @@ import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.ShimmerDrawable
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.response.DesignListItem
 import com.oldeee.user.network.response.ExpertListItem
-import com.oldeee.user.usercase.GetDesignListUseCase
-import com.oldeee.user.usercase.GetExpertListUseCase
-import com.oldeee.user.usercase.GetImageUseCase
-import com.oldeee.user.usercase.GetUserData
+import com.oldeee.user.usercase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +20,9 @@ class HomeViewModel @Inject constructor(
     private val getDesignListUseCase: GetDesignListUseCase,
     private val expertListUseCase: GetExpertListUseCase,
     private val getImageUseCase: GetImageUseCase,
-    private val getUserData:GetUserData
+    private val getUserData:GetUserData,
+    private val setImageUseCase: SetImageUseCase,
+    private val setImageCircleUseCase: SetImageCircleUseCase
 ) : BaseViewModel() {
 
     val designList = MutableLiveData<List<DesignListItem>>()
@@ -79,16 +80,19 @@ class HomeViewModel @Inject constructor(
 
     fun setImage(imageView: ImageView, path:String){
         remote(false) {
-            val bitmap = getImageUseCase.invoke(path)
+//            val bitmap = getImageUseCase.invoke(path)
             imageView.clipToOutline = true
-            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
+            setImageUseCase.invoke(imageView.context, imageView, path)
+
+//            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
         }
     }
 
     fun setImageCircle(imageView: ImageView, path: String) {
         remote(false) {
-            val bitmap = getImageUseCase.invoke(path)
-            Glide.with(imageView).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
+            setImageCircleUseCase.invoke(imageView.context, imageView, path)
+//            val bitmap = getImageUseCase.invoke(path)
+//            Glide.with(imageView).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
         }
     }
 }

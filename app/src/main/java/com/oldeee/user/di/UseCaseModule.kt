@@ -52,6 +52,12 @@ object UseCaseModule {
     fun provideGetImageUseCase(repo:CommonRepository) = GetImageUseCase(repo)
 
     @Provides
+    fun provideSetImageUseCase(getImageUseCase: GetImageUseCase) = SetImageUseCase(getImageUseCase)
+
+    @Provides
+    fun provideSetImageCircleUseCase(getImageUseCase: GetImageUseCase) = SetImageCircleUseCase(getImageUseCase)
+
+    @Provides
     fun providePostAddCartUseCase(repo:DesignRepository) = PostAddCartUseCase(repo)
 
     @Provides

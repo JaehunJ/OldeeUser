@@ -33,7 +33,7 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:adjustViewBounds="true"
-                    android:background="@color/gray_3"
+                    android:background="@color/gray_0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
