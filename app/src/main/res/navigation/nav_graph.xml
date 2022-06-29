@@ -136,4 +136,15 @@
         android:id="@+id/paymentDoneFragment"
         android:name="com.oldeee.user.ui.payment.done.PaymentDoneFragment"
         android:label="PaymentDoneFragment" />
+    <fragment
+        android:id="@+id/orderLogDetailFragment"
+        android:name="com.oldeee.user.ui.orderlog.detail.OrderLogDetailFragment"
+        android:label="OrderLogDetailFragment"
+        tools:layout="@layout/fragment_order_log_detail">
+        <argument android:name="orderId"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_orderLogDetailFragment"
+        app:destination="@id/orderLogDetailFragment" />
 </navigation>

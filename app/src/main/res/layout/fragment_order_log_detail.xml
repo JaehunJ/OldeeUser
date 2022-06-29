@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.oldeee.user.network.response.PaymentListItem" />
+    </data>
     <LinearLayout
         android:background="@color/sky_1"
         android:orientation="vertical"
@@ -75,144 +80,157 @@
                         tools:text="주문 후 3일 이내 발송해주세요. 전문가 상품 수령 후 작업이 시작됩니다."/>
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rv_sub"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="vertical"/>
+                <include android:id="@+id/skeleton"
+                    layout="@layout/skeleton_order_log_detail"/>
 
                 <LinearLayout
-                    android:background="@color/white"
-                    android:padding="24dp"
+                    android:visibility="gone"
+                    android:id="@+id/ll_exist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        style="@style/BoldText"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_sub"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="내 배송지정보"/>
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <LinearLayout
-                        android:layout_marginTop="25dp"
+                        android:background="@color/white"
+                        android:padding="24dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         <TextView
-                            style="@style/NormalText"
-                            android:layout_width="0dp"
-                            android:layout_weight="105"
+                            style="@style/BoldText"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            android:text="수령인"/>
-                        <TextView
-                            style="@style/NormalText"
-                            android:layout_weight="215"
-                            android:id="@+id/tv_user_name"
-                            android:layout_width="0dp"
+                            android:textSize="20dp"
+                            android:text="내 배송지정보"/>
+
+                        <LinearLayout
+                            android:layout_marginTop="25dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            tools:text="수령인"/>
+                            android:orientation="horizontal">
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_width="0dp"
+                                android:layout_weight="105"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:text="수령인"/>
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_weight="215"
+                                android:id="@+id/tv_user_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                tools:text="@{data.shippingName}"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_width="0dp"
+                                android:layout_weight="105"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:text="휴대폰"/>
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_weight="215"
+                                android:id="@+id/tv_user_phone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                tools:text="@{data.shippingPhone}"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_width="0dp"
+                                android:layout_weight="105"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                android:text="주소"/>
+                            <TextView
+                                style="@style/NormalText"
+                                android:layout_weight="215"
+                                android:id="@+id/tv_user_address"
+                                android:layout_width="0dp"
+                                android:text="@{@string/order_log_detail_address_num(data.shippingAddress, data.shippingAddressDetail)}"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"
+                                tools:text="서울시 관악구"/>
+                        </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
+                        android:visibility="gone"
+                        android:padding="24dp"
+                        android:background="@color/white"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
-                            style="@style/NormalText"
-                            android:layout_width="0dp"
-                            android:layout_weight="105"
-                            android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            android:text="휴대폰"/>
-                        <TextView
-                            style="@style/NormalText"
-                            android:layout_weight="215"
-                            android:id="@+id/tv_user_phone"
+                            style="@style/BoldText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            tools:text="01000100011"/>
+                            android:layout_weight="160"
+                            android:textSize="20dp"
+                            android:text="결제 금액"/>
+                        <TextView
+                            android:textSize="20dp"
+                            android:textAlignment="textEnd"
+                            android:id="@+id/tv_price"
+                            style="@style/BoldText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="160"
+                            tools:text="50,000원"/>
                     </LinearLayout>
+
                     <LinearLayout
+                        android:visibility="gone"
+                        android:padding="24dp"
+                        android:layout_marginBottom="25dp"
+                        android:background="@color/white"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
                         <TextView
-                            style="@style/NormalText"
-                            android:layout_width="0dp"
-                            android:layout_weight="105"
+                            style="@style/BoldText"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            android:text="주소"/>
+                            android:textSize="20dp"
+                            android:text="결제 수단"/>
                         <TextView
-                            style="@style/NormalText"
-                            android:layout_weight="215"
-                            android:id="@+id/tv_user_address"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
                             android:textSize="14dp"
-                            tools:text="서울시 관악구"/>
+                            android:textAlignment="textEnd"
+                            android:id="@+id/tv_payments"
+                            style="@style/BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="신한(123********2333) 일시불"/>
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:visibility="gone"
-                    android:padding="24dp"
-                    android:background="@color/white"
-                    android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/BoldText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="160"
-                        android:textSize="20dp"
-                        android:text="결제 금액"/>
-                    <TextView
-                        android:textSize="20dp"
-                        android:textAlignment="textEnd"
-                        android:id="@+id/tv_price"
-                        style="@style/BoldText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="160"
-                        tools:text="50,000원"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:padding="24dp"
-                    android:layout_marginBottom="25dp"
-                    android:background="@color/white"
-                    android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/BoldText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="결제 수단"/>
-                    <TextView
-                        android:layout_marginTop="25dp"
-                        android:textSize="14dp"
-                        android:textAlignment="textEnd"
-                        android:id="@+id/tv_payments"
-                        style="@style/BoldText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="신한(123********2333) 일시불"/>
-                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

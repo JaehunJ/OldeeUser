@@ -2,18 +2,27 @@ package com.oldeee.user.ui.orderlog.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.oldeee.user.ui.orderlog.OrderLogViewFragment
 import com.oldeee.user.ui.orderlog.OrderReadyViewFragment
 
-class OrderLogFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+class OrderLogFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount() = 2
+    var fragments: ArrayList<Fragment> = ArrayList()
 
-    override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0->OrderLogViewFragment()
-            else->OrderReadyViewFragment()
-        }
+    override fun getItemCount() = fragments.size
+
+    override fun createFragment(position: Int) = fragments[position]
+
+    fun addFragment(fragment:Fragment){
+        fragments.add(fragment)
+        notifyItemInserted(fragments.size - 1)
+    }
+
+    fun removeFragment(){
+        fragments.removeLast()
+        notifyItemRemoved(fragments.size)
     }
 }

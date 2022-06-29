@@ -39,9 +39,12 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
     override fun initView(savedInstanceState: Bundle?) {
         initTab()
 
-        binding.vpPage.adapter = OrderLogFragmentAdapter(requireActivity())
+        val stateAdapter = OrderLogFragmentAdapter(requireActivity().supportFragmentManager, this.lifecycle)
 
-//        binding.tbTop.setupWithViewPager(binding.vpPage)
+        stateAdapter.addFragment(OrderLogViewFragment())
+        stateAdapter.addFragment(OrderReadyViewFragment())
+
+        binding.vpPage.adapter = stateAdapter
 
         tabList = listOf(createTabView(titleList[0]),createTabView(titleList[1]))
 

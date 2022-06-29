@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.oldeee.user.network.response.PaymentListItem" />
+            type="com.oldeee.user.network.response.SurveySeqListItem" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="@{data.creationDate}"
+            android:text="@{data.orderDetailNum}"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:layout_marginTop="24dp"
@@ -27,17 +27,15 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_0"
             tools:text="2021.08.21"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_sub"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
+        
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="2"
-            tools:listitem="@layout/layout_order_log_sub_item"/>
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp">
+            <include android:id="@+id/ll_item"
+                layout="@layout/layout_order_log_sub_item"/>
+        </LinearLayout>
 
         <View
             android:layout_marginTop="16dp"
@@ -76,7 +74,7 @@
                         android:layout_weight="2"
                         tools:text="심지현"
                         android:textSize="14dp"
-                        android:text="2"/>
+                        android:text="@{data.expertName}"/>
                 </TableRow>
                 <TableRow
                     android:layout_marginTop="12dp">
@@ -92,7 +90,7 @@
                         android:layout_weight="2"
                         tools:text="010-1234-5678"
                         android:textSize="14dp"
-                        android:text="2"/>
+                        android:text="@{data.expertPhone}"/>
                 </TableRow>
                 <TableRow
                     android:layout_marginTop="12dp">
@@ -108,7 +106,7 @@
                         android:layout_weight="2"
                         tools:text="서울시 종로구 광화문로, 233-40 (광화문 타워) 101-1234호"
                         android:textSize="14dp"
-                        android:text="-"/>
+                        android:text="@{data.storeAddress}"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>

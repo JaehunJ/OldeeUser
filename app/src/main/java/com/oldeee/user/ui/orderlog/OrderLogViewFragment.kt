@@ -2,6 +2,7 @@ package com.oldeee.user.ui.orderlog
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
@@ -22,8 +23,10 @@ class OrderLogViewFragment :
     lateinit var adapter : OrderLogViewAdapter
 
     override fun initView(savedInstanceState: Bundle?) {
-        adapter = OrderLogViewAdapter({
-            //detail
+        adapter = OrderLogViewAdapter({idx->
+            val bundle = bundleOf("orderId" to idx)
+            findNavController().navigate(R.id.action_global_orderLogDetailFragment, bundle)
+//            findNavController().navigate(R.id.action_global_orderLogDetailFragment)
         }){iv, path->
             viewModel.setImage(iv, path)
         }

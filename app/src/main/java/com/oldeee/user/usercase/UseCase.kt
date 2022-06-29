@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
@@ -69,6 +70,10 @@ class GetPaymentListUseCase @Inject constructor(private val repo: DesignReposito
     suspend operator fun invoke(successYn: Int) = repo.requestPaymentList(successYn)
 }
 
+class GetPaymentDetailUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(orderId:Int) = repo.requestPaymentDetail(orderId)
+}
+
 class GetAddressListUseCase @Inject constructor(private val repo: DesignRepository) {
     suspend operator fun invoke() = repo.requestAddressList()
 }
@@ -97,27 +102,27 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
         useSkeleton: Boolean = true
     ) {
         if (useSkeleton) {
-            val shimmer = Shimmer.AlphaHighlightBuilder()
-                .setDuration(1800)
-                .setBaseAlpha(0.7f)
-                .setHighlightAlpha(0.6f)
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .build()
-
-            val shimmerDrawable = ShimmerDrawable().apply {
-                setShimmer(shimmer)
-            }
-
-            shimmerDrawable.startShimmer()
-
-            Glide.with(context).load(shimmer).into(imageView)
+//            val shimmer = Shimmer.AlphaHighlightBuilder()
+//                .setDuration(1800)
+//                .setBaseAlpha(0.7f)
+//                .setHighlightAlpha(0.6f)
+//                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+//                .build()
+//
+//            val shimmerDrawable = ShimmerDrawable().apply {
+//                setShimmer(shimmer)
+//            }
+//
+//            shimmerDrawable.startShimmer()
+//
+//            Glide.with(context).load(shimmer).into(imageView)
 
             val bitmap = getImageUseCase.invoke(path)
 
-            Glide.with(context).load(bitmap).placeholder(shimmerDrawable).into(imageView)
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).into(imageView)
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         }
     }
 }
@@ -130,26 +135,24 @@ class SetImageCircleUseCase @Inject constructor(private val getImageUseCase: Get
         useSkeleton: Boolean = true
     ) {
         if (useSkeleton) {
-            val shimmer = Shimmer.ColorHighlightBuilder()
-                .setBaseColor(ContextCompat.getColor(context, R.color.purple_200))
-                .setBaseAlpha(0.7f)
-                .setDuration(1800)
-                .setHighlightColor(ContextCompat.getColor(context, R.color.purple_700))
-                .setHighlightAlpha(0.7f)
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setAutoStart(true)
-                .build()
-
-            val shimmerDrawable = ShimmerDrawable()
-            shimmerDrawable.setShimmer(shimmer)
-            Glide.with(context).load(shimmerDrawable).apply(RequestOptions().circleCrop())
-                .into(imageView)
+//            val shimmer = Shimmer.ColorHighlightBuilder()
+//                .setBaseColor(ContextCompat.getColor(context, R.color.purple_200))
+//                .setBaseAlpha(0.7f)
+//                .setDuration(1800)
+//                .setHighlightColor(ContextCompat.getColor(context, R.color.purple_700))
+//                .setHighlightAlpha(0.7f)
+//                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+//                .setAutoStart(true)
+//                .build()
+//
+//            val shimmerDrawable = ShimmerDrawable()
+//            shimmerDrawable.setShimmer(shimmer)
 
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
+            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
+            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         }
     }
 }

@@ -70,6 +70,9 @@ object UseCaseModule {
     fun providePaymentUseCase(repo:DesignRepository) = PostPaymentUseCase(repo)
 
     @Provides
+    fun providePaymentDetailUseCase(repo: DesignRepository) = GetPaymentDetailUseCase(repo)
+
+    @Provides
     fun provideGetAddressListUseCase(repo: DesignRepository) = GetAddressListUseCase(repo)
 
     @Provides

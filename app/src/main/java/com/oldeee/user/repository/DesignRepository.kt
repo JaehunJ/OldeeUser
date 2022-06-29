@@ -38,6 +38,16 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
         )
     }
 
+    suspend fun requestPaymentDetail(orderId:Int) = call {
+        api.requestPaymentList(
+            token = getAccessToken(),
+            orderId = orderId,
+            successYn = null,
+            limit = null,
+            page = null
+        )
+    }
+
     suspend fun requestPayment(data:PaymentRequest) = call{
         api.requestPayment(getAccessToken(), data)
     }
