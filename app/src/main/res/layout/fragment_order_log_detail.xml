@@ -32,6 +32,7 @@
 
             <TextView
                 style="@style/BoldText"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -160,6 +161,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:padding="24dp"
                     android:background="@color/white"
                     android:layout_marginTop="12dp"
@@ -186,6 +188,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:padding="24dp"
                     android:layout_marginBottom="25dp"
                     android:background="@color/white"

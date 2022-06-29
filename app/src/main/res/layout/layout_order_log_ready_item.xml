@@ -45,6 +45,7 @@
             android:layout_marginBottom="24dp"
             android:textSize="14dp"
             style="@style/NormalText"
+            android:fontFamily="@font/spoqa_han_sans_neo"
             android:background="@drawable/bg_round_8dp_stroke_gray_1"
             android:text="상세보기"
             android:layout_width="match_parent"

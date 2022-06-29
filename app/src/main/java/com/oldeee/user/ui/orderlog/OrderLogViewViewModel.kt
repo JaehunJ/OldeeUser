@@ -1,25 +1,35 @@
 package com.oldeee.user.ui.orderlog
 
+import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.response.PaymentListItem
-import com.oldeee.user.network.response.PaymentListResponse
 import com.oldeee.user.usercase.GetPaymentListUseCase
+import com.oldeee.user.usercase.SetImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderLogViewViewModel @Inject constructor(private val getPaymentListUseCase: GetPaymentListUseCase) : BaseViewModel() {
+class OrderLogViewViewModel @Inject constructor(
+    private val getPaymentListUseCase: GetPaymentListUseCase,
+    private val setImageUseCase: SetImageUseCase
+) : BaseViewModel() {
 
     val res = MutableLiveData<List<PaymentListItem>>()
 
-    fun requestPaymentList(){
+    fun requestPaymentList() {
         remote {
             val result = getPaymentListUseCase.invoke(OrderLogFragment.LOGGING)
 
-            result?.let{
+            result?.let {
                 res.postValue(it.data)
             }
+        }
+    }
+
+    fun setImage(iv: ImageView, path: String) {
+        remote(false) {
+            setImageUseCase.invoke(iv.context, iv, path)
         }
     }
 }

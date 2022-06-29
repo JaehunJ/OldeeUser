@@ -42,6 +42,4 @@ class OrderReadyViewSubItemAdapter(val imageCallBack:(ImageView, String)->Unit) 
             imageCallBack(binding.ivImage, data.imagePath)
         }
     }
-
-
 }
