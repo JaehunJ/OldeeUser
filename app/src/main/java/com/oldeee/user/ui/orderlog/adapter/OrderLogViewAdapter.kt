@@ -19,6 +19,14 @@ class OrderLogViewAdapter(
         notifyItemRangeChanged(0, dataSet.size)
     }
 
+    fun addData(new:List<PaymentListItem>){
+        val orgSize = dataSet.size
+        new.forEach {
+            dataSet.add(it)
+        }
+        notifyItemRangeInserted(orgSize, new.size)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         OrderLogViewItemViewHolder.from(parent)
 

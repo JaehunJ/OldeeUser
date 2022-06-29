@@ -17,9 +17,18 @@ class OrderLogViewViewModel @Inject constructor(
 
     val res = MutableLiveData<List<PaymentListItem>>()
 
-    fun requestPaymentList() {
+    var limit = 10
+    var page = 0
+
+    val resSize : Int
+    get() {
+        return res.value?.size ?: 0
+    }
+
+    fun requestPaymentList(limit:Int? = null, page:Int? = null) {
         remote {
-            val result = getPaymentListUseCase.invoke(OrderLogFragment.LOGGING)
+            this.page = page?:0
+            val result = getPaymentListUseCase.invoke(OrderLogFragment.LOGGING, limit, page)
 
             result?.let {
                 res.postValue(it.data)

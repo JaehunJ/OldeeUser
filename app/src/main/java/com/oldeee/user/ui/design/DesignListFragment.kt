@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
 import com.oldeee.user.custom.OnScrollEndListener
@@ -13,7 +14,7 @@ import com.oldeee.user.databinding.FragmentDesignListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListViewModel, NavArgs>() {
+class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListViewModel, NavArgs>(), SwipeRefreshLayout.OnRefreshListener {
     override val layoutId: Int = R.layout.fragment_design_list
     override val viewModel: DesignListViewModel by viewModels()
     override val navArgs: NavArgs by navArgs()
@@ -36,21 +37,36 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
             page += 1
             viewModel.requestDesignList(limit, page)
         })
+        binding.rvDesignList.addOnScrollListener(OnScrollEndListener(){
+            if(viewModel.resSize % 10 == 0){
+                addItem()
+            }
+        })
     }
 
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-                adapter.setData(it)
+                if(it.isNotEmpty() && viewModel.page != 0){
+                    adapter.addData(it)
+                }else if(it.isNotEmpty() && viewModel.page == 0){
+                    adapter.setData(it)
+                }
             }
         }
     }
 
+    fun addItem(){
+        viewModel.requestDesignList(viewModel.limit, viewModel.page+1)
+    }
+
 
     override fun initViewCreated() {
-        limit = 0
-        page = 0
-        viewModel.requestDesignList(limit, page)
+        viewModel.requestDesignList(10, 0)
         adapter.removeAll()
+    }
+
+    override fun onRefresh() {
+        viewModel.requestDesignList(10, 0)
     }
 }

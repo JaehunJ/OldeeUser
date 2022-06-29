@@ -67,7 +67,7 @@ class PostPaymentUseCase @Inject constructor(private val repo: DesignRepository)
 
 //log
 class GetPaymentListUseCase @Inject constructor(private val repo: DesignRepository) {
-    suspend operator fun invoke(successYn: Int) = repo.requestPaymentList(successYn)
+    suspend operator fun invoke(successYn: Int, limit:Int? = null, page:Int? = null) = repo.requestPaymentList(successYn, limit, page)
 }
 
 class GetPaymentDetailUseCase @Inject constructor(private val repo:DesignRepository){

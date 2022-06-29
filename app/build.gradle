@@ -22,7 +22,7 @@ android {
     }
 
     buildTypes {
-        buildTypes {
+//        buildTypes {
             release {
                 minifyEnabled true
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -42,7 +42,7 @@ android {
                     outputFileName = "oldeer_${productName}_${buildType}_${versionName}.apk"
                 }
             }
-        }
+//        }
     }
 
     flavorDimensions "server"

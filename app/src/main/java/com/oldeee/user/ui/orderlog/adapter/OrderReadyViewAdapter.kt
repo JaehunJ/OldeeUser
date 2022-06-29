@@ -20,6 +20,14 @@ class OrderReadyViewAdapter(
         notifyItemRangeChanged(0, itemCount)
     }
 
+    fun addItem(new: List<PaymentListItem>){
+        val orgSize = dataSet.size
+        new.forEach {
+            dataSet.add(it)
+        }
+        notifyItemRangeInserted(orgSize, new.size)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

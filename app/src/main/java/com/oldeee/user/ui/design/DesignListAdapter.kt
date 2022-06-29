@@ -34,7 +34,7 @@ class DesignListAdapter(val navigateCallback:(Int)->Unit,val imageCallBack: (Ima
         newData.forEach {
             dataSet.add(it)
         }
-        notifyItemRangeInserted(orgSize-1, newData.size)
+        notifyItemRangeInserted(orgSize, newData.size)
     }
 
 

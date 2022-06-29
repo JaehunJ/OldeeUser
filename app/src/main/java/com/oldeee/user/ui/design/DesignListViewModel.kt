@@ -17,7 +17,15 @@ import javax.inject.Inject
 class DesignListViewModel @Inject constructor(private val getDesignListUseCase: GetDesignListUseCase, private val getImageUseCase: GetImageUseCase):
     BaseViewModel() {
 
+    var limit = 10
+    var page = 0
+
     val listResponse = MutableLiveData<MutableList<DesignListItem>>()
+
+    val resSize:Int
+    get() {
+        return listResponse.value?.size ?: 0
+    }
 
     init {
         listResponse.value = mutableListOf()
@@ -25,6 +33,7 @@ class DesignListViewModel @Inject constructor(private val getDesignListUseCase: 
 
     fun requestDesignList(limit: Int, page: Int) {
         remote{
+            this.page = page
             val result = getDesignListUseCase.invoke(limit, page)
 
             result?.let{d->

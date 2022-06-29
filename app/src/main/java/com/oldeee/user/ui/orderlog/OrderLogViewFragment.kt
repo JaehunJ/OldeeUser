@@ -7,48 +7,69 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.oldeee.user.R
 import com.oldeee.user.base.BaseFragment
+import com.oldeee.user.custom.OnScrollEndListener
 import com.oldeee.user.databinding.FragmentOrderLogViewBinding
 import com.oldeee.user.ui.orderlog.adapter.OrderLogViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OrderLogViewFragment :
-    BaseFragment<FragmentOrderLogViewBinding, OrderLogViewViewModel, NavArgs>() {
+    BaseFragment<FragmentOrderLogViewBinding, OrderLogViewViewModel, NavArgs>(),
+    SwipeRefreshLayout.OnRefreshListener {
     override val layoutId: Int = R.layout.fragment_order_log_view
     override val viewModel: OrderLogViewViewModel by viewModels()
     override val navArgs: NavArgs by navArgs()
 
-    lateinit var adapter : OrderLogViewAdapter
+    lateinit var adapter: OrderLogViewAdapter
 
     override fun initView(savedInstanceState: Bundle?) {
-        adapter = OrderLogViewAdapter({idx->
+        adapter = OrderLogViewAdapter({ idx ->
             val bundle = bundleOf("orderId" to idx)
             findNavController().navigate(R.id.action_global_orderLogDetailFragment, bundle)
 //            findNavController().navigate(R.id.action_global_orderLogDetailFragment)
-        }){iv, path->
+        }) { iv, path ->
             viewModel.setImage(iv, path)
         }
         binding.rvContainer.adapter = adapter
+        binding.rvContainer.addOnScrollListener(OnScrollEndListener {
+            //add
+            if(viewModel.resSize % 10 == 0){
+                addData()
+            }
+        })
     }
 
     override fun initDataBinding() {
-        viewModel.res.observe(viewLifecycleOwner){
-            it?.let{
-                if(it.isEmpty()){
+        viewModel.res.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isEmpty() && viewModel.page == 0) {
                     binding.clEmpty.visibility = View.VISIBLE
                     binding.rvContainer.visibility = View.GONE
-                }else{
+                } else if (it.isNotEmpty() && viewModel.page == 0) {
                     binding.clEmpty.visibility = View.GONE
                     binding.rvContainer.visibility = View.VISIBLE
                     adapter.setData(it)
+                } else if(it.isNotEmpty() && viewModel.page != 1){
+                    binding.clEmpty.visibility = View.GONE
+                    binding.rvContainer.visibility = View.VISIBLE
+                    adapter.addData(it)
                 }
             }
         }
     }
 
+    fun addData(){
+        viewModel.requestPaymentList(10, viewModel.page+1)
+    }
+
     override fun initViewCreated() {
-        viewModel.requestPaymentList()
+        viewModel.requestPaymentList(10, 0)
+    }
+
+    override fun onRefresh() {
+        viewModel.requestPaymentList(10, 0)
     }
 }
