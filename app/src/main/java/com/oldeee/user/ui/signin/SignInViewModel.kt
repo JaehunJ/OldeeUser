@@ -12,7 +12,6 @@ import com.navercorp.nid.profile.data.NidProfile
 import com.navercorp.nid.profile.data.NidProfileResponse
 import com.oldeee.user.base.BaseViewModel
 import com.oldeee.user.network.request.NaverSignInRequest
-import com.oldeee.user.network.response.SignInResponse
 import com.oldeee.user.network.response.SignInResponseData
 import com.oldeee.user.usercase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +26,7 @@ class SignInViewModel @Inject constructor(
     private val setTokenUseCase: SetTokenUseCase,
     private val getAutoLoginValue: GetAutoLoginValue,
     private val setAutoLoginValue: SetAutoLoginValue,
-    private val setUserData:SetUserData
+    private val setUserData: SetUserData
 ) : BaseViewModel() {
 
     val nProfile = MutableLiveData<NidProfile?>()
@@ -111,22 +110,31 @@ class SignInViewModel @Inject constructor(
 
                 }
 
-                nProfile.value = null
-                needSignIn.value = false
+
 
                 if (result == null) {
                     onError()
                 } else {
+                    val data = result.data
                     setAutoLogin(true)
-                    setTokenUseCase.invoke(result.data)
-                    res.postValue(result.data)
+                    setTokenUseCase.invoke(data)
+                    setUserData.invoke(
+                        data.userName,
+                        data.userEmail,
+                        data.userPhone,
+                        nProfile.value?.id ?: ""
+                    )
+                    res.postValue(data)
 //                    onNext(result.data.userName)
                 }
+
+                nProfile.value = null
+                needSignIn.value = false
             }
         }
     }
 
-    fun setUserData(name:String, email:String, phone:String){
-        setUserData.invoke(name, email, phone)
+    fun setUserData(name: String, email: String, phone: String, snsId: String) {
+        setUserData.invoke(name, email, phone, snsId)
     }
 }

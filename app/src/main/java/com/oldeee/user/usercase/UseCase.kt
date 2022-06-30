@@ -31,8 +31,16 @@ class GetUserData @Inject constructor(private val repo: UserRepository) {
 }
 
 class SetUserData @Inject constructor(private val repo: UserRepository) {
-    operator fun invoke(name: String, email: String, phone: String) =
-        repo.setUserData(name, email, phone)
+    operator fun invoke(name: String, email: String, phone: String, snsId:String) =
+        repo.setUserData(name, email, phone, snsId)
+}
+
+class PostWithdraw @Inject constructor(private val repo:SignRepository){
+    suspend operator fun invoke(data:WithdrawRequest) = repo.requestWithdraw(data)
+}
+
+class StartLogoutUseCase @Inject constructor(private val repo:SignRepository){
+    suspend operator fun invoke() = repo.logout()
 }
 
 class SetAutoLoginValue @Inject constructor(private val repo: SignRepository) {

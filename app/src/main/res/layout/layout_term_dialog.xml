@@ -34,7 +34,7 @@
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_close"/>
+                android:src="@drawable/ic_arr_right"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tb_top"

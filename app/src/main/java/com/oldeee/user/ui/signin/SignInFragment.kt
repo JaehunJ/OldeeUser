@@ -48,7 +48,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
 
         viewModel.res.observe(viewLifecycleOwner){
             it?.let{
-                viewModel.setUserData(it.userName, it.userEmail, it.userPhone)
+//                viewModel.setUserData(it.userName, it.userEmail, it.userPhone, )
                 onNext(it.userName)
             }
         }

@@ -10,15 +10,17 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(api: OldeeService, prefs: SharedPreferences):BaseRepository(api, prefs){
     data class UserData(
         val userName:String,
+        val userEmail:String,
         val userPhone:String,
-        val userEmail:String
+        val snsId:String,
     )
 
     private var userData : UserData? = null
 
-    fun setUserData(name:String, email:String, phone:String){
-        userData = UserData(name, email, phone)
+    fun setUserData(name:String, email:String, phone:String, snsId: String){
+        userData = UserData(name, email, phone, snsId)
     }
 
     fun getUserData() = userData
+
 }

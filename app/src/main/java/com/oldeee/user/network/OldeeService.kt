@@ -52,7 +52,7 @@ interface OldeeService {
     suspend fun requestWithdraw(
         @Header("Authorization") token: String,
         @Body data: WithdrawRequest
-    ): Response<ResponseBody>
+    ): Response<BaseStringResponse>
 
     //expert
     @GET("/api/v1/user/expert/list")

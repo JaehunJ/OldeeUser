@@ -65,7 +65,7 @@ open class BaseRepository @Inject constructor(
                                 Log.e("#debug", "token refresh exception")
                                 null
                             }else{
-                                setToken(re.data)
+                                setNewToken(re.data)
                                 return call(onError) { apiCall() }
                             }
                         }else{
@@ -140,7 +140,7 @@ open class BaseRepository @Inject constructor(
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 
 
-    fun setToken(data: NewTokenData) {
+    fun setNewToken(data: NewTokenData) {
         prefs.edit {
             putString(ACCESS_TOKEN, data.newAccessToken)
             putString(REFRESH_TOKEN, data.newRefreshToken)
