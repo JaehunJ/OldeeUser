@@ -27,4 +27,16 @@
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_round_24dp_top</item>
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item> <!-- This is important -->
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- And then this will be needed -->
+        <!--        <item name="android:navigationBarColor">@color/bottom_sheet_background</item>-->
+        <item name="android:colorBackground">@color/black</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
 </resources>

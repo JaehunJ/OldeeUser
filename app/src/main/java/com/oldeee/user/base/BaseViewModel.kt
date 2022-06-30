@@ -14,33 +14,33 @@ abstract class BaseViewModel() : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun remote(useProgressBar:Boolean = true, action: suspend () -> Unit) {
+    fun remote(useProgressBar: Boolean = true, action: suspend () -> Unit) {
         viewModelScope.launch {
-            if(useProgressBar){
+            if (useProgressBar) {
                 _isLoading.postValue(true)
             }
 
             action()
 
-            if(useProgressBar){
+            if (useProgressBar) {
                 _isLoading.postValue(false)
             }
         }
     }
 
-    suspend fun remoteSuspend(useProgressBar:Boolean = true, action: suspend () -> Unit){
-        if(useProgressBar){
+    suspend fun remoteSuspend(useProgressBar: Boolean = true, action: suspend () -> Unit) {
+        if (useProgressBar) {
             _isLoading.postValue(true)
         }
 
         action()
 
-        if(useProgressBar){
+        if (useProgressBar) {
             _isLoading.postValue(false)
         }
     }
 
-    fun postDelay(action:()->Unit, milisec:Long){
+    fun postDelay(action: () -> Unit, milisec: Long) {
         viewModelScope.launch {
             delay(milisec)
             action()

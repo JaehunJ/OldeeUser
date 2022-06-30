@@ -147,4 +147,11 @@
     <action
         android:id="@+id/action_global_orderLogDetailFragment"
         app:destination="@id/orderLogDetailFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.oldeee.user.ui.setting.SettingFragment"
+        android:label="SettingFragment" />
+    <action
+        android:id="@+id/action_global_settingFragment"
+        app:destination="@id/settingFragment" />
 </navigation>

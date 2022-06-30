@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         }
         drawerBinding.tvSetting.setOnClickListener {
             hideDrawerMenu()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_settingFragment)
         }
         drawerBinding.tvSignUpExpert.setOnClickListener {
             hideDrawerMenu()

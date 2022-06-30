@@ -121,6 +121,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         backCallback.isEnabled = true
     }
 
+    override fun onResume() {
+        super.onResume()
+        backCallback.isEnabled = true
+    }
+
     override fun onStop() {
         super.onStop()
         backCallback.isEnabled = false

@@ -32,7 +32,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
     override fun initDataBinding() {
         viewModel.nProfile.observe(viewLifecycleOwner) {
             it?.let {
+
                 viewModel.requestNaverSignIn(it) {
+                    activityFuncFunction.hideProgress()
                     findNavController().navigate(
                         SignInFragmentDirections.actionSignInFragmentToSignUpFragment(
                             it.email ?: "",
@@ -50,6 +52,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
                 onNext(it.userName)
             }
         }
+
     }
 
     fun onNext(str:String) {

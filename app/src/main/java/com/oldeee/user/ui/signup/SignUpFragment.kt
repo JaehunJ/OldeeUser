@@ -28,7 +28,12 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, Sign
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = viewModel
         binding.btnConfirm.setOnClickListener {
-            viewModel.requestSignUp(navArgs.phone, navArgs.snsId)
+            if(viewModel.isValidate){
+                viewModel.requestSignUp(navArgs.phone, navArgs.snsId)
+            }else{
+                activityFuncFunction.showToast("누락된 정보가 있습니다.")
+            }
+
         }
         viewModel.phone = navArgs.phone.replace("-", "")
         viewModel.email = navArgs.email
@@ -57,10 +62,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, Sign
                 if(it){
                     Log.e("#debug", "success signup")
                     findNavController().popBackStack()
+                }else{
+                    activityFuncFunction.showToast("회원가입중 오류가 발생했습니다.")
                 }
             }
         }
-
     }
 
     override fun initViewCreated() {
