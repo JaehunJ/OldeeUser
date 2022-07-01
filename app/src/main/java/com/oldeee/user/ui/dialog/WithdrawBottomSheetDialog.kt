@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oldeee.user.R
 import com.oldeee.user.databinding.LayoutWithdrawDialogBinding
 
-class WithdrawBottomSheetDialog : BottomSheetDialogFragment() {
+class WithdrawBottomSheetDialog(val onClick:()->Unit) : BottomSheetDialogFragment() {
     lateinit var binding: LayoutWithdrawDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +62,18 @@ class WithdrawBottomSheetDialog : BottomSheetDialogFragment() {
 
         binding.ivClose.setOnClickListener {
             dismiss()
+        }
+
+        binding.llCheck.setOnClickListener {
+            binding.cb.isChecked = !binding.cb.isChecked
+        }
+
+        binding.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.btnWithdraw.isEnabled = isChecked
+        }
+
+        binding.btnWithdraw.setOnClickListener {
+
         }
     }
 

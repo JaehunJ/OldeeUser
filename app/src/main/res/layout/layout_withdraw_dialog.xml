@@ -95,7 +95,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cb_total"
+                    android:id="@+id/cb"
                     android:layout_marginStart="25dp"
                     android:layout_marginEnd="8dp"
                     android:button="@android:color/transparent"
@@ -116,6 +116,7 @@
                 android:layout_marginTop="19dp"
                 android:id="@+id/btn_withdraw"
                 style="@style/BoldText"
+                android:enabled="false"
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +124,8 @@
                 android:paddingTop="19dp"
                 android:paddingBottom="19dp"
                 android:textAlignment="center"
-                android:background="@color/sky_3"/>
+                android:background="@drawable/selector_btn"
+                />
         </LinearLayout>
     </LinearLayout>
 </layout>
