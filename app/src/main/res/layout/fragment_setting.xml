@@ -2,9 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
         <LinearLayout
             android:background="@color/sky_1"
             android:orientation="vertical"
@@ -137,8 +137,9 @@
             </LinearLayout>
 
         </LinearLayout>
+<!--        <include layout="@layout/layout_term_dialog"-->
+<!--            android:id="@+id/bottom_sheet_withdraw" />-->
 
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 </layout>

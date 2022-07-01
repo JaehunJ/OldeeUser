@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.oldeee.user.network.RemoteData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,8 @@ abstract class BaseViewModel() : ViewModel() {
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+
+    var baseOnError : ((RemoteData.ApiError) -> Unit)? = null
 
     fun remote(useProgressBar: Boolean = true, action: suspend () -> Unit) {
         viewModelScope.launch {

@@ -1,9 +1,7 @@
 package com.oldeee.user.ui.dialog
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +9,11 @@ import android.view.WindowManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.tabs.TabLayout
-import com.oldeee.user.BuildConfig
 import com.oldeee.user.R
-import com.oldeee.user.databinding.LayoutTermDialogBinding
+import com.oldeee.user.databinding.LayoutWithdrawDialogBinding
 
-
-class TermBottomSheetDialog : BottomSheetDialogFragment() {
-
-    lateinit var binding: LayoutTermDialogBinding
+class WithdrawBottomSheetDialog : BottomSheetDialogFragment() {
+    lateinit var binding: LayoutWithdrawDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +25,7 @@ class TermBottomSheetDialog : BottomSheetDialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
 
         (dialog as BottomSheetDialog).let {
-            it.setOnShowListener { imp->
+            it.setOnShowListener { imp ->
                 val bsd = (imp as BottomSheetDialog)
 
                 val parentLayout =
@@ -57,7 +51,7 @@ class TermBottomSheetDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val _binding = LayoutTermDialogBinding.inflate(inflater, container, false)
+        val _binding = LayoutWithdrawDialogBinding.inflate(inflater, container, false)
         binding = _binding
 
         return _binding.root
@@ -69,30 +63,6 @@ class TermBottomSheetDialog : BottomSheetDialogFragment() {
         binding.ivClose.setOnClickListener {
             dismiss()
         }
-
-        val webView = binding.webView
-        webView.settings.apply {
-            javaScriptEnabled = true
-            javaScriptCanOpenWindowsAutomatically = true
-            setSupportMultipleWindows(true)
-            domStorageEnabled = true
-            useWideViewPort = true
-            loadWithOverviewMode = true
-        }
-        binding.webView.loadUrl(BuildConfig.TERM_SERVICE)
-
-        binding.tbTop.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.let{
-                    when(it.position){
-                        0->binding.webView.loadUrl(BuildConfig.TERM_SERVICE)
-                        else->binding.webView.loadUrl(BuildConfig.TERM_PRIVACY)
-                    }
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
     }
 
     private fun setupFullHeight(bottomSheet: View) {

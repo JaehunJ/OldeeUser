@@ -65,6 +65,14 @@ open class BaseRepository @Inject constructor(
                                 Log.e("#debug", "token refresh exception")
                                 null
                             }else{
+                                val serverError = re.errorMessage
+
+                                serverError?.let{ error->
+                                    if(error.contains("Naver Error")){
+                                        onError?.invoke(result)
+                                        return null
+                                    }
+                                }
                                 setNewToken(re.data)
                                 return call(onError) { apiCall() }
                             }

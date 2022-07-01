@@ -1,11 +1,13 @@
 package com.oldeee.user.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.navercorp.nid.NaverIdLoginSDK
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val navController = navHostFragment!!.findNavController()
+        navController.addOnDestinationChangedListener { controller, destination, arguments -> hideProgress() }
 
         drawerBinding = binding.menuDrawer
 
@@ -100,5 +103,10 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         val menu = binding.menuDrawer
 
         return drawer.isDrawerOpen(menu.root)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        NaverIdLoginSDK.logout()
     }
 }

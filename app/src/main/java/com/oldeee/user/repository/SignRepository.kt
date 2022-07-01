@@ -2,6 +2,7 @@ package com.oldeee.user.repository
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.navercorp.nid.NaverIdLoginSDK
 import com.oldeee.user.base.BaseRepository
 import com.oldeee.user.data.ACCESS_TOKEN
 import com.oldeee.user.data.REFRESH_TOKEN
@@ -37,6 +38,7 @@ class SignRepository @Inject constructor(api:OldeeService, prefs:SharedPreferenc
     }
 
     suspend fun logout(){
+        NaverIdLoginSDK.logout()
         prefs.edit {
             remove("auto")
             remove(ACCESS_TOKEN)
