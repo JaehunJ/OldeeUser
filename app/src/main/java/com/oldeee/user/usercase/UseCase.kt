@@ -178,6 +178,10 @@ class GetCartListUserCase @Inject constructor(private val repo: DesignRepository
     suspend operator fun invoke() = repo.requestCartList()
 }
 
+class DeleteCartListItemUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(data:BasketItemDeleteRequest) = repo.requestCartDelete(data)
+}
+
 
 class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepository) {
 

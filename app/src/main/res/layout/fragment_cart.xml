@@ -52,8 +52,30 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:includeFontPadding="false"
+                style="@style/NormalText"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/gray_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주문내역이 없어요.\n배송 완료 시 확인할 수 있어요"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <androidx.core.widget.NestedScrollView
+            android:visibility="gone"
+            android:id="@+id/ns_exist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"

@@ -89,6 +89,8 @@
 
             <LinearLayout
                 android:id="@+id/ll_check"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -96,7 +98,6 @@
 
                 <CheckBox
                     android:id="@+id/cb"
-                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="8dp"
                     android:button="@android:color/transparent"
                     android:layout_width="16dp"
@@ -106,7 +107,7 @@
                 <TextView
                     android:layout_marginStart="10dp"
                     style="@style/NormalText"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:text="회원탈퇴 시 안내사항을 확인했습니다."/>

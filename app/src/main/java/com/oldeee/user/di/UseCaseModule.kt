@@ -1,16 +1,11 @@
 package com.oldeee.user.di
 
-import com.oldeee.user.network.RemoteData
-import com.oldeee.user.network.request.NaverSignInRequest
-import com.oldeee.user.network.request.SignUpRequest
-import com.oldeee.user.network.response.SignInResponseData
 import com.oldeee.user.repository.*
 import com.oldeee.user.usercase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -62,6 +57,9 @@ object UseCaseModule {
 
     @Provides
     fun provideGetCartListUseCase(repo:DesignRepository) = GetCartListUserCase(repo)
+
+    @Provides
+    fun provideCartItemDelete(repo:DesignRepository) = DeleteCartListItemUseCase(repo)
 
     @Provides
     fun provideGetPaymentListUseCase(repo:DesignRepository) = GetPaymentListUseCase(repo)

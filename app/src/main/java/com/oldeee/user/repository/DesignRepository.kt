@@ -6,6 +6,7 @@ import com.oldeee.user.network.OldeeService
 import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.request.AddCartRequest
 import com.oldeee.user.network.request.AddShippingAddressRequest
+import com.oldeee.user.network.request.BasketItemDeleteRequest
 import com.oldeee.user.network.request.PaymentRequest
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,6 +20,10 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
 
     suspend fun requestDesignDetail(id: Int) = call {
         api.requestDesignDetail(getAccessToken(), id)
+    }
+
+    suspend fun requestCartDelete(data: BasketItemDeleteRequest) = call{
+        api.requestDeleteBasketItem(getAccessToken(), data)
     }
 
     suspend fun requestAddCart(onError:(RemoteData.ApiError)->Unit, data: AddCartRequest) =

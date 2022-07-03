@@ -3,6 +3,7 @@ package com.oldeee.user.ui.cart
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
 
     val childList = mutableListOf<LayoutCartOrderItemBinding>()
     var checkCnt = 0
+    var checkedItemDataList = mutableListOf<BasketListItem>()
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.llTotalSelect.setOnClickListener {
@@ -37,10 +39,19 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
         binding.vm = viewModel
 
         binding.btnConfirm.setOnClickListener {
-            val res = viewModel.res.value
+            if(checkedItemDataList.isEmpty())
+                return@setOnClickListener
+
+            val res = checkedItemDataList
             res?.let{ datas->
                 val action = CartFragmentDirections.actionCartFragmentToPaymentFragment(datas.toTypedArray())
                 findNavController().navigate(action)
+            }
+        }
+
+        binding.tvTotalDelete.setOnClickListener {
+            if(checkedItemDataList.isNotEmpty()){
+                viewModel.requestCartListItemDelete(checkedItemDataList)
             }
         }
     }
@@ -48,16 +59,35 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
     override fun initDataBinding() {
         viewModel.res.observe(viewLifecycleOwner){
             it?.let{
+                init()
+
+                if(it.isEmpty()){
+                    binding.clEmpty.visibility = View.VISIBLE
+                    binding.nsExist.visibility = View.GONE
+                }else{
+                    binding.clEmpty.visibility = View.GONE
+                    binding.nsExist.visibility = View.VISIBLE
+                }
+
                 setCartList(it)
                 viewModel.totalPrice.postValue(0)
-//                if(!binding.cbTotal.isChecked)
-//                    binding.llTotalSelect.performClick()
+
+
+                if(binding.cbTotal.isChecked){
+                    binding.llTotalSelect.performClick()
+                }
             }
         }
     }
 
     override fun initViewCreated() {
         viewModel.requestCartList()
+    }
+
+    fun init(){
+        checkedItemDataList.clear()
+        childList.clear()
+        checkCnt = 0
     }
 
     fun setCartList(datas:List<BasketListItem>){
@@ -77,10 +107,13 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
 
         childList.forEach {
             it.cbSub.setOnCheckedChangeListener { compoundButton, b ->
+                val d = it.data ?: return@setOnCheckedChangeListener
+
                 if(b){
+                    checkedItemDataList.add(d)
                     val prevPrice = viewModel.totalPrice.value
                     prevPrice?.let{ prev->
-                        val itemPrice = it.data?.reformPrice?:"0"
+                        val itemPrice = d.reformPrice?:"0"
                         viewModel.totalPrice.value = prev+itemPrice.toInt()
                     }
                     checkCnt++
@@ -89,9 +122,10 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                         binding.cbTotal.isChecked = true
                     }
                 }else{
+                    checkedItemDataList.remove(d)
                     val prevPrice = viewModel.totalPrice.value
                     prevPrice?.let{ prev->
-                        val itemPrice = it.data?.reformPrice?:"0"
+                        val itemPrice = d.reformPrice?:"0"
                         viewModel.totalPrice.value = prev-itemPrice.toInt()
                     }
                     checkCnt--
