@@ -50,6 +50,10 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <com.google.android.material.tabs.TabLayout
+                    app:tabIndicatorColor="@color/sky_3"
+                    app:tabTextAppearance="@style/BoldText"
+                    app:tabTextColor="@color/black_0"
+                    app:tabIndicatorFullWidth="false"
                     android:id="@+id/tb_top"
                     android:layout_marginTop="24dp"
                     android:layout_width="match_parent"
@@ -60,6 +64,7 @@
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
                         android:text="서비스이용약관"/>
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
