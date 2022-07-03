@@ -75,11 +75,17 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
             }
         }
 
-
+        setBaseError()
         initView(savedInstanceState)
         initDataBinding()
 
         return binding.root
+    }
+
+    fun setBaseError(){
+        viewModel.baseOnError = {str->
+            activityFuncFunction.showToast(str)
+        }
     }
 
     fun setOnInvokeBackAction(onClick:()->Unit){

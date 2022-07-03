@@ -54,6 +54,16 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, Sign
             )
             startActivity(intent)
         }
+
+        binding.cbInfo.setOnTouchListener { view, motionEvent ->
+            activityFuncFunction.hideSoftKeyboard()
+            return@setOnTouchListener false
+        }
+
+        binding.cbService.setOnTouchListener { view, motionEvent ->
+            activityFuncFunction.hideSoftKeyboard()
+            return@setOnTouchListener false
+        }
     }
 
     override fun initDataBinding() {

@@ -5,17 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oldeee.user.network.RemoteData
+import com.oldeee.user.network.response.BaseResponse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel() : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
+    private val _pushingToast = MutableLiveData<String>()
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    var baseOnError : ((RemoteData.ApiError) -> Unit)? = null
+    val pushingToast : LiveData<String>
+        get() = _pushingToast
+
+    var baseOnError: ((String) -> Unit)? = null
 
     fun remote(useProgressBar: Boolean = true, action: suspend () -> Unit) {
         viewModelScope.launch {
@@ -49,4 +54,6 @@ abstract class BaseViewModel() : ViewModel() {
             action()
         }
     }
+
+    fun isValidResponse(res:BaseResponse) = res.errorMessage.isNullOrEmpty()
 }

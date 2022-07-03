@@ -1,8 +1,10 @@
 package com.oldeee.user.ui
 
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -108,5 +110,14 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     override fun onDestroy() {
         super.onDestroy()
         NaverIdLoginSDK.logout()
+    }
+//
+    override fun hideSoftKeyboard() {
+        val inputManger = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if(inputManger.isAcceptingText){
+            if(currentFocus != null){
+                inputManger.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            }
+        }
     }
 }

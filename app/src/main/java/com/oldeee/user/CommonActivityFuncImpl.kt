@@ -10,4 +10,5 @@ interface CommonActivityFuncImpl {
     fun setDrawerName(name:String)
     fun goFinish()
     fun isDrawerOpen():Boolean
+    fun hideSoftKeyboard()
 }

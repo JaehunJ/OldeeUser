@@ -11,6 +11,7 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfile
 import com.navercorp.nid.profile.data.NidProfileResponse
 import com.oldeee.user.base.BaseViewModel
+import com.oldeee.user.network.RemoteData
 import com.oldeee.user.network.request.NaverSignInRequest
 import com.oldeee.user.network.response.SignInResponseData
 import com.oldeee.user.usercase.*
@@ -106,26 +107,37 @@ class SignInViewModel @Inject constructor(
                 Log.e("#debug", "accessToken:${accessToken}")
                 Log.e("#debug", "refreshToken:${refreshToken}")
 
+                var errorData:RemoteData.ApiError? = null
                 val result = setNaverSignInUseCase.invoke(data) {
-
+                    Log.e("#debug", "error")
+                    errorData = it
+                    return@invoke
                 }
 
 
 
                 if (result == null) {
-                    onError()
+                    Log.e("#debug", "error null")
+                    if(errorData?.errorMessage?.contains("No") == true){
+                        baseOnError?.invoke(errorData?.errorMessage?:"알수없는 에러")
+                    }else{
+                        onError()
+                    }
                 } else {
-                    val data = result.data
-                    setAutoLogin(true)
-                    setTokenUseCase.invoke(data)
-                    setUserData.invoke(
-                        data.userName,
-                        data.userEmail,
-                        data.userPhone,
-                        nProfile.value?.id ?: ""
-                    )
-                    res.postValue(data)
-//                    onNext(result.data.userName)
+                    if(!isValidResponse(result)){
+                        baseOnError?.invoke(result.errorMessage?:"알수없는 에러")
+                    }else{
+                        val data = result.data
+                        setAutoLogin(true)
+                        setTokenUseCase.invoke(data)
+                        setUserData.invoke(
+                            data.userName,
+                            data.userEmail,
+                            data.userPhone,
+                            nProfile.value?.id ?: ""
+                        )
+                        res.postValue(data)
+                    }
                 }
 
                 nProfile.value = null
