@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.oldeee.user.BuildConfig
@@ -15,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.lang.RuntimeException
 import javax.inject.Singleton
 
 
@@ -50,16 +52,24 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideEncryptedSharedPreferences(@ApplicationContext context: Context) : SharedPreferences{
-        val masterKey = MasterKey.Builder(context)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
-
-        return EncryptedSharedPreferences.create(context,
-            "oldee_secret_shared_prefs",
-            masterKey,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+    fun provideEncryptedSharedPreferences(@ApplicationContext context: Context, masterKey: MasterKey) : SharedPreferences{
+        try{
+            return EncryptedSharedPreferences.create(context,
+                "oldee_secret_shared_prefs",
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        }catch (e:Exception){
+            e.printStackTrace()
+//            Log.e("#debug", e.)
+            throw RuntimeException("Failed to create encrypted shared preferences")
+        }
     }
+
+    @Singleton
+    @Provides
+    fun provideMasterKey(@ApplicationContext context: Context) = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
 }

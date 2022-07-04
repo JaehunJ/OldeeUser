@@ -110,6 +110,7 @@ class PaymentViewModel @Inject constructor(
     }
 
     suspend fun getPaymentAddressId(): Int? {
+        //본래 쓰던 주소가 존재하면
         if (latestAddress.value != null) {
             val oldData = latestAddress.value
             val isPostingNewAddress = isAddressModified(
@@ -129,6 +130,14 @@ class PaymentViewModel @Inject constructor(
                 }
             } else {
                 return latestAddress.value?.addressId
+            }
+        }else{//아니면 id 발급
+            val newId = requestPostAddress()
+
+            return if (newId == -1) {
+                null
+            } else {
+                newId
             }
         }
 
