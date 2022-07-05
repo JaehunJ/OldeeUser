@@ -3,7 +3,7 @@
     <data>
         <variable
             name="data"
-            type="com.oldeee.user.network.response.SurveySeqListItem" />
+            type="com.oldee.user.network.response.SurveySeqListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

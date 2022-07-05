@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.oldeee.user.network.response.PaymentListItem" />
+            type="com.oldee.user.network.response.PaymentListItem" />
     </data>
     <LinearLayout
         android:background="@color/sky_1"

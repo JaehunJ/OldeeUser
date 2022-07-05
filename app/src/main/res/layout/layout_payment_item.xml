@@ -5,7 +5,7 @@
     <data>
         <variable
             name="res"
-            type="com.oldeee.user.network.response.BasketListItem" />
+            type="com.oldee.user.network.response.BasketListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="12dp"

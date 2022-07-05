@@ -6,11 +6,11 @@
     <data>
         <variable
             name="res"
-            type="com.oldeee.user.network.response.DesignDetailData" />
+            type="com.oldee.user.network.response.DesignDetailData" />
 
         <variable
             name="vm"
-            type="com.oldeee.user.ui.design.detail.ReformDetailViewModel" />
+            type="com.oldee.user.ui.design.detail.ReformDetailViewModel" />
     </data>
 
     <LinearLayout

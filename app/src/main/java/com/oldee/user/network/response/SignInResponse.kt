@@ -1,0 +1,21 @@
+package com.oldee.user.network.response
+
+data class SignInResponse(
+    val data: SignInResponseData,
+    override var errorMessage: String?,
+    override var errorCode: String?,
+    override var count: Int?,
+    override var status: Int?,
+    override var message: String?
+) : BaseResponse()
+
+data class SignInResponseData(
+    val userPolicyYn: Boolean,
+    val userPhone: String,
+    val userAlertYn: Boolean,
+    val userEmail: String,
+    val accessToken: String,
+    val refreshToken: String,
+    val userName: String,
+    val userMarketingYn: Boolean
+)

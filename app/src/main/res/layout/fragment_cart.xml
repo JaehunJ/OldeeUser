@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.oldeee.user.ui.cart.CartViewModel" />
+            type="com.oldee.user.ui.cart.CartViewModel" />
     </data>
 
     <LinearLayout

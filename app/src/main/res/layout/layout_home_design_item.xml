@@ -5,7 +5,7 @@
     <data>
         <variable
             name="res"
-            type="com.oldeee.user.network.response.DesignListItem" />
+            type="com.oldee.user.network.response.DesignListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_root"

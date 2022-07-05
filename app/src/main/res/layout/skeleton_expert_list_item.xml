@@ -6,7 +6,7 @@
     <data>
         <variable
             name="res"
-            type="com.oldeee.user.network.response.ExpertListItem" />
+            type="com.oldee.user.network.response.ExpertListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="8dp"
