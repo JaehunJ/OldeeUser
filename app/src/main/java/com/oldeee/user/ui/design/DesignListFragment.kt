@@ -33,15 +33,12 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
         }
         binding.rvDesignList.adapter = adapter
 
-        binding.rvDesignList.addOnScrollListener(OnScrollEndListener{
-            page += 1
-            viewModel.requestDesignList(limit, page)
-        })
         binding.rvDesignList.addOnScrollListener(OnScrollEndListener(){
             if(viewModel.resSize % 10 == 0){
                 addItem()
             }
         })
+        binding.swList.setOnRefreshListener(this)
     }
 
     override fun initDataBinding() {
@@ -68,5 +65,6 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
 
     override fun onRefresh() {
         viewModel.requestDesignList(10, 0)
+        binding.swList.isRefreshing = false
     }
 }

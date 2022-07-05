@@ -44,6 +44,7 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sw_list"
+            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:overScrollMode="never"
                     android:layout_marginStart="21.5dp"
                     android:layout_marginEnd="21.5dp"
                     android:layout_marginTop="18dp"
