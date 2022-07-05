@@ -45,7 +45,7 @@ class PaymentFragment :
         binding.btnConfirm.setOnClickListener {
             if (viewModel.isValidation()) {
                 val dialog = TwoButtonDialog(
-                    title = "주문을 신청학시겠어요?",
+                    title = "주문을 신청하시겠어요?",
                     contents = "",
                     okText = "신청",
                     cancelText = "취소", {
@@ -59,7 +59,7 @@ class PaymentFragment :
                             }
                             dialog.show(requireActivity().supportFragmentManager, "")
                         }) {
-
+                            activityFuncFunction.showToast(it)
                         }
                     }
                 ) {

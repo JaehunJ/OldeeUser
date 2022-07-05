@@ -129,7 +129,8 @@ class SignInViewModel @Inject constructor(
                     }else{
                         val data = result.data
                         setAutoLogin(true)
-                        setTokenUseCase.invoke(data)
+                        setTokenUseCase.invoke(accessToken, refreshToken)
+//                        setTokenUseCase.invoke(data)
                         setUserData.invoke(
                             data.userName,
                             data.userEmail,

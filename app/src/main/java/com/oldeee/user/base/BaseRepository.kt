@@ -43,7 +43,6 @@ open class BaseRepository @Inject constructor(
             is RemoteData.Success ->
                 return result.output
             is RemoteData.ApiError -> {
-//                return result.output
 
                 if (result.errorCode == "404") {
                     val msgLower = result.errorMessage
@@ -147,6 +146,13 @@ open class BaseRepository @Inject constructor(
     private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 
+    fun setToken(accessToken:String, refreshToken:String){
+        prefs.edit{
+            putString(ACCESS_TOKEN, accessToken)
+            putString(REFRESH_TOKEN, refreshToken)
+            commit()
+        }
+    }
 
     fun setNewToken(data: NewTokenData) {
         prefs.edit {

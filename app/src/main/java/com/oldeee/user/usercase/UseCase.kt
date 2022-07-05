@@ -20,6 +20,10 @@ class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
     operator fun invoke(data: SignInResponseData) {
         repo.setToken(data)
     }
+
+    operator fun invoke(accessToken:String, refreshToken:String){
+        repo.setToken(accessToken, refreshToken)
+    }
 }
 
 class GetAutoLoginValue @Inject constructor(private val repo: SignRepository) {

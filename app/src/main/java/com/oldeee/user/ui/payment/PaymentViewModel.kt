@@ -89,11 +89,16 @@ class PaymentViewModel @Inject constructor(
         return oldAdd != newAdd || oldAddDetail != newAddDetail
     }
 
-    fun requestPaymentProcess(onComplete:()->Unit, onError: () -> Unit) {
+    fun requestPaymentProcess(onComplete:()->Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             if (isValidation()) {
                 //주소 먼저 등록할지 안할지
                 val addressId = getPaymentAddressId()
+
+                if(addressId == null){
+                    onError("주소 등록중 오류가 발생했습니다.")
+                }
+
                 val paymentData = getPaymentData(addressId?:0)
 
                 val result = postPaymentUseCase.invoke(paymentData)
@@ -104,7 +109,7 @@ class PaymentViewModel @Inject constructor(
                     }
                 }
             } else {
-                onError.invoke()
+                onError.invoke("누락된 정보가 있습니다.")
             }
         }
     }

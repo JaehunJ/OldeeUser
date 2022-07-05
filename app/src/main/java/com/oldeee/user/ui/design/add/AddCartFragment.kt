@@ -79,7 +79,9 @@ class AddCartFragment :
         binding.btnOrder.setOnClickListener {
 //            showSuccessDialog()
             if (viewModel.isValidate()) {
-                viewModel.requestAddCart(requireContext())
+                viewModel.requestAddCart(requireContext()){
+                    activityFuncFunction.showToast(it)
+                }
             } else {
                 activityFuncFunction.showToast("누락된 정보가 있습니다.")
             }

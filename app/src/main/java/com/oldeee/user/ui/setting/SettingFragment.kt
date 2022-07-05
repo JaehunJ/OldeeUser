@@ -48,9 +48,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
         }
 
         binding.llWithdraw.setOnClickListener {
-            val dialog = WithdrawBottomSheetDialog({
+            val dialog = WithdrawBottomSheetDialog {
 
-            })
+            }
             dialog.show(requireActivity().supportFragmentManager, "")
 //            withdrawBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 //            viewModel.requestWithdraw()

@@ -61,9 +61,9 @@ class AddCartViewModel @Inject constructor(
         return imageList != null && imageList.isNotEmpty() && itemId != null && !text.isNullOrEmpty() && !reformCode.isNullOrEmpty()
     }
 
-    fun requestAddCart(context: Context) {
+    fun requestAddCart(context: Context, onError:(String)->Unit) {
         remote {
-            val images = postLocalImage(context)
+            val images = postLocalImage(context, onError)
             val data = getRequestData(images)
 
             var error = false
@@ -71,7 +71,7 @@ class AddCartViewModel @Inject constructor(
                 it.errorMessage?.let { sr ->
                     if (sr.contains("discontinued")) {
                         error = true
-                        invokeError.postValue(true)
+                        onError.invoke(sr)
                     }
                 }
             }, data)
@@ -84,7 +84,7 @@ class AddCartViewModel @Inject constructor(
         }
     }
 
-    suspend fun postLocalImage(context: Context): List<String> {
+    suspend fun postLocalImage(context: Context, onError: (String) -> Unit): List<String> {
         val imageUriList = imageData.value
         imageUriList?.let { iul ->
             if (iul.isEmpty()) return listOf()
@@ -100,10 +100,15 @@ class AddCartViewModel @Inject constructor(
                 if (imageList.isNotEmpty()) {
                     val serverPathList = mutableListOf<String>()
                     imageList.forEach {
+                        if (it.imageName.isNullOrEmpty()) {
+                            onError.invoke("image item name is null")
+                        }
                         serverPathList.add(it.imageName)
                     }
 
                     return serverPathList
+                } else {
+                    onError.invoke("image list is null")
                 }
             }
         }
