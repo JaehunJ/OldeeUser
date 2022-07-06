@@ -40,6 +40,7 @@ class OrderLogViewFragment :
                 addData()
             }
         })
+        binding.swList.setOnRefreshListener(this)
     }
 
     override fun initDataBinding() {
@@ -71,5 +72,6 @@ class OrderLogViewFragment :
 
     override fun onRefresh() {
         viewModel.requestPaymentList(10, 0)
+        binding.swList.isRefreshing = false
     }
 }

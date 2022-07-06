@@ -1,6 +1,7 @@
 package com.oldee.user.ui.orderlog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.fragment.app.viewModels
@@ -16,7 +17,7 @@ import com.oldee.user.ui.orderlog.adapter.OrderLogFragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel, NavArgs>() {
+class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel, OrderLogFragmentArgs>() {
     companion object{
         val READY = 0
         val LOGGING = 1
@@ -24,7 +25,7 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
 
     override val layoutId: Int = R.layout.fragment_order_log
     override val viewModel: OrderLogViewModel by viewModels()
-    override val navArgs: NavArgs by navArgs()
+    override val navArgs: OrderLogFragmentArgs by navArgs()
 
     val titleList = listOf<String>("주문내역","신청중")
     lateinit var tabList : List<LayoutOrderLogTabBinding>
@@ -56,7 +57,20 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
     }
 
     override fun initViewCreated() {
+        val idx = navArgs.selectedTab
 
+        Log.e("#debug", "selected tab $idx")
+        binding.vpPage.setCurrentItem(idx, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+//        val idx = navArgs.selectedTab
+//
+//        Log.e("#debug", "selected tab $idx")
+//        binding.vpPage.setCurrentItem(idx, false)
+//        binding.tbTop.getTabAt(idx)?.select()
     }
 
     fun initTab(){

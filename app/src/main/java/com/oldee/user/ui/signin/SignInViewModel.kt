@@ -118,10 +118,11 @@ class SignInViewModel @Inject constructor(
 
                 if (result == null) {
                     Log.e("#debug", "error null")
-                    if(errorData?.errorMessage?.contains("No") == true){
-                        baseOnError?.invoke(errorData?.errorMessage?:"알수없는 에러")
-                    }else{
+                    if(errorData?.errorMessage?.contains("Match User") == true){
                         onError()
+                    }else{
+                        baseOnError?.invoke(errorData?.errorMessage?:"알수없는 에러")
+//                        onError()
                     }
                 } else {
                     if(!isValidResponse(result)){

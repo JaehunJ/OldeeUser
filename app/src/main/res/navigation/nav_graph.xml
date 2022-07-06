@@ -79,7 +79,12 @@
         android:id="@+id/orderLogFragment"
         android:name="com.oldee.user.ui.orderlog.OrderLogFragment"
         android:label="OrderLogFragment"
-        tools:layout="@layout/fragment_order_log"/>
+        tools:layout="@layout/fragment_order_log">
+        <argument
+            android:name="selectedTab"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.oldee.user.ui.cart.CartFragment"

@@ -221,7 +221,6 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <android.widget.Button
-                        android:visibility="gone"
                         android:id="@+id/btn_designer_more"
                         android:layout_marginTop="16dp"
                         android:minHeight="0dp"
@@ -230,7 +229,7 @@
                         android:textSize="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="더보기"
+                        android:text="자세히 보기"
                         android:background="@drawable/bg_round_8dp_white_stroke_black"/>
                 </LinearLayout>
 

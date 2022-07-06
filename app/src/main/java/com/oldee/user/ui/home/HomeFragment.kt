@@ -1,6 +1,8 @@
 package com.oldee.user.ui.home
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     lateinit var expertAdapter: ExpertListAdapter
     lateinit var bannerAdapter: BannerAdapter
 
-    val max = 6
+    val max = 5
     lateinit var autoScrollJob : Job
     var bannerPosition = 0
     private var backTime = 0L
@@ -85,6 +87,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         }
         binding.ivDesignArr.setOnClickListener {
             nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
+        }
+
+        binding.btnDesignerMore.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://bit.ly/oldeener")))
         }
     }
 

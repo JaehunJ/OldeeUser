@@ -176,6 +176,7 @@
                         android:gravity="top"
                         android:hint="입력"
                         style="@style/NormalText"
+                        android:maxLength="200"
                         android:text="@={vm.detailInfo}"
                         android:padding="16dp"
                         android:textSize="16dp" />

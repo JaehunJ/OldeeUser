@@ -37,6 +37,7 @@ class OrderReadyViewFragment : BaseFragment<FragmentOrderReadyViewBinding, Order
                 addData()
             }
         })
+        binding.swList.setOnRefreshListener(this)
     }
 
     override fun initDataBinding() {
@@ -69,6 +70,7 @@ class OrderReadyViewFragment : BaseFragment<FragmentOrderReadyViewBinding, Order
 
     override fun onRefresh() {
         viewModel.requestPaymentList(10, 0)
+        binding.swList.isRefreshing = false
     }
 
 }

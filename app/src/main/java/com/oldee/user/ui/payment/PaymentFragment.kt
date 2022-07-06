@@ -4,9 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentBinding
@@ -54,8 +56,16 @@ class PaymentFragment :
                                 title = "주문이 완료되었습니다.",
                                 contents = "",
                                 okText = "확인"
-                            ){
-                                findNavController().popBackStack(R.id.homeFragment, false)
+                            ) {
+                                val option = navOptions {
+                                    popUpTo(R.id.homeFragment)
+                                }
+                                val bundle = bundleOf("selectedTab" to 1)
+                                findNavController().navigate(
+                                    R.id.action_global_orderLogFragment,
+                                    bundle,
+                                    option
+                                )
                             }
                             dialog.show(requireActivity().supportFragmentManager, "")
                         }) {
