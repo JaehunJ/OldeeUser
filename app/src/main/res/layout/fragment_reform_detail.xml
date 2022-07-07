@@ -327,7 +327,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14dp"
-                                android:text="변화를 주고싶은 의류를 준비해주세요\n옷, 신발, 가방, 파우치 무엇이든 좋아요!"/>
+                                android:text="변화를 주고싶은 의류를 준비해주세요.\n옷, 신발, 가방, 파우치 무엇이든 좋아요!"/>
                         </LinearLayout>
 
                         <LinearLayout

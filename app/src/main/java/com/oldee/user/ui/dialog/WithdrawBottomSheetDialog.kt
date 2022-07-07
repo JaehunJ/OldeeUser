@@ -37,7 +37,6 @@ class WithdrawBottomSheetDialog(val onClick:()->Unit) : BottomSheetDialogFragmen
                 bsd.behavior.apply {
                     isHideable = true
                     isDraggable = false
-                    isCancelable = false
                     state = BottomSheetBehavior.STATE_EXPANDED
                 }
             }

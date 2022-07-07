@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="리폼을 신청할 준비물을 한가지 골라주세요"
+                        android:text="리폼을 신청할 준비물을 한가지 골라주세요."
                         android:textSize="14dp" />
 
                     <RadioGroup
@@ -235,7 +235,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="리폼 디자이너에 보낼 준비물 사진을 등록해주세요"
+                            android:text="리폼 디자이너에 보낼 준비물 사진을 등록해주세요."
                             android:textSize="14dp" />
                     </LinearLayout>
 

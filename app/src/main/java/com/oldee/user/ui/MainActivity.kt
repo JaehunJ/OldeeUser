@@ -1,5 +1,7 @@
 package com.oldee.user.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -49,13 +51,16 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         }
         drawerBinding.tvQna.setOnClickListener {
             hideDrawerMenu()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_QuRxmb")))
         }
         drawerBinding.tvSetting.setOnClickListener {
             hideDrawerMenu()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_settingFragment)
         }
         drawerBinding.tvSignUpExpert.setOnClickListener {
+            //https://www.oldee.kr/oldeener
             hideDrawerMenu()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oldee.kr/oldeener")))
         }
     }
 

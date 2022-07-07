@@ -9,12 +9,14 @@
             type="com.oldee.user.network.response.ExpertListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="false"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:clickable="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +27,7 @@
             android:background="@drawable/bg_circle_white"
             android:backgroundTint="@color/gray_3"/>
         <TextView
+            android:clickable="false"
             android:layout_marginStart="8dp"
             android:textSize="16dp"
             style="@style/BoldText"
@@ -36,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:clickable="false"
             android:layout_marginTop="4dp"
             android:layout_marginStart="8dp"
             android:textSize="12dp"

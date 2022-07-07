@@ -33,7 +33,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     lateinit var expertAdapter: ExpertListAdapter
     lateinit var bannerAdapter: BannerAdapter
 
-    val max = 5
+    val expertMax = 5
+    val designMax = 6
     lateinit var autoScrollJob : Job
     var bannerPosition = 0
     private var backTime = 0L
@@ -61,6 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
         binding.rvDesignList.adapter = designAdapter
         binding.rvDesignerList.adapter = expertAdapter
+        binding.rvDesignerList.isClickable = false
         binding.vpBanner.adapter = bannerAdapter
         binding.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
@@ -89,19 +91,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
             nextFragment(HomeFragmentDirections.actionHomeFragmentToDesignListFragment())
         }
 
-        binding.btnDesignerMore.setOnClickListener {
+        binding.btnExpertMore.setOnClickListener {
+            Log.e("#debug", "click btn")
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://bit.ly/oldeener")))
         }
+//        binding.llExpertList.setOnClickListener {
+//            Log.e("#debug", "click btn")
+//        }
     }
 
     override fun initDataBinding() {
         viewModel.expertList.observe(viewLifecycleOwner) {
             it?.let { list ->
 //                val max = 6
-                if (list.size <= max) {
+                if (list.size <= expertMax) {
                     expertAdapter.setData(list)
                 } else {
-                    expertAdapter.setData(list.subList(0, max - 1))
+                    expertAdapter.setData(list.subList(0, expertMax))
                 }
 
             }
@@ -109,10 +115,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
         viewModel.designList.observe(viewLifecycleOwner) {
             it?.let {
-                if (it.size <= max) {
+                if (it.size <= designMax) {
                     designAdapter.setData(it)
                 } else {
-                    designAdapter.setData(it.subList(0, it.size - 1))
+                    designAdapter.setData(it.subList(0, designMax))
                 }
             }
         }
