@@ -68,7 +68,7 @@
                 android:textColor="@color/gray_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주문내역이 없어요.\n배송 완료 시 확인할 수 있어요"/>
+                android:text="수선바구니에 결과가 없어요."/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
