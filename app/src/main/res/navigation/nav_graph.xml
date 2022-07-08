@@ -155,8 +155,16 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.oldee.user.ui.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_withdrawDoneFragment"
+            app:destination="@id/withdrawDoneFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
+    <fragment
+        android:id="@+id/withdrawDoneFragment"
+        android:name="com.oldee.user.ui.setting.withdraw.WithdrawDoneFragment"
+        android:label="WithdrawDoneFragment" />
 </navigation>

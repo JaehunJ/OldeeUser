@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.oldee.user.R
@@ -48,11 +49,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
 
         binding.llWithdraw.setOnClickListener {
             val dialog = WithdrawBottomSheetDialog {
-
+                showWarningDialog()
             }
             dialog.show(requireActivity().supportFragmentManager, "")
-//            withdrawBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            viewModel.requestWithdraw()
         }
 
     }
@@ -75,4 +74,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
 
     }
 
+
+    private fun showWarningDialog(){
+        val dialog = TwoButtonDialog(
+            title = "주문이 진행중 입니다.",
+            contents = "진행중인 수선 및 리폼이 있는경우 회원탈퇴가 불가합니다.\n주문 완료 후 진행해주세요. ",
+            okText = "취소",
+            cancelText = "탈퇴",
+            {}
+        ){
+            findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToWithdrawDoneFragment())
+        }
+
+        dialog.show(requireActivity().supportFragmentManager, "warning")
+    }
 }

@@ -104,6 +104,9 @@ class PaymentFragment :
 
         viewModel.latestAddress.observe(viewLifecycleOwner) {
             it?.let {
+                //이전 정보가 있으면 세팅
+                viewModel.name.postValue(it.shippingName)
+                viewModel.phone.postValue(it.userPhone)
                 viewModel.address.postValue(it.shippingAddress)
                 viewModel.extendAddress.postValue(it.shippingAddressDetail)
                 viewModel.postNum.postValue(it.postalCode)

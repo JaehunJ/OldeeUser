@@ -40,11 +40,7 @@ class PaymentViewModel @Inject constructor(
         get() = latestAddress.value?.addressId
 
     init {
-//        name.value = "정재훈"
-//        phone.value = "01088335697"
-//        postNum.value = "08763"
-//        address.value = "서울특별시 관악구 남부순환로165길 59 (신림동, 미래)"
-//        extendAddress.value = "204호"
+
     }
 
     fun isValidation() =
@@ -81,30 +77,34 @@ class PaymentViewModel @Inject constructor(
     }
 
     suspend fun isAddressModified(
+        oldName: String,
+        newName: String,
+        oldPhone: String,
+        newPhone: String,
         oldAdd: String,
         oldAddDetail: String,
         newAdd: String,
         newAddDetail: String
     ): Boolean {
-        return oldAdd != newAdd || oldAddDetail != newAddDetail
+        return oldName != newName || oldPhone != newPhone || oldAdd != newAdd || oldAddDetail != newAddDetail
     }
 
-    fun requestPaymentProcess(onComplete:()->Unit, onError: (String) -> Unit) {
+    fun requestPaymentProcess(onComplete: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             if (isValidation()) {
                 //주소 먼저 등록할지 안할지
                 val addressId = getPaymentAddressId()
 
-                if(addressId == null){
+                if (addressId == null) {
                     onError("주소 등록중 오류가 발생했습니다.")
                 }
 
-                val paymentData = getPaymentData(addressId?:0)
+                val paymentData = getPaymentData(addressId ?: 0)
 
                 val result = postPaymentUseCase.invoke(paymentData)
 
-                result?.let{
-                    if(it.data == "success"){
+                result?.let {
+                    if (it.data == "success") {
                         onComplete()
                     }
                 }
@@ -119,6 +119,10 @@ class PaymentViewModel @Inject constructor(
         if (latestAddress.value != null) {
             val oldData = latestAddress.value
             val isPostingNewAddress = isAddressModified(
+                oldName = oldData?.shippingName ?: "",
+                newName = name.value ?: "",
+                oldPhone = oldData?.userPhone ?: "",
+                newPhone = phone.value ?: "",
                 oldAdd = oldData!!.shippingAddress,
                 oldAddDetail = oldData.shippingAddressDetail,
                 newAdd = address.value ?: "",
@@ -136,7 +140,7 @@ class PaymentViewModel @Inject constructor(
             } else {
                 return latestAddress.value?.addressId
             }
-        }else{//아니면 id 발급
+        } else {//아니면 id 발급
             val newId = requestPostAddress()
 
             return if (newId == -1) {
@@ -152,10 +156,10 @@ class PaymentViewModel @Inject constructor(
     suspend fun requestPostAddress(): Int {
         val requestData = AddShippingAddressRequest(
             postalCode = postNum.value ?: "",
-            shippingAddress = address.value?:"",
-            shippingAddressDetail = extendAddress.value?:"",
-            userPhone = phone.value?:"",
-            shippingName = name.value?:"",
+            shippingAddress = address.value ?: "",
+            shippingAddressDetail = extendAddress.value ?: "",
+            userPhone = phone.value ?: "",
+            shippingName = name.value ?: "",
             shippingLastYn = 1
         )
 
@@ -188,9 +192,9 @@ class PaymentViewModel @Inject constructor(
         return PaymentRequest(
             addressId = addressId,
             basketList = list,
-            orderPrice = this.totalPrice.value?:0,
+            orderPrice = this.totalPrice.value ?: 0,
             shippingFee = 0,
-            totalPrice = this.totalPrice.value?:0,
+            totalPrice = this.totalPrice.value ?: 0,
         )
     }
 

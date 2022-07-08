@@ -72,7 +72,10 @@ class WithdrawBottomSheetDialog(val onClick:()->Unit) : BottomSheetDialogFragmen
         }
 
         binding.btnWithdraw.setOnClickListener {
-
+            if(binding.cb.isChecked){
+                dismiss()
+                onClick.invoke()
+            }
         }
     }
 
