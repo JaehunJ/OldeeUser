@@ -43,6 +43,7 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
         stateAdapter.addFragment(OrderReadyViewFragment())
 
         binding.vpPage.adapter = stateAdapter
+        binding.vpPage.isUserInputEnabled = false
 
         tabList = listOf(createTabView(titleList[0]),createTabView(titleList[1]))
 

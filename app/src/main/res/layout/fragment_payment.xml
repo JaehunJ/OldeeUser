@@ -76,12 +76,30 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <TextView
-                        style="@style/BoldText"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="배송지"
-                        android:textSize="20dp" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/BoldText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="배송지"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/btn_latest_address"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:textAlignment="textEnd"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            style="@style/NormalText"
+                            android:text="최근 배송지"/>
+                    </LinearLayout>
+
 
                     <TextView
                         style="@style/NormalText"

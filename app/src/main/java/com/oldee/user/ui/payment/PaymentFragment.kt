@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
@@ -14,6 +15,7 @@ import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentBinding
 import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
+import com.oldee.user.ui.dialog.LatestAddressDialog
 import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PostDialog
 import com.oldee.user.ui.dialog.TwoButtonDialog
@@ -42,6 +44,13 @@ class PaymentFragment :
                 viewModel.postNum.postValue(zone)
             }
             dialog.show(requireActivity().supportFragmentManager, "")
+        }
+
+        binding.btnLatestAddress.setOnClickListener {
+            val dialog = LatestAddressDialog({},{ id->
+
+            }, viewModel.allAddress.value?: mutableListOf())
+            dialog.show(requireActivity().supportFragmentManager,"address")
         }
 
         binding.btnConfirm.setOnClickListener {
@@ -112,9 +121,11 @@ class PaymentFragment :
                 viewModel.postNum.postValue(it.postalCode)
             }
         }
+
     }
 
     override fun initViewCreated() {
+        viewModel.requestAddressLatest()
         viewModel.requestAddressList()
     }
 

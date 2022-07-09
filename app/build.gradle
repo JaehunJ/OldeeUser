@@ -57,7 +57,7 @@ android {
         def POST_NUM_PATH = "POST_NUM_PATH"
 
         trial {
-            buildConfigField "String", BASE_URL, '"https://oldee.co.kr/"'
+            buildConfigField "String", BASE_URL, '"https://dev.oldee.co.kr"'
             buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'

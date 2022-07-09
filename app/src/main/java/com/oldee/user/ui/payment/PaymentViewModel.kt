@@ -23,6 +23,11 @@ class PaymentViewModel @Inject constructor(
     val getAddressListUseCase: GetAddressListUseCase,
     val getAddressByIdUserCase: GetAddressByIdUserCase
 ) : BaseViewModel() {
+    companion object{
+        val ADDRESS_ALL = 0
+        val ADDRESS_PREV = 1
+    }
+
     val datas = MutableLiveData<List<BasketListItem>>()
 
     var name = MutableLiveData<String>()
@@ -35,6 +40,7 @@ class PaymentViewModel @Inject constructor(
 
     //res data
     val latestAddress = MutableLiveData<ShippingAddressListItem?>()
+    val allAddress = MutableLiveData<List<ShippingAddressListItem?>>()
 
     val id: Int?
         get() = latestAddress.value?.addressId
@@ -48,18 +54,31 @@ class PaymentViewModel @Inject constructor(
                 && !postNum.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
                 && !extendAddress.value.isNullOrEmpty()
 
-    fun requestAddressList() {
+    fun requestAddressLatest() {
         remote {
-            val result = getAddressListUseCase.invoke()
+            val result = getAddressListUseCase.invoke(ADDRESS_PREV)
 
             result?.let {
                 val data = it.data
 
                 if (data.isNotEmpty()) {
+                    allAddress.postValue(data)
                     latestAddress.postValue(data[0])
                 } else {
                     latestAddress.postValue(null)
                 }
+            }
+        }
+    }
+
+    fun requestAddressList(){
+        remote {
+            val result = getAddressListUseCase.invoke(ADDRESS_ALL)
+
+            result?.let{
+                val data = it.data
+
+                allAddress.postValue(data)
             }
         }
     }

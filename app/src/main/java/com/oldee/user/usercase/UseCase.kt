@@ -83,7 +83,7 @@ class GetPaymentDetailUseCase @Inject constructor(private val repo:DesignReposit
 }
 
 class GetAddressListUseCase @Inject constructor(private val repo: DesignRepository) {
-    suspend operator fun invoke() = repo.requestAddressList()
+    suspend operator fun invoke(code:Int) = repo.requestAddressList(code)
 }
 
 class GetAddressByIdUserCase @Inject constructor(private val repo: DesignRepository) {

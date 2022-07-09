@@ -57,8 +57,8 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
         api.requestPayment(getAccessToken(), data)
     }
 
-    suspend fun requestAddressList() = call{
-        api.requestShippingAddressList(token = getAccessToken(), shippingLastYn = 1)
+    suspend fun requestAddressList(code:Int) = call{
+        api.requestShippingAddressList(token = getAccessToken(), shippingLastYn = code)
     }
 
     suspend fun requestAddressById(id:Int) = call {

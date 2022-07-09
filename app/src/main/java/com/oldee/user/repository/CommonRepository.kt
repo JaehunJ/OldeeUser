@@ -32,7 +32,7 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
     }
 
     suspend fun postImageToServer(list:List<MultipartBody.Part>) = call{
-        api.requestPostImage(getAccessToken(), list, getTextBody("refom"))
+        api.requestPostImage(getAccessToken(), list, getTextBody("reform"))
     }
 
     fun setToken(data: SignInResponseData) {
