@@ -167,4 +167,12 @@
         android:id="@+id/withdrawDoneFragment"
         android:name="com.oldee.user.ui.setting.withdraw.WithdrawDoneFragment"
         android:label="WithdrawDoneFragment" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.oldee.user.ui.faq.FaqFragment"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" />
+    <action
+        android:id="@+id/action_global_faqFragment"
+        app:destination="@id/faqFragment" />
 </navigation>

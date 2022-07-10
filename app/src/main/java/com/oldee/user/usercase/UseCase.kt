@@ -186,3 +186,5 @@ class DeleteCartListItemUseCase @Inject constructor(private val repo:DesignRepos
 class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepository) {
 
 }
+
+class GetFaqListUseCase @Inject constructor(private val repo:)

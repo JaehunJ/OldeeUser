@@ -3,9 +3,7 @@ package com.oldee.user.ui.dialog
 import android.net.http.SslError
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.*
 import androidx.fragment.app.DialogFragment
 import com.oldee.user.BuildConfig
@@ -15,6 +13,7 @@ import com.oldee.user.network.response.PostResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogFragment() {
     lateinit var binding: DialogPostSearchBinding
@@ -45,29 +44,33 @@ class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogF
         webView.settings.apply {
             javaScriptEnabled = true
             javaScriptCanOpenWindowsAutomatically = true
-            layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
-//            useWideViewPort = true
-//            loadWithOverviewMode = true
+            useWideViewPort = true
+            loadWithOverviewMode = true
         }
         webView.apply {
+            setPadding(0,0,0,0)
+            setInitialScale(1)
             addJavascriptInterface(PostWebInterface { road, zone ->
                 dialog?.dismiss()
                 confirmCallback.invoke(road, zone)
             }, "Android")
         }
-
         webView.webViewClient = client
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//BuildConfig
-        Log.e("#debug", BuildConfig.BASE_URL + "api/v1/address")
-        val webview = binding.wvPost
-//        webview.loadDataWithBaseURL(BuildConfig.BASE_URL + BuildConfig.POST_NUM_PATH)
-        binding.wvPost.loadUrl(BuildConfig.BASE_URL + BuildConfig.POST_NUM_PATH)
 
-//        loadDataWithBaseURL(null, "<style>img{display: inline;height: auto;max-width: 100%;}</style>" + post.getContent(), "text/html", "UTF-8", null);
+        Log.e("#debug", BuildConfig.BASE_URL + "/api/v1/address")
+        binding.wvPost.loadUrl(BuildConfig.BASE_URL + BuildConfig.POST_NUM_PATH)
+//        val script = StringBuilder()
+//
+//        script.append("javascript:(function(){")
+//        script.append("document.querySelector(\\\"meta[name=viewport]\\\").setAttribute('content', 'width=device-width, initial-scale=0, maximun-scale=2.0, user-scalable=yes');\n" +
+//                "document.querySelector(\\\"meta[name=viewport]\\\").setAttribute('content', 'width=device-width, initial-scale=1.0, maximun-scale=2.0, user-scalable=yes');")
+//        script.append("})();")
+//        binding.wvPost.loadUrl(script.toString())
+
     }
 
     private val client: WebViewClient = object : WebViewClient() {

@@ -46,4 +46,8 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
     suspend fun requestNoticeList() = call {
         api.requestNoticeList(getAccessToken())
     }
+
+    suspend fun requestFaqList() = call{
+        api.requestFAQList(getAccessToken())
+    }
 }

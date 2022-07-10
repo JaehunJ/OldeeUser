@@ -186,7 +186,7 @@ interface OldeeService {
     @GET("/api/v1/user/notice/question/list")
     suspend fun requestFAQList(
         @Header("Authorization") token: String
-    ): Response<ResponseBody>
+    ): Response<BaseResponse>
 
     //설정
 
