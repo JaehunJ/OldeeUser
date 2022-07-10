@@ -42,7 +42,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                 return@setOnClickListener
 
             val res = checkedItemDataList
-            res?.let{ datas->
+            res.let{ datas->
                 val action = CartFragmentDirections.actionCartFragmentToPaymentFragment(datas.toTypedArray())
                 findNavController().navigate(action)
             }

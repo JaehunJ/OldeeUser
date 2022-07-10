@@ -11,4 +11,5 @@ interface CommonActivityFuncImpl {
     fun goFinish()
     fun isDrawerOpen():Boolean
     fun hideSoftKeyboard()
+    fun logout()
 }

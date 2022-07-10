@@ -122,4 +122,10 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
             }
         }
     }
+
+    override fun logout(){
+        this.finishAffinity()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -32,9 +32,10 @@ class SettingVIewModel @Inject constructor(
                 val result = postWithdraw.invoke(request)
 
                 result?.let {
-                    startLogoutUseCase.invoke()
+//                    startLogoutUseCase.invoke()
+                    success.postValue(true)
                 }
-                success.postValue(true)
+//                success.postValue(true)
 
             }
         }

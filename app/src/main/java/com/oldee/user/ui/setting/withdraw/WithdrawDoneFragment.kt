@@ -28,11 +28,7 @@ class WithdrawDoneFragment :
         viewModel.success.observe(viewLifecycleOwner){
             it?.let{
                 if(it){
-                    activity?.let {ac->
-                        ac.finishAffinity()
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                    }
+                    activityFuncFunction.logout()
                 }
             }
         }

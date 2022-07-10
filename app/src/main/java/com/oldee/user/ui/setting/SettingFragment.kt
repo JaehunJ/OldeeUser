@@ -60,11 +60,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
         viewModel.success.observe(viewLifecycleOwner){
             it?.let{
                 if(it){
-                    activity?.let {ac->
-                        ac.finishAffinity()
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                    }
+                    findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToWithdrawDoneFragment())
                 }
             }
         }
@@ -81,9 +77,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
             contents = "진행중인 수선 및 리폼이 있는경우 회원탈퇴가 불가합니다.\n주문 완료 후 진행해주세요. ",
             okText = "취소",
             cancelText = "탈퇴",
-            {}
+            {
+
+            }
         ){
-            findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToWithdrawDoneFragment())
+            viewModel.requestWithdraw()
         }
 
         dialog.show(requireActivity().supportFragmentManager, "warning")

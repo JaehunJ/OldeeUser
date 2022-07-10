@@ -10,8 +10,10 @@ buildscript {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
         classpath 'com.google.gms:google-services:4.3.13'
 
+        //오류 로그
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
         //배포
-        classpath 'com.google.firebase:firebase-appdistribution-gradle:2.0.1'
+        classpath 'com.google.firebase:firebase-appdistribution-gradle:3.0.2'
     }
 
     repositories {
@@ -27,6 +29,7 @@ plugins {
     id 'com.android.library' version '7.1.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.5.30' apply false
     id 'androidx.navigation.safeargs.kotlin' version '2.4.0' apply false
+
 }
 
 

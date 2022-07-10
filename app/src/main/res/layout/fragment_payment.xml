@@ -90,6 +90,7 @@
                             android:textSize="20dp" />
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/btn_latest_address"
                             android:layout_width="0dp"
                             android:layout_weight="0.5"
