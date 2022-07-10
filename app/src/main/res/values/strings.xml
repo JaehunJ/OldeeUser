@@ -17,4 +17,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="order_log_detail_address_num">%s %s</string>
+
+    <string name="faq_title">주문 후 어느 정도 배송 시간이 걸리나요?</string>
+    <string name="faq_contents">신청하신 전문가님마다 배송시간이 다릅니다. 디자인 상세페이지에서 배송 시간을 확인하실 수 있으며 보통 5~10일 정도 소요됩니다.</string>
 </resources>

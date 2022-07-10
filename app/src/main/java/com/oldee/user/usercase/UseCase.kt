@@ -187,4 +187,4 @@ class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepositor
 
 }
 
-class GetFaqListUseCase @Inject constructor(private val repo:)
+//class GetFaqListUseCase @Inject constructor(private val repo:)
