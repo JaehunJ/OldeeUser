@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.navercorp.nid.NaverIdLoginSDK
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     lateinit var drawerBinding: LayoutHomeRightSlideMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

@@ -19,4 +19,9 @@
     </style>
     <style name="Theme.OldeeUser.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.OldeeUser.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.OldeeUser.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/cardview_dark_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.OldeeUser</item>
+    </style>
 </resources>
