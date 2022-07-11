@@ -11,6 +11,9 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
     @Provides
+    fun provideGetVersionInfoUserCase(repo:CommonRepository) = GetVersionInfoUseCase(repo)
+
+    @Provides
     fun provideGetAutoLoginUseCase(repo:SignRepository) = GetAutoLoginValue(repo)
 
     @Provides

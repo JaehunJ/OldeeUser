@@ -12,6 +12,10 @@ import com.oldee.user.repository.*
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
+class GetVersionInfoUseCase @Inject constructor(private val repo:CommonRepository){
+    suspend operator fun invoke() = repo.requestVersionInfo()
+}
+
 class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
     operator fun invoke(data: SignInResponseData) {
         repo.setToken(data)

@@ -56,13 +56,24 @@ android {
         def TERM_PRIVACY = "TERM_PRIVACY"
         def TERM_SERVICE = "TERM_SERVICE"
         def POST_NUM_PATH = "POST_NUM_PATH"
+        def GOOGLE_PLAY = "GOOGLE_PLAY"
 
-        trial {
+        aws_trial{
             buildConfigField "String", BASE_URL, '"https://dev.oldee.co.kr"'
             buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
             buildConfigField "String", POST_NUM_PATH, '"/api/v1/address"'
+            buildConfigField "String", GOOGLE_PLAY, '"market://details?id=com.oldee.user"'
+        }
+
+        trial {
+            buildConfigField "String", BASE_URL, '"https://oldeedev.tk/"'
+            buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
+            buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
+            buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
+            buildConfigField "String", POST_NUM_PATH, '"/api/v1/address"'
+            buildConfigField "String", GOOGLE_PLAY, '"market://details?id=com.oldee.user"'
         }
 
         real {
@@ -71,6 +82,7 @@ android {
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
             buildConfigField "String", POST_NUM_PATH, '"/api/v1/address"'
+            buildConfigField "String", GOOGLE_PLAY, '"market://details?id=com.oldee.user"'
         }
     }
 

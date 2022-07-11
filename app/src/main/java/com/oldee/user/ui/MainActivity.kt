@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         }
         drawerBinding.tvQna.setOnClickListener {
             hideDrawerMenu()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_QuRxmb")))
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_faqFragment)
+//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_QuRxmb")))
         }
         drawerBinding.tvSetting.setOnClickListener {
             hideDrawerMenu()

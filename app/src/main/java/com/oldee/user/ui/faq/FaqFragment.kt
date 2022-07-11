@@ -1,5 +1,7 @@
 package com.oldee.user.ui.faq
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +27,10 @@ class FaqFragment : BaseFragment<FragmentFaqBinding, FaqViewModel, NavArgs>() {
         }
         binding.layoutFaqItem.cbArr.setOnCheckedChangeListener { compoundButton, b ->
             binding.layoutFaqItem.tvContents.visibility = if(b) View.VISIBLE else View.GONE
+        }
+
+        binding.clKakao.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_QuRxmb")))
         }
     }
 

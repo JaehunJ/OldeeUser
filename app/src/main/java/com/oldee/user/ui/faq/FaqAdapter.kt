@@ -31,8 +31,8 @@ class FaqAdapter:RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
         }
 
         fun bind(data:NoticeData){
-            binding.title = data.title
-            binding.contents = data.contents
+//            binding.title = data.title
+//            binding.contents = data.contents
             binding.clArr.setOnClickListener {
                 binding.cbArr.isChecked = !binding.cbArr.isChecked
             }
