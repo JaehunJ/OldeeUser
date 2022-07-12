@@ -11,48 +11,55 @@ import com.oldee.user.databinding.LayoutOrderAddImageItemBinding
 class AddCartAddPhotoAdapter(
     val addCallback: () -> Unit,
     val imageCallBack: (ImageView, Uri) -> Unit,
-    val deleteCallBack: (Int)->Unit
+    val deleteCallBack: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var dataSet = mutableListOf<Uri>()
 
     val ADD = 0
     val DATA = 1
 
-    fun setData(new:List<Uri>){
+    fun setData(new: List<Uri>) {
         dataSet.clear()
-        dataSet = new.toMutableList()
+        dataSet.addAll(new)
         notifyItemRangeChanged(0, dataSet.size)
     }
 
-    fun addData(uri:Uri){
-        dataSet.add(uri)
-        notifyItemInserted(dataSet.size-1)
+    fun initData(){
+        dataSet.clear()
+        notifyDataSetChanged()
     }
 
-    override fun getItemCount() = dataSet.size+1
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) :RecyclerView.ViewHolder{
-        when(viewType){
-            ADD->{
+    fun addData(uri: Uri) {
+        dataSet.add(uri)
+        notifyItemInserted(dataSet.size - 1)
+    }
+
+    override fun getItemCount() = dataSet.size + 1
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        when (viewType) {
+            ADD -> {
                 return AddPhotoViewHolder.from(parent)
             }
-            else->{
+            else -> {
                 return PhotoViewHolder.from(parent)
             }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is AddPhotoViewHolder){
+        if (holder is AddPhotoViewHolder) {
             holder.bind {
                 addCallback()
             }
-        }else if(holder is PhotoViewHolder){
-            holder.bind(imageCallBack, dataSet[position])
+        } else if (holder is PhotoViewHolder) {
+            holder.bind(imageCallBack, dataSet[position]){
+                deleteCallBack.invoke(position)
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == dataSet.size) ADD else DATA
+        return if (position == dataSet.size) ADD else DATA
     }
 
     class AddPhotoViewHolder(val binding: LayoutOrderAddImageItemBinding) :
@@ -69,6 +76,7 @@ class AddCartAddPhotoAdapter(
             binding.clContainer.setOnClickListener {
                 click()
             }
+
             binding.clAdd.visibility = View.VISIBLE
             binding.clPhoto.visibility = View.INVISIBLE
         }
@@ -84,9 +92,12 @@ class AddCartAddPhotoAdapter(
             }
         }
 
-        fun bind(imageCallBack: (ImageView, Uri) -> Unit, uri: Uri) {
+        fun bind(imageCallBack: (ImageView, Uri) -> Unit, uri: Uri, deleteCallBack: () -> Unit) {
             binding.clContainer.setOnClickListener {
 
+            }
+            binding.ivDelete.setOnClickListener {
+                deleteCallBack.invoke()
             }
             binding.clAdd.visibility = View.INVISIBLE
             binding.clPhoto.visibility = View.VISIBLE

@@ -75,7 +75,7 @@
                     <TextView
                         android:padding="10dp"
                         android:layout_marginStart="6dp"
-                        app:layout_constraintStart_toEndOf="@id/iv_kakao"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       app:layout_constraintStart_toEndOf="@id/iv_kakao"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintTop_toTopOf="parent"

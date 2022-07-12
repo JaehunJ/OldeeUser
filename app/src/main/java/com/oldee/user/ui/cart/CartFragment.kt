@@ -38,32 +38,33 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
         binding.vm = viewModel
 
         binding.btnConfirm.setOnClickListener {
-            if(checkedItemDataList.isEmpty())
+            if (checkedItemDataList.isEmpty())
                 return@setOnClickListener
 
             val res = checkedItemDataList
-            res.let{ datas->
-                val action = CartFragmentDirections.actionCartFragmentToPaymentFragment(datas.toTypedArray())
+            res.let { datas ->
+                val action =
+                    CartFragmentDirections.actionCartFragmentToPaymentFragment(datas.toTypedArray())
                 findNavController().navigate(action)
             }
         }
 
         binding.tvTotalDelete.setOnClickListener {
-            if(checkedItemDataList.isNotEmpty()){
+            if (checkedItemDataList.isNotEmpty()) {
                 viewModel.requestCartListItemDelete(checkedItemDataList)
             }
         }
     }
 
     override fun initDataBinding() {
-        viewModel.res.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.res.observe(viewLifecycleOwner) {
+            it?.let {
                 init()
 
-                if(it.isEmpty()){
+                if (it.isEmpty()) {
                     binding.clEmpty.visibility = View.VISIBLE
                     binding.nsExist.visibility = View.GONE
-                }else{
+                } else {
                     binding.clEmpty.visibility = View.GONE
                     binding.nsExist.visibility = View.VISIBLE
                 }
@@ -72,7 +73,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                 viewModel.totalPrice.postValue(0)
 
 
-                if(binding.cbTotal.isChecked){
+                if (binding.cbTotal.isChecked) {
                     binding.llTotalSelect.performClick()
                 }
             }
@@ -83,13 +84,13 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
         viewModel.requestCartList()
     }
 
-    fun init(){
+    fun init() {
         checkedItemDataList.clear()
         childList.clear()
         checkCnt = 0
     }
 
-    fun setCartList(datas:List<BasketListItem>){
+    fun setCartList(datas: List<BasketListItem>) {
         childList.clear()
         binding.llContainer.removeAllViews()
         datas.forEach {
@@ -108,24 +109,24 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
             it.cbSub.setOnCheckedChangeListener { compoundButton, b ->
                 val d = it.data ?: return@setOnCheckedChangeListener
 
-                if(b){
+                if (b) {
                     checkedItemDataList.add(d)
                     val prevPrice = viewModel.totalPrice.value
-                    prevPrice?.let{ prev->
-                        val itemPrice = d.reformPrice?:"0"
-                        viewModel.totalPrice.value = prev+itemPrice.toInt()
+                    prevPrice?.let { prev ->
+                        val itemPrice = d.reformPrice ?: "0"
+                        viewModel.totalPrice.value = prev + itemPrice.toInt()
                     }
                     checkCnt++
 
-                    if(checkCnt == childList.size){
+                    if (checkCnt == childList.size) {
                         binding.cbTotal.isChecked = true
                     }
-                }else{
+                } else {
                     checkedItemDataList.remove(d)
                     val prevPrice = viewModel.totalPrice.value
-                    prevPrice?.let{ prev->
-                        val itemPrice = d.reformPrice?:"0"
-                        viewModel.totalPrice.value = prev-itemPrice.toInt()
+                    prevPrice?.let { prev ->
+                        val itemPrice = d.reformPrice ?: "0"
+                        viewModel.totalPrice.value = prev - itemPrice.toInt()
                     }
                     checkCnt--
                     binding.cbTotal.isChecked = false

@@ -52,6 +52,16 @@ class AddCartViewModel @Inject constructor(
         imageData.postValue(oldList.toMutableList())
     }
 
+    fun deletePhoto(index:Int){
+        val oldList = imageData.value?: mutableListOf()
+
+        if(oldList.isNotEmpty()){
+            oldList.removeAt(index)
+        }
+
+        imageData.postValue(oldList.toMutableList())
+    }
+
     fun isValidate(): Boolean {
         val imageList = imageData.value
         val itemId = checkedReformItemId.value
@@ -64,22 +74,28 @@ class AddCartViewModel @Inject constructor(
     fun requestAddCart(context: Context, onError:(String)->Unit) {
         remote {
             val images = postLocalImage(context, onError)
-            val data = getRequestData(images)
 
-            var error = false
-            val result = postAddCartUseCase.invoke({
-                it.errorMessage?.let { sr ->
-                    if (sr.contains("discontinued")) {
-                        error = true
-                        onError.invoke(sr)
+            if(images.isEmpty()){
+                onError.invoke("이미지 업로드에 실패 했습니다.")
+                return@remote
+            }else{
+                val data = getRequestData(images)
+
+                var error = false
+                val result = postAddCartUseCase.invoke({
+                    it.errorMessage?.let { sr ->
+                        if (sr.contains("discontinued")) {
+                            error = true
+                            onError.invoke(sr)
+                        }
                     }
+                }, data)
+
+                if (error) return@remote
+
+                result?.let {
+                    res.postValue(it.data)
                 }
-            }, data)
-
-            if (error) return@remote
-
-            result?.let {
-                res.postValue(it.data)
             }
         }
     }

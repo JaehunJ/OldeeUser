@@ -57,7 +57,7 @@ class AddCartFragment :
         }, { iv, uri ->
             viewModel.setImage(iv, uri)
         }, { pos ->
-
+            viewModel.deletePhoto(pos)
         })
         binding.rvImages.adapter = photoAdapter
 
@@ -78,7 +78,7 @@ class AddCartFragment :
         binding.btnOrder.setOnClickListener {
 //            showSuccessDialog()
             if (viewModel.isValidate()) {
-                viewModel.requestAddCart(requireContext()){
+                viewModel.requestAddCart(requireContext()) {
                     activityFuncFunction.showToast(it)
                 }
             } else {
@@ -92,7 +92,11 @@ class AddCartFragment :
     override fun initDataBinding() {
         viewModel.imageData.observe(viewLifecycleOwner) {
             it?.let { list ->
-                photoAdapter.setData(list.toList())
+                if(list.isNotEmpty()){
+                    photoAdapter.setData(list.toList())
+                }else{
+                    photoAdapter.initData()
+                }
             }
         }
         viewModel.res.observe(viewLifecycleOwner) {
@@ -113,7 +117,7 @@ class AddCartFragment :
                     popUpTo(R.id.homeFragment)
                 }
                 findNavController().navigate(R.id.action_global_cartFragment, null, option)
-            }, {findNavController().popBackStack(R.id.homeFragment, false)}
+            }, { findNavController().popBackStack(R.id.homeFragment, false) }
         )
         dialog.isCancelable = false
         activity?.let { ay ->

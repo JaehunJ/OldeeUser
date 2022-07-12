@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oldee.user.databinding.LayoutCartOrderItemBinding
 import com.oldee.user.network.response.BasketListItem
 
-class CartOrderAdapter(val checkedChange:(position:Int, checked:Boolean)->Unit, val checkItem: (data: BasketListItem) -> Unit) :
+class CartOrderAdapter(
+    val checkedChange: (position: Int, checked: Boolean) -> Unit,
+    val checkItem: (data: BasketListItem) -> Unit
+) :
     RecyclerView.Adapter<CartOrderAdapter.CartOrderViewHolder>() {
     var dataSet = mutableListOf<BasketListItem>()
 
@@ -38,7 +41,12 @@ class CartOrderAdapter(val checkedChange:(position:Int, checked:Boolean)->Unit, 
             }
         }
 
-        fun bind(position: Int, data: BasketListItem, checkedChange: (Int, Boolean) -> kotlin.Unit, checkItem: (BasketListItem) -> Unit) {
+        fun bind(
+            position: Int,
+            data: BasketListItem,
+            checkedChange: (Int, Boolean) -> kotlin.Unit,
+            checkItem: (BasketListItem) -> Unit
+        ) {
             binding.data = data
             binding.llSub.setOnClickListener {
                 binding.cbSub.isChecked

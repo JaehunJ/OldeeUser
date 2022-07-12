@@ -26,7 +26,6 @@ class CartViewModel @Inject constructor(
         totalCheck.value = false
     }
 
-
     fun requestCartList() {
         remote {
             val result = getCartListUserCase.invoke()
@@ -37,7 +36,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun requestCartListItemDelete(list : List<BasketListItem>){
+    fun requestCartListItemDelete(list: List<BasketListItem>) {
         remote {
             val requestChildList = mutableListOf<BasketItemDeleteData>()
             list.forEach {
@@ -48,7 +47,7 @@ class CartViewModel @Inject constructor(
 
             val result = deleteCartListItemUseCase.invoke(request)
 
-            result?.let{
+            result?.let {
                 requestCartList()
             }
         }
