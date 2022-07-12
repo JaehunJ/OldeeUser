@@ -6,10 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/main"
+        android:background="@color/white"
         tools:context=".ui.design.DesignListFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/main"
             android:layout_width="match_parent"
             android:layout_height="56dp">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,32 +43,30 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/sw_list"
-            android:overScrollMode="never"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-            <LinearLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:id="@+id/sw_list"-->
+<!--            android:overScrollMode="never"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+<!--            <LinearLayout-->
+<!--                android:background="@color/white"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:overScrollMode="never"
+                    android:background="@color/white"
                     android:layout_marginStart="21.5dp"
                     android:layout_marginEnd="21.5dp"
                     android:layout_marginTop="18dp"
-                    android:layout_marginBottom="18dp"
                     android:id="@+id/rv_design_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     tools:listitem="@layout/layout_home_design_item"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--        </androidx.core.widget.NestedScrollView>-->
 
     </LinearLayout>
 </layout>

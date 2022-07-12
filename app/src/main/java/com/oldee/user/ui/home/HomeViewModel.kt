@@ -32,15 +32,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun requestDesignList(onEnd:()->Unit) {
-        remote(false) {
-            val result = getDesignListUseCase.invoke(10, 0)
-            result?.let {
-                designList.postValue(it.data)
-            }
-        }
-    }
-
     fun getUserName():String{
         val data = getUserData.invoke()?.userName
 
@@ -58,7 +49,7 @@ class HomeViewModel @Inject constructor(
     }
 
     suspend fun requestDesignListSuspend(){
-        val result = getDesignListUseCase.invoke(10, 0)
+        val result = getDesignListUseCase.invoke(6, 0)
         result?.let {
             designList.postValue(it.data)
         }

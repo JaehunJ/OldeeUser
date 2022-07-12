@@ -61,7 +61,7 @@ interface OldeeService {
     ): Response<ExpertListResponse>
 
     //reform design
-    @GET("api/v1/user/reform/product/list?limit=3&page=0")
+    @GET("api/v1/user/reform/product/list")
     suspend fun requestDesignList(
         @Header("Authorization") token: String,
         @Query("limit") limit: Int,

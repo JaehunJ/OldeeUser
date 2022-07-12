@@ -156,4 +156,10 @@ dependencies {
 
     //splash
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
+
+//    compile ("com.github.bumptech.glide:recyclerview-integration:4.4.0") {
+//        /*Excludes the support library
+//          because it's already included by Glide.*/
+//        transitive = false
+//    }
 }

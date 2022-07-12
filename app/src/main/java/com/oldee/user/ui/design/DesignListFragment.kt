@@ -10,6 +10,8 @@ import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.custom.OnScrollEndListener
 import com.oldee.user.databinding.FragmentDesignListBinding
+import com.oldee.user.network.response.DesignListItem
+import com.oldee.user.network.response.DesignListResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +25,10 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     var limit = 10
     var page = 0
 
+    init {
+
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         adapter = DesignListAdapter({
             val action = DesignListFragmentDirections.actionDesignListFragmentToReformDetailFragment(it)
@@ -31,39 +37,35 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
             viewModel.setImage(iv, str)
         }
         binding.rvDesignList.adapter = adapter
+        binding.rvDesignList.setItemViewCacheSize(30)
 
         binding.rvDesignList.addOnScrollListener(OnScrollEndListener(){
             if(viewModel.resSize % 10 == 0){
                 addItem()
             }
         })
-        binding.swList.setOnRefreshListener(this)
     }
 
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-                if(it.isNotEmpty() && viewModel.page != 0){
-                    adapter.addData(it)
-                }else if(it.isNotEmpty() && viewModel.page == 0){
-                    adapter.setData(it)
-                }
+                adapter.submitList(it)
             }
         }
     }
 
     fun addItem(){
-        viewModel.requestDesignList(viewModel.limit, viewModel.page+1)
+        viewModel.requestDesignList(viewModel.limit, viewModel.page+1, true)
     }
 
 
     override fun initViewCreated() {
-        viewModel.requestDesignList(10, 0)
-        adapter.removeAll()
+        viewModel.requestDesignList(10, 0, false)
+//        adapter.removeAll()
     }
 
     override fun onRefresh() {
-        viewModel.requestDesignList(10, 0)
-        binding.swList.isRefreshing = false
+        viewModel.requestDesignList(10, 0, false)
+//        binding.swList.isRefreshing = false
     }
 }

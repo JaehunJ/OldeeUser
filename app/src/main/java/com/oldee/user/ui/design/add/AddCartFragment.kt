@@ -228,7 +228,7 @@ class AddCartFragment :
                     if(mimeType == "image/jpeg"){
                         list.add(it)
                     }else{
-                        activityFuncFunction.showToast("jpeg파일만 선택하실 수 있습니다.")
+                        activityFuncFunction.showToast("JPG 이미지만 등록할 수 있어요.")
                     }
                 }
             }
