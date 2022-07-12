@@ -50,6 +50,9 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
                 adapter.submitList(it)
+                if(viewModel.page == 0){
+                    binding.rvDesignList.scheduleLayoutAnimation()
+                }
             }
         }
     }

@@ -53,8 +53,8 @@ class DesignListAdapter(
         DesignListItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: DesignListItemViewHolder, position: Int) {
-
         holder.bind(getItem(position), navigateCallback, imageCallBack)
+
     }
 
 //    override fun getItemCount() = dataSet.size
