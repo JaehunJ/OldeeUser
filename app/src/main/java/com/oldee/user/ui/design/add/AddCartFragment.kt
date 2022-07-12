@@ -220,15 +220,15 @@ class AddCartFragment :
                 val selectedImage = data.data
 
                 selectedImage?.let {
-                    val path = it.path
-                    path?.let { p ->
-                        val extension = p.contains("gif")
+//                    val path = it.path
+                    val mimeType = it.let {
+                            returnUri-> context?.contentResolver?.getType(it)
+                    }
 
-                        if (!extension) {
-                            list.add(it)
-                        } else {
-                            activityFuncFunction.showToast("gif파일은 선택하실수 없습니다.")
-                        }
+                    if(mimeType == "image/jpeg"){
+                        list.add(it)
+                    }else{
+                        activityFuncFunction.showToast("jpeg파일만 선택하실 수 있습니다.")
                     }
                 }
             }
