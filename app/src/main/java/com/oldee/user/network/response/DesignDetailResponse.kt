@@ -15,7 +15,7 @@ data class DesignDetailResponse(
 @Parcelize
 data class DesignDetailData(
     val expertName: String,
-    val imageName: String,
+    val imageName: String?,
     val heartCheck: Int,
     val beforeImageName: String,
     val itemCode: String,
@@ -36,7 +36,7 @@ data class DesignDetailData(
 ) : Parcelable {
     fun getItemCode() = itemCode.split(',')
 
-    fun getImageNameList() = imageName.split(',')
+    fun getImageNameList() = imageName?.split(',')
 
     fun getReformItemNameList() = reformItemName.split(',')
 

@@ -98,6 +98,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 //        binding.llExpertList.setOnClickListener {
 //            Log.e("#debug", "click btn")
 //        }
+
+        binding.ivLogo.setOnClickListener {
+            findNavController().popBackStack()
+            findNavController().navigate(R.id.homeFragment)
+        }
     }
 
     override fun initDataBinding() {

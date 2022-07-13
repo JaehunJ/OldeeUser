@@ -82,7 +82,7 @@ class AddCartFragment :
                     activityFuncFunction.showToast(it)
                 }
             } else {
-                activityFuncFunction.showToast("누락된 정보가 있습니다.")
+                activityFuncFunction.showToast("누락된 정보가 있어요.")
             }
         }
 
@@ -238,7 +238,11 @@ class AddCartFragment :
                 return
             }
 
-            viewModel.addPhoto(list)
+            if(viewModel.isListContains(list[0])){
+                viewModel.addPhoto(list[0])
+            }else{
+                activityFuncFunction.showToast("동일한 이미지가 있어요.")
+            }
         }
     }
 }

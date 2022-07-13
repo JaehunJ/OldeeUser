@@ -159,7 +159,7 @@ class PaymentFragment :
             }
 
             val imageList = it.getImageNameList()
-            (viewBinding.rvImage.adapter as PaymentImageAdapter).setData(imageList.toList())
+            (viewBinding.rvImage.adapter as PaymentImageAdapter).setData(imageList?.toList()?: listOf())
         }
     }
 

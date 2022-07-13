@@ -17,7 +17,7 @@ data class BasketListItem(
     val basketId: Int,
     val classCode: String,
     val surveyId: String,
-    val imageName: String,
+    val imageName: String?,
     val reformPrice: String,
     val reformCode: String,
     val reformName: String,
@@ -27,5 +27,5 @@ data class BasketListItem(
     val userUUId: Int,
     val expertUUId: String
 ) : Parcelable{
-    fun getImageNameList() = imageName.split(',')
+    fun getImageNameList() = imageName?.split(',')
 }

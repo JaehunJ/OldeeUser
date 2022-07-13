@@ -43,13 +43,21 @@ class AddCartViewModel @Inject constructor(
         Glide.with(imageView.context).load(uri).into(imageView)
     }
 
-    fun addPhoto(newData: List<Uri>) {
+    fun addPhoto(newData: Uri) {
         val oldList = imageData.value ?: mutableListOf()
-        newData.forEach {
-            oldList.add(it)
-        }
+
+        oldList.add(newData)
+//        n/*ewData.forEach {
+//            oldList.add(it)
+//        }*/
 
         imageData.postValue(oldList.toMutableList())
+    }
+
+    fun isListContains(newData: Uri):Boolean{
+        val match = imageData.value?.find { it == newData }
+
+        return match != null
     }
 
     fun deletePhoto(index:Int){

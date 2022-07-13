@@ -76,10 +76,10 @@ class ReformDetailFragment :
 
                 //image
                 val list = it.getImageNameList()
-                imageAdapter.setData(list)
+                imageAdapter.setData(list?: listOf())
 
                 viewModel.currentImageIdx.postValue(1)
-                viewModel.totalImageCnt.postValue(list.size)
+                viewModel.totalImageCnt.postValue(list?.size?:0)
 
                 viewModel.postDelay({showSkeleton(false)}, 500)
             }
