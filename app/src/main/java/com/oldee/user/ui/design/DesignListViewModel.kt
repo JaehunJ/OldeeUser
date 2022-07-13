@@ -37,19 +37,19 @@ class DesignListViewModel @Inject constructor(private val getDesignListUseCase: 
             val result = getDesignListUseCase.invoke(limit, page)
 
             result?.let{d->
-                if(isAdded){
-                    val newList = mutableListOf<DesignListItem>()
-                    val oldList = listResponse.value
-
-                    oldList?.let{l->
-                        newList.addAll(l)
-                    }
-
-                    newList.addAll(d.data)
-                    listResponse.postValue(newList.toMutableList())
-                }else{
+//                if(isAdded){
+//                    val newList = mutableListOf<DesignListItem>()
+//                    val oldList = listResponse.value
+//
+//                    oldList?.let{l->
+//                        newList.addAll(l)
+//                    }
+//
+//                    newList.addAll(d.data)
+//                    listResponse.postValue(newList.toMutableList())
+//                }else{
                     listResponse.postValue(d.data.toMutableList())
-                }
+//                }
             }
         }
     }

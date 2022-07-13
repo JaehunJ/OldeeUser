@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.oldee.user.databinding.LayoutHomeDesignItemBinding
 import com.oldee.user.network.response.DesignListItem
@@ -13,33 +12,27 @@ class DesignListAdapter(
     val navigateCallback: (Int) -> Unit,
     val imageCallBack: (ImageView, String) -> Unit
 ) :
-    ListAdapter<DesignListItem, DesignListAdapter.DesignListItemViewHolder>(DesignItemDiffCallback()) {
-//    var dataSet = mutableListOf<DesignListItem>()
-//
-//    fun setData(list: MutableList<DesignListItem>) {
-//        dataSet = list.toMutableList()
-//        val size = dataSet.size
-//        notifyItemRangeChanged(0, size)
-//    }
-//
-//    fun removeAll() {
-//        val size = dataSet.size
-//        dataSet.clear()
-//        notifyItemRangeRemoved(0, size)
-//    }
-//
-//    fun addData(newData: MutableList<DesignListItem>) {
-//        if (dataSet.size == 0) {
-//            setData(newData)
-//            return
-//        }
-//
-//        val orgSize = dataSet.size
-//        newData.forEach {
-//            dataSet.add(it)
-//        }
-//        notifyItemRangeInserted(orgSize, newData.size)
-//    }
+    RecyclerView.Adapter<DesignListAdapter.DesignListItemViewHolder>() {
+    var dataSet = mutableListOf<DesignListItem>()
+
+    fun setData(list: MutableList<DesignListItem>) {
+        dataSet = list.toMutableList()
+        val size = dataSet.size
+        notifyItemRangeChanged(0, size)
+    }
+
+    fun addData(new: MutableList<DesignListItem>) {
+        val currentMaxPosition = dataSet.lastIndex
+        val addItemCount = new.count()
+        dataSet.addAll(new)
+        notifyItemRangeInserted(currentMaxPosition + 1, addItemCount)
+    }
+
+    fun removeAll() {
+        val size = dataSet.size
+        dataSet.clear()
+        notifyItemRangeRemoved(0, size)
+    }
 
     init {
         setHasStableIds(true)
@@ -53,11 +46,11 @@ class DesignListAdapter(
         DesignListItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: DesignListItemViewHolder, position: Int) {
-        holder.bind(getItem(position), navigateCallback, imageCallBack)
+        holder.bind(dataSet[position], navigateCallback, imageCallBack)
 
     }
 
-//    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = dataSet.size
 
     class DesignListItemViewHolder(val binding: LayoutHomeDesignItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

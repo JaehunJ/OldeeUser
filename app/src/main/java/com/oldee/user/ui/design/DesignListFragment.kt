@@ -49,9 +49,12 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-                adapter.submitList(it)
+//                adapter.submitList(it)
                 if(viewModel.page == 0){
+                    adapter.setData(it)
                     binding.rvDesignList.scheduleLayoutAnimation()
+                }else{
+                    adapter.addData(it)
                 }
             }
         }
@@ -64,11 +67,9 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
 
     override fun initViewCreated() {
         viewModel.requestDesignList(10, 0, false)
-//        adapter.removeAll()
     }
 
     override fun onRefresh() {
         viewModel.requestDesignList(10, 0, false)
-//        binding.swList.isRefreshing = false
     }
 }
