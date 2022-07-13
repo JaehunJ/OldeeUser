@@ -95,9 +95,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
             Log.e("#debug", "click btn")
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://bit.ly/oldeener")))
         }
-//        binding.llExpertList.setOnClickListener {
-//            Log.e("#debug", "click btn")
-//        }
 
         binding.ivLogo.setOnClickListener {
             findNavController().popBackStack()
