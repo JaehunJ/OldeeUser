@@ -21,10 +21,10 @@ class AddCartAddPhotoAdapter(
     fun setData(new: List<Uri>) {
         dataSet.clear()
         dataSet.addAll(new)
-        notifyItemRangeChanged(0, dataSet.size)
+        notifyDataSetChanged()
     }
 
-    fun initData(){
+    fun initData() {
         dataSet.clear()
         notifyDataSetChanged()
     }
@@ -52,7 +52,7 @@ class AddCartAddPhotoAdapter(
                 addCallback()
             }
         } else if (holder is PhotoViewHolder) {
-            holder.bind(imageCallBack, dataSet[position]){
+            holder.bind(imageCallBack, dataSet[position]) {
                 deleteCallBack.invoke(position)
             }
         }

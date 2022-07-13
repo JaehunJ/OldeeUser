@@ -3,6 +3,7 @@ package com.oldee.user.ui.design.add
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.provider.OpenableColumns
 import android.widget.ImageView
 import androidx.core.net.toFile
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +39,9 @@ class AddCartViewModel @Inject constructor(
     val invokeError = MutableLiveData<Boolean>()
     val res = MutableLiveData<AddCartResponseData>()
 
+    init {
+        imageData.value = mutableListOf()
+    }
 
     fun setImage(imageView: ImageView, uri: Uri) {
         Glide.with(imageView.context).load(uri).into(imageView)
@@ -70,10 +74,27 @@ class AddCartViewModel @Inject constructor(
         imageData.postValue(oldList.toMutableList())
     }
 
-    fun isValidate(): Boolean {
+    fun isValidate(onError: (String) -> Unit): Boolean {
         val imageList = imageData.value
+
+        if(imageList.isNullOrEmpty()){
+            onError.invoke("준비물사진을 등록해주세요.")
+            return false
+        }
+
         val itemId = checkedReformItemId.value
+        if(itemId == null){
+            onError.invoke("리폼을 위해 준비할 준비물을 선택해 주세요.")
+            return false
+        }
+
+
         val text = detailInfo.value
+        if(text.isNullOrEmpty()){
+            onError.invoke("상세내용을 작성해주세요.")
+            return false
+        }
+
         val reformCode = reformData?.reformCode
 
         return imageList != null && imageList.isNotEmpty() && itemId != null && !text.isNullOrEmpty() && !reformCode.isNullOrEmpty()
@@ -194,5 +215,17 @@ class AddCartViewModel @Inject constructor(
                 )
             )
         )
+    }
+
+    fun getFileSize(context: Context, uri:Uri):Long{
+        val cursor = context.contentResolver.query(uri, null, null, null,null)
+
+        cursor?.let{
+            val sizeIndex = it.getColumnIndex(OpenableColumns.SIZE)
+            it.moveToFirst()
+            return it.getLong(sizeIndex)
+        }
+
+        return 0
     }
 }

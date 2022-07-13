@@ -31,6 +31,8 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+const val IMAGE_MAX_SIZE = 20000000
+
 @AndroidEntryPoint
 class AddCartFragment :
     BaseFragment<FragmentAddCartBinding, AddCartViewModel, AddCartFragmentArgs>() {
@@ -77,7 +79,9 @@ class AddCartFragment :
 
         binding.btnOrder.setOnClickListener {
 //            showSuccessDialog()
-            if (viewModel.isValidate()) {
+            if (viewModel.isValidate{
+                    activityFuncFunction.showToast(it)
+                }) {
                 viewModel.requestAddCart(requireContext()) {
                     activityFuncFunction.showToast(it)
                 }
@@ -220,13 +224,26 @@ class AddCartFragment :
                 val selectedImage = data.data
 
                 selectedImage?.let {
-//                    val path = it.path
                     val mimeType = it.let {
                             returnUri-> context?.contentResolver?.getType(it)
                     }
 
                     if(mimeType == "image/jpeg"){
-                        list.add(it)
+                        val oldList =viewModel.imageData.value
+                        oldList?.let{l->
+                            var oldSize = 0L
+                            l.forEach { u->
+                                oldSize += viewModel.getFileSize(requireContext(), u)
+                            }
+
+                            val currentSize = viewModel.getFileSize(requireContext(), it)
+
+                            if(oldSize + currentSize > IMAGE_MAX_SIZE){
+                                activityFuncFunction.showToast("용량이 큰 이미지 파일은 등록할 수 없어요.")
+                            }else{
+                                list.add(it)
+                            }
+                        }
                     }else{
                         activityFuncFunction.showToast("JPG 이미지만 등록할 수 있어요.")
                     }
@@ -238,7 +255,7 @@ class AddCartFragment :
                 return
             }
 
-            if(viewModel.isListContains(list[0])){
+            if(!viewModel.isListContains(list[0])){
                 viewModel.addPhoto(list[0])
             }else{
                 activityFuncFunction.showToast("동일한 이미지가 있어요.")
