@@ -73,6 +73,7 @@ class ReformDetailFragment :
                 viewModel.setImage(binding.ivBefore, it.beforeImageName)
                 viewModel.setImage(binding.ivAfter, it.afterImageName)
                 binding.cbLike.isChecked = it.heartCheck != 0
+                viewModel.setImageCircle(binding.ivAvatar, "")
 
                 //image
                 val list = it.getImageNameList()

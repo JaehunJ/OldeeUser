@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.oldee.user.R
 import com.oldee.user.network.RemoteData
 import com.oldee.user.network.request.*
 import com.oldee.user.network.response.SignInResponseData
@@ -12,7 +13,7 @@ import com.oldee.user.repository.*
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class GetVersionInfoUseCase @Inject constructor(private val repo:CommonRepository){
+class GetVersionInfoUseCase @Inject constructor(private val repo: CommonRepository) {
     suspend operator fun invoke() = repo.requestVersionInfo()
 }
 
@@ -21,7 +22,7 @@ class SetTokenUseCase @Inject constructor(private val repo: CommonRepository) {
         repo.setToken(data)
     }
 
-    operator fun invoke(accessToken:String, refreshToken:String){
+    operator fun invoke(accessToken: String, refreshToken: String) {
         repo.setToken(accessToken, refreshToken)
     }
 }
@@ -35,15 +36,15 @@ class GetUserData @Inject constructor(private val repo: UserRepository) {
 }
 
 class SetUserData @Inject constructor(private val repo: UserRepository) {
-    operator fun invoke(name: String, email: String, phone: String, snsId:String) =
+    operator fun invoke(name: String, email: String, phone: String, snsId: String) =
         repo.setUserData(name, email, phone, snsId)
 }
 
-class PostWithdraw @Inject constructor(private val repo:SignRepository){
-    suspend operator fun invoke(data:WithdrawRequest) = repo.requestWithdraw(data)
+class PostWithdraw @Inject constructor(private val repo: SignRepository) {
+    suspend operator fun invoke(data: WithdrawRequest) = repo.requestWithdraw(data)
 }
 
-class StartLogoutUseCase @Inject constructor(private val repo:SignRepository){
+class StartLogoutUseCase @Inject constructor(private val repo: SignRepository) {
     suspend operator fun invoke() = repo.logout()
 }
 
@@ -79,15 +80,16 @@ class PostPaymentUseCase @Inject constructor(private val repo: DesignRepository)
 
 //log
 class GetPaymentListUseCase @Inject constructor(private val repo: DesignRepository) {
-    suspend operator fun invoke(successYn: Int, limit:Int? = null, page:Int? = null) = repo.requestPaymentList(successYn, limit, page)
+    suspend operator fun invoke(successYn: Int, limit: Int? = null, page: Int? = null) =
+        repo.requestPaymentList(successYn, limit, page)
 }
 
-class GetPaymentDetailUseCase @Inject constructor(private val repo:DesignRepository){
-    suspend operator fun invoke(orderId:Int) = repo.requestPaymentDetail(orderId)
+class GetPaymentDetailUseCase @Inject constructor(private val repo: DesignRepository) {
+    suspend operator fun invoke(orderId: Int) = repo.requestPaymentDetail(orderId)
 }
 
 class GetAddressListUseCase @Inject constructor(private val repo: DesignRepository) {
-    suspend operator fun invoke(code:Int) = repo.requestAddressList(code)
+    suspend operator fun invoke(code: Int) = repo.requestAddressList(code)
 }
 
 class GetAddressByIdUserCase @Inject constructor(private val repo: DesignRepository) {
@@ -131,10 +133,15 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
 
             val bitmap = getImageUseCase.invoke(path)
 
-            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(
+                    R.drawable.icon_empty_image
+                ).error(R.drawable.icon_empty_image).into(imageView)
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image)
+                .into(imageView)
         }
     }
 }
@@ -161,10 +168,12 @@ class SetImageCircleUseCase @Inject constructor(private val getImageUseCase: Get
 //            shimmerDrawable.setShimmer(shimmer)
 
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
+            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop())
+                .transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop()).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
+            Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop())
+                .transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
         }
     }
 }
@@ -182,8 +191,8 @@ class GetCartListUserCase @Inject constructor(private val repo: DesignRepository
     suspend operator fun invoke() = repo.requestCartList()
 }
 
-class DeleteCartListItemUseCase @Inject constructor(private val repo:DesignRepository){
-    suspend operator fun invoke(data:BasketItemDeleteRequest) = repo.requestCartDelete(data)
+class DeleteCartListItemUseCase @Inject constructor(private val repo: DesignRepository) {
+    suspend operator fun invoke(data: BasketItemDeleteRequest) = repo.requestCartDelete(data)
 }
 
 

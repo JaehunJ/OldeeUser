@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.oldee.user.R
 import com.oldee.user.databinding.LayoutHomeDesignerItemBinding
 
 class ExpertListAdapter(val imageCallBack:(ImageView, String)->Unit) : RecyclerView.Adapter<ExpertListAdapter.ExpertListItemViewHolder>() {
@@ -40,7 +43,7 @@ class ExpertListAdapter(val imageCallBack:(ImageView, String)->Unit) : RecyclerV
         fun bind(data: com.oldee.user.network.response.ExpertListItem, imageCallBack: (ImageView, String) -> Unit) {
             binding.res = data
             if(data.expertPrifileImg == null){
-//                Glide.with(binding.ivAvatar.context).load(R.mipmap.ic_launcher).into(binding.ivAvatar)
+                Glide.with(binding.ivAvatar.context).load(R.mipmap.ic_launcher_round).apply(RequestOptions().circleCrop()).into(binding.ivAvatar)
             }else{
                 imageCallBack(binding.ivAvatar, data.expertPrifileImg)
             }

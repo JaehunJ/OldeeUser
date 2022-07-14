@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.oldee.user.R
 import com.oldee.user.base.BaseViewModel
 import com.oldee.user.network.response.DesignListItem
 import com.oldee.user.usercase.GetDesignListUseCase
@@ -60,7 +61,7 @@ class DesignListViewModel @Inject constructor(private val getDesignListUseCase: 
 
             val requestOptions = RequestOptions()
 
-            Glide.with(imageView.context).load(bitmap).into(imageView)
+            Glide.with(imageView.context).load(bitmap).placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image).into(imageView)
         }
     }
 }

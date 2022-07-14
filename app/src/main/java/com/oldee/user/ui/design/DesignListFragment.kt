@@ -36,11 +36,12 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
         }) { iv, str ->
             viewModel.setImage(iv, str)
         }
+        adapter.removeAll()
         binding.rvDesignList.adapter = adapter
         binding.rvDesignList.setItemViewCacheSize(30)
 
         binding.rvDesignList.addOnScrollListener(OnScrollEndListener(){
-            if(viewModel.resSize % 10 == 0){
+            if(viewModel.resSize % 10 == 0 && viewModel.resSize != 0){
                 addItem()
             }
         })

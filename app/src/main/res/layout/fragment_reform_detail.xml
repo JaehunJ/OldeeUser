@@ -88,6 +88,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/iv_avatar"
                         android:translationZ="1dp"
                         android:outlineProvider="@null"
                         android:elevation="0dp"
