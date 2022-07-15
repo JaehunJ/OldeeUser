@@ -105,13 +105,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     override fun initDataBinding() {
         viewModel.expertList.observe(viewLifecycleOwner) {
             it?.let { list ->
-//                val max = 6
                 if (list.size <= expertMax) {
                     expertAdapter.setData(list)
                 } else {
                     expertAdapter.setData(list.subList(0, expertMax))
                 }
-
             }
         }
 

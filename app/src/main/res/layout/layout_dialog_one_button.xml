@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
@@ -35,6 +36,9 @@
                 style="@style/BoldText"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:minHeight="0dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
                 android:id="@+id/btn_ok"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
@@ -43,6 +47,8 @@
                 android:backgroundTint="@color/sky_3"
                 android:textColor="@android:color/white"
                 style="@style/BoldText"
+                android:textAlignment="center"
+                tools:text="ㅈㅏ세히보기"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"/>
         </LinearLayout>

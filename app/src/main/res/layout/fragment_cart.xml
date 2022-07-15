@@ -182,7 +182,7 @@
                             tools:text="20,000원" />
                     </LinearLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_confirm"
                         style="@style/BoldText"
                         android:layout_width="match_parent"

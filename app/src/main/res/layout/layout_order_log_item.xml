@@ -39,7 +39,7 @@
             tools:itemCount="2"
             tools:listitem="@layout/layout_order_log_sub_item" />
 
-        <android.widget.Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_detail"
             style="@style/NormalText"
             android:layout_width="match_parent"

@@ -425,7 +425,7 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_order"
                         app:layout_constraintTop_toBottomOf="@id/ll_order_info"
                         app:layout_constraintStart_toStartOf="parent"

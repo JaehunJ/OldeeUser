@@ -26,7 +26,7 @@
         <include layout="@layout/skeleton_expert_list_item"/>
     </LinearLayout>
 
-    <android.widget.Button
+    <androidx.appcompat.widget.AppCompatButton
         android:visibility="gone"
         android:id="@+id/btn_designer_more"
         android:layout_marginTop="16dp"

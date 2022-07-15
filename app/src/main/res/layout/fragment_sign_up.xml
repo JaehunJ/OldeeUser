@@ -121,7 +121,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
 
-                    <android.widget.Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:visibility="gone"
                         android:id="@+id/btn_code"
                         style="@style/NormalText"
@@ -281,7 +281,7 @@
 
                 </LinearLayout>
 
-                <android.widget.Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_confirm"
                     android:elevation="0dp"
                     android:layout_marginTop="32dp"

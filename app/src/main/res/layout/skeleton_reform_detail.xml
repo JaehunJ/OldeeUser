@@ -402,7 +402,7 @@
 
         </LinearLayout>
 
-        <android.widget.Button
+        <androidx.appcompat.widget.AppCompatButton
 
             style="@style/BoldText"
             android:layout_width="match_parent"

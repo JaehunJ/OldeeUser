@@ -185,7 +185,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:layout_marginStart="5dp"
                             android:id="@+id/btn_post"
                             style="@style/NormalText"
@@ -294,7 +294,7 @@
 
                 </LinearLayout>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_confirm"
                     style="@style/BoldText"
                     android:layout_width="match_parent"
