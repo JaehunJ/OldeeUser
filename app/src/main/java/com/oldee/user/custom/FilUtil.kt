@@ -62,7 +62,7 @@ class FilUtil {
 
             var inSampleSize = 1
 
-            while (height > MAX_HEIGHT || width > MAX_WIDTH) {
+            while (height > MAX_LENGTH || width > MAX_LENGTH) {
                 height /= 2
                 width /= 2
                 inSampleSize *= 2
