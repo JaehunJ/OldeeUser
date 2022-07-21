@@ -3,6 +3,11 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+
+        flatDir{
+            dirs 'libs'
+        }
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +15,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+
+        flatDir{
+            dirs 'libs'
+        }
     }
 }
 rootProject.name = "OldeeUser"

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oldee.user.databinding.LayoutDesignDetailImageBinding
 
-class ReformImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
+class ReformImageAdapter(val onClick:()->Unit, val imageCallback: (ImageView, String) -> Unit) :
     RecyclerView.Adapter<ReformImageAdapter.ReformImageViewHolder>() {
     private var dataSet = listOf<String>()
 
@@ -19,7 +19,7 @@ class ReformImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
         ReformImageViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ReformImageViewHolder, position: Int) {
-        holder.bind(dataSet[position], imageCallback)
+        holder.bind(dataSet[position], imageCallback, onClick)
     }
 
     override fun getItemCount() = dataSet.size
@@ -35,8 +35,12 @@ class ReformImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
             }
         }
 
-        fun bind(path: String, imageCallback: (ImageView, String) -> Unit) {
+        fun bind(path: String, imageCallback: (ImageView, String) -> Unit, onClick: () -> Unit) {
             imageCallback(binding.ivImage, path)
+
+            binding.ivImage.setOnClickListener {
+                onClick()
+            }
         }
     }
 }

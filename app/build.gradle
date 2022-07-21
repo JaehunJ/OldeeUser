@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.oldee.user"
-        minSdk 23
+        minSdk 28
         targetSdk 31
         versionCode 2
         versionName "1.0.0"
@@ -101,6 +101,7 @@ android {
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
@@ -157,9 +158,8 @@ dependencies {
     //splash
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
 
-//    compile ("com.github.bumptech.glide:recyclerview-integration:4.4.0") {
-//        /*Excludes the support library
-//          because it's already included by Glide.*/
-//        transitive = false
-//    }
+//    implementation name: 'OldeeImageUtil-release', ext: 'aar'
+//    implementation name: 'OldeeImageViewer-release', ext: 'aar'
+    implementation files('libs/OldeeImageUtil-release.aar', 'libs/OldeeImageViewer-release.aar')
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

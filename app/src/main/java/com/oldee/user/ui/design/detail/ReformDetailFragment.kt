@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.oldee.imageviewer.ImageViewerDialog
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentReformDetailBinding
@@ -24,11 +25,9 @@ class ReformDetailFragment :
 
     override fun initView(savedInstanceState: Bundle?) {
         prepareAdapter = ReformPrepareItemAdapter()
-        imageAdapter = ReformImageAdapter { iv, path ->
-            viewModel.setImage(iv, path)
-        }
+
         binding.rvPrepareItem.adapter = prepareAdapter
-        binding.vpImage.adapter = imageAdapter
+
         binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 viewModel.currentImageIdx.postValue(position+1)
@@ -77,7 +76,21 @@ class ReformDetailFragment :
 
                 //image
                 val list = it.getImageNameList()
+                list?.let{
+                    imageAdapter = ReformImageAdapter({
+                        val dialog = ImageViewerDialog(list){iv,s->
+                            viewModel.setImage(iv, s)
+                        }
+
+                        dialog.isCancelable = false
+                        dialog.show(requireActivity().supportFragmentManager, "")
+                    }) { iv, path ->
+                        viewModel.setImage(iv, path)
+                    }
+                    binding.vpImage.adapter = imageAdapter
+                }
                 imageAdapter.setData(list?: listOf())
+
 
                 viewModel.currentImageIdx.postValue(1)
                 viewModel.totalImageCnt.postValue(list?.size?:0)
