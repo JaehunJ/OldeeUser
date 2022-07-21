@@ -11,6 +11,7 @@ import com.oldee.user.data.REFRESH_TOKEN
 import com.oldee.user.network.OldeeService
 import com.oldee.user.network.response.SignInResponseData
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import javax.inject.Inject
 import javax.inject.Singleton
 

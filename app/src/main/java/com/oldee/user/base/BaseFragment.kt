@@ -8,6 +8,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -112,4 +115,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
     fun nextFragment(dir:NavDirections){
         findNavController().navigate(dir)
     }
+
+    fun <T> getObserver(owner: LifecycleOwner, action:(T)->Unit)
+        = Observer<T> { if(owner.lifecycle.currentState == Lifecycle.State.RESUMED) action.invoke(it)}
 }

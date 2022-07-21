@@ -14,6 +14,9 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
         //배포
         classpath 'com.google.firebase:firebase-appdistribution-gradle:3.0.2'
+
+        //라이센스
+        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.5'
     }
 
     repositories {

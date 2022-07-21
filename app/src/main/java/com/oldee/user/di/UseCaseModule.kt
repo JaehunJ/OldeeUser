@@ -82,9 +82,4 @@ object UseCaseModule {
     @Provides
     fun providesGetAddressById(repo:DesignRepository) = GetAddressByIdUserCase(repo)
 
-
-//
-//    class GetImageUseCase @Inject constructor(private val repo: CommonRepository) {
-//        suspend operator fun invoke(path: String) = repo.getImageFromServer(path)
-//    }
 }
