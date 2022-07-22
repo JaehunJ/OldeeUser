@@ -6,6 +6,7 @@ import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.navercorp.nid.NaverIdLoginSDK
+import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentSignInBinding
@@ -26,7 +27,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
         val sce = getString(R.string.naver_client_secret)
         val name = getString(R.string.naver_app_name)
         NaverIdLoginSDK.initialize(requireContext(), cId, sce, name)
-        NaverIdLoginSDK.showDevelopersLog(true)
+        NaverIdLoginSDK.showDevelopersLog(BuildConfig.DEBUG)
     }
 
     override fun initDataBinding() {

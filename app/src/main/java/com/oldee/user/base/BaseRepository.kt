@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.oldee.user.data.ACCESS_TOKEN
 import com.oldee.user.data.REFRESH_TOKEN
+import com.oldee.user.network.NoConnectionInterceptor
 import com.oldee.user.network.OldeeService
 import com.oldee.user.network.RemoteData
 import com.oldee.user.network.request.NewTokenRequest
@@ -25,106 +26,77 @@ open class BaseRepository @Inject constructor(
         onError: ((RemoteData.ApiError) -> Unit)? = null,
         apiCall: suspend () -> Response<T>
     ): T? {
-        isLoading.postValue(true)
-        val response = apiCall.invoke()
-        isLoading.postValue(false)
+        try {
+//            isLoading.postValue(true)
 
-        val result = if (response.isSuccessful) {
-            if (response.body() != null && !response.body()!!.errorMessage.isNullOrEmpty()) {
-                RemoteData.ApiError(response.body()!!.errorCode, response.body()!!.errorMessage)
+            val response = apiCall.invoke()
+//            isLoading.postValue(false)
+
+            val result = if (response.isSuccessful) {
+                if (response.body() != null && !response.body()!!.errorMessage.isNullOrEmpty()) {
+                    RemoteData.ApiError(response.body()!!.errorCode, response.body()!!.errorMessage)
+                } else {
+                    RemoteData.Success(response.body()!!)
+                }
             } else {
-                RemoteData.Success(response.body()!!)
+                RemoteData.ApiError(response.code().toString(), response.message())
             }
-        } else {
-            RemoteData.ApiError(response.code().toString(), response.message())
-        }
 
-        when (result) {
-            is RemoteData.Success ->
-                return result.output
-            is RemoteData.ApiError -> {
+            when (result) {
+                is RemoteData.Success ->
+                    return result.output
+                is RemoteData.ApiError -> {
 
-                if (result.errorCode == "404") {
-                    val msgLower = result.errorMessage
+                    if (result.errorCode == "404") {
+                        val msgLower = result.errorMessage
 
-                    if (msgLower == null) {
-                        onError?.invoke(result)
-                        return null
-                    }
-
-                    msgLower.let { msg ->
-                        val lower = msg.lowercase()
-
-                        if (lower.contains("discontinued")) {
-                            onError?.invoke(result)
-                        } else if (lower.contains("token")) {
-                            val re = getNewToken()
-
-                            if(re == null){
-                                Log.e("#debug", "token refresh exception")
-                                null
-                            }else{
-                                val serverError = re.errorMessage
-
-                                serverError?.let{ error->
-                                    if(error.contains("Naver Error")){
-                                        onError?.invoke(result)
-                                        return null
-                                    }
-                                }
-                                setNewToken(re.data)
-                                return call(onError) { apiCall() }
-                            }
-                        }else{
+                        if (msgLower == null) {
                             onError?.invoke(result)
                             return null
                         }
+
+                        msgLower.let { msg ->
+                            val lower = msg.lowercase()
+
+                            if (lower.contains("discontinued")) {
+                                onError?.invoke(result)
+                            } else if (lower.contains("token")) {
+                                val re = getNewToken()
+
+                                if (re == null) {
+                                    Log.e("#debug", "token refresh exception")
+                                    null
+                                } else {
+                                    val serverError = re.errorMessage
+
+                                    serverError?.let { error ->
+                                        if (error.contains("Naver Error")) {
+                                            onError?.invoke(result)
+                                            return null
+                                        }
+                                    }
+                                    setNewToken(re.data)
+                                    return call(onError) { apiCall() }
+                                }
+                            } else {
+                                onError?.invoke(result)
+                                return null
+                            }
+                        }
+                    } else {
+                        onError?.invoke(result)
+                        return null
                     }
-                } else {
-                    onError?.invoke(result)
                     return null
                 }
-                //token 에러일 경우
-                /*if (result.errorCode == "404") {
-                    val msgLower = result.errorMessage
-
-                    if (msgLower == null) {
-                        onError?.invoke(result)
-                        return null
-                    }
-
-                    msgLower.let { msg ->
-                        val lower = msg.lowercase()
-
-                        if (lower.contains("token")) {
-                            //val re = getNewToken()
-
-                            return if (re == null) {
-                                Log.e("#debug", "token refresh exception")
-                                null
-                            } else {
-                                //토큰 다시 설정하고 다시 콜
-                                //setToken(re.data)
-                                return call(onError) { apiCall() }
-                            }
-                        } else {
-                            onError?.invoke(result)
-                            return null
-                        }
-                    }
-                } else {
-                    onError?.invoke(result)
+                is RemoteData.Error -> {
+                    Log.e("#debug", result.exception.printStackTrace().toString())
                     return null
-                }*/
-                return null
+                }
             }
-            is RemoteData.Error -> {
-                Log.e("#debug", result.exception.printStackTrace().toString())
-//                onError?.invoke()
-                return null
-            }
+        } catch (e: NoConnectionInterceptor.NoConnectivityException) {
+            throw NoConnectionInterceptor.NoConnectivityException()
         }
-
         return null
     }
 
@@ -146,8 +118,8 @@ open class BaseRepository @Inject constructor(
     private fun getAccessTokenRaw() = prefs.getString(ACCESS_TOKEN, "")
     private fun getRefreshToken() = prefs.getString(REFRESH_TOKEN, "")
 
-    fun setToken(accessToken:String, refreshToken:String){
-        prefs.edit{
+    fun setToken(accessToken: String, refreshToken: String) {
+        prefs.edit {
             putString(ACCESS_TOKEN, accessToken)
             putString(REFRESH_TOKEN, refreshToken)
             commit()

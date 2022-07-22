@@ -1,6 +1,7 @@
 package com.oldee.user.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.oldee.user.CommonActivityFuncImpl
 import com.oldee.user.R
+import com.oldee.user.network.NoConnectionInterceptor
 
 abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArgs> : Fragment() {
     var navController: NavController? = null
@@ -89,6 +91,9 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         viewModel.baseOnError = {str->
             activityFuncFunction.showToast(str)
         }
+        viewModel.connectionError = {
+            callNetworkErrorPage()
+        }
     }
 
     fun setOnInvokeBackAction(onClick:()->Unit){
@@ -110,6 +115,18 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+//    protected fun callApi(action:()->Unit){
+//        try {
+//            action()
+//        }catch (e:NoConnectionInterceptor.NoConnectivityException){
+//            callNetworkErrorPage()
+//        }
+//    }
+
+    private fun callNetworkErrorPage(){
+        Log.e("#debug", "show network connection error page")
     }
 
     fun nextFragment(dir:NavDirections){

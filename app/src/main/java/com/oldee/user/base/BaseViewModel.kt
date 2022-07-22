@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.oldee.user.network.NoConnectionInterceptor
 import com.oldee.user.network.response.BaseResponse
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel() : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     private val _pushingToast = MutableLiveData<String>()
@@ -16,17 +18,21 @@ abstract class BaseViewModel() : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    val pushingToast : LiveData<String>
+    val pushingToast: LiveData<String>
         get() = _pushingToast
 
     var baseOnError: ((String) -> Unit)? = null
+    var connectionError: (() -> Unit)? = null
 
     fun remote(useProgressBar: Boolean = true, action: suspend () -> Unit) {
-        viewModelScope.launch {
+        val connectionExceptionHandler = CoroutineExceptionHandler { _, e ->
+            _isLoading.postValue(false)
+            if (e is NoConnectionInterceptor.NoConnectivityException) connectionError?.invoke()
+        }
+        viewModelScope.launch(connectionExceptionHandler) {
             if (useProgressBar) {
                 _isLoading.postValue(true)
             }
-
             action()
 
             if (useProgressBar) {
@@ -54,5 +60,5 @@ abstract class BaseViewModel() : ViewModel() {
         }
     }
 
-    fun isValidResponse(res:BaseResponse) = res.errorMessage.isNullOrEmpty()
+    fun isValidResponse(res: BaseResponse) = res.errorMessage.isNullOrEmpty()
 }
