@@ -7,7 +7,6 @@ import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
-import com.oldee.imageviewer.ImageViewerDialog
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentReformDetailBinding
@@ -25,26 +24,33 @@ class ReformDetailFragment :
 
     override fun initView(savedInstanceState: Bundle?) {
         prepareAdapter = ReformPrepareItemAdapter()
-
+        imageAdapter = ReformImageAdapter { iv, path ->
+            viewModel.setImage(iv, path)
+        }
+        binding.vpImage.adapter = imageAdapter
         binding.rvPrepareItem.adapter = prepareAdapter
 
-        binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                viewModel.currentImageIdx.postValue(position+1)
+                viewModel.currentImageIdx.postValue(position + 1)
             }
         })
         binding.vm = viewModel
 
         binding.cbLike.setOnClickListener {
-            if(it is CheckBox){
-                Log.e("#debug", if(it.isChecked) "true" else "false")
+            if (it is CheckBox) {
+                Log.e("#debug", if (it.isChecked) "true" else "false")
             }
         }
 
         binding.btnOrder.setOnClickListener {
             val res = viewModel.res.value
-            res?.let{
-                nextFragment(ReformDetailFragmentDirections.actionReformDetailFragmentToOrderFragment(it))
+            res?.let {
+                nextFragment(
+                    ReformDetailFragmentDirections.actionReformDetailFragmentToOrderFragment(
+                        it
+                    )
+                )
             }
         }
     }
@@ -70,32 +76,32 @@ class ReformDetailFragment :
                 prepareAdapter.setData(prepareItemList.toList())
 
                 viewModel.setImage(binding.ivBefore, it.beforeImageName)
+                binding.ivBefore.setOnClickListener {v->
+                    showImageViewDialog(listOf(it.beforeImageName))
+                }
                 viewModel.setImage(binding.ivAfter, it.afterImageName)
+                binding.ivAfter.setOnClickListener { v->
+                    showImageViewDialog(listOf(it.afterImageName))
+                }
+
                 binding.cbLike.isChecked = it.heartCheck != 0
                 viewModel.setImageCircle(binding.ivAvatar, "")
 
                 //image
                 val list = it.getImageNameList()
-                list?.let{
-                    imageAdapter = ReformImageAdapter({
-                        val dialog = ImageViewerDialog(list){iv,s->
-                            viewModel.setImage(iv, s)
-                        }
-
-                        dialog.isCancelable = false
-                        dialog.show(requireActivity().supportFragmentManager, "")
-                    }) { iv, path ->
-                        viewModel.setImage(iv, path)
+                list?.let {
+                    imageAdapter.onClick = {
+                        showImageViewDialog(it)
                     }
-                    binding.vpImage.adapter = imageAdapter
                 }
-                imageAdapter.setData(list?: listOf())
+
+                imageAdapter.setData(list ?: listOf())
 
 
                 viewModel.currentImageIdx.postValue(1)
-                viewModel.totalImageCnt.postValue(list?.size?:0)
+                viewModel.totalImageCnt.postValue(list?.size ?: 0)
 
-                viewModel.postDelay({showSkeleton(false)}, 500)
+                viewModel.postDelay({ showSkeleton(false) }, 500)
             }
         }
     }
@@ -105,8 +111,8 @@ class ReformDetailFragment :
         viewModel.requestDesignDetail(navArgs.id)
     }
 
-    fun showSkeleton(show:Boolean){
-        if(show){
+    fun showSkeleton(show: Boolean) {
+        if (show) {
             binding.clDesignDetail.visibility = View.GONE
             binding.llSkeleton.visibility = View.VISIBLE
             binding.skeletonDetail.apply {
@@ -117,7 +123,7 @@ class ReformDetailFragment :
                 sfPrepareItem.startShimmer()
                 sfWarning.startShimmer()
             }
-        }else{
+        } else {
             binding.clDesignDetail.visibility = View.VISIBLE
             binding.llSkeleton.visibility = View.GONE
             binding.skeletonDetail.apply {
@@ -129,5 +135,14 @@ class ReformDetailFragment :
                 sfWarning.stopShimmer()
             }
         }
+    }
+
+    fun showImageViewDialog(list: List<String>) {
+        val dialog = com.oldee.imageviewer.ImageViewerDialog(list) { iv, s ->
+            viewModel.setImage(iv, s)
+        }
+
+        dialog.isCancelable = false
+        dialog.show(requireActivity().supportFragmentManager, "")
     }
 }
