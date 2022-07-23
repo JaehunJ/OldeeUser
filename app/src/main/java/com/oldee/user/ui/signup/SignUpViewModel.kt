@@ -25,6 +25,9 @@ class SignUpViewModel @Inject constructor(private val setSignUpUseCase: SetSignU
     //disable
     val emailCode = MutableLiveData<String>()
 
+    val isValidateCheck:Boolean
+    get() = checkPrivacy.value ?: false && checkPrivacy.value ?: false
+
     val isValidate: Boolean
         get() {
             return nickName.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && checkPrivacy.value ?: false && checkPrivacy.value ?: false

@@ -142,7 +142,6 @@ class ReformDetailFragment :
             viewModel.setImage(iv, s)
         }
 
-        dialog.isCancelable = false
         dialog.show(requireActivity().supportFragmentManager, "")
     }
 }

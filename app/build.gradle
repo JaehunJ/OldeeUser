@@ -42,7 +42,7 @@ android {
                     def buildType = variant.buildType.name
                     def productName = variant.productFlavors.name
                     def versionName = variant.versionName
-                    outputFileName = "oldeer_${productName}_${buildType}_${versionName}.apk"
+                    outputFileName = "oldee_user_${productName}_${buildType}_${versionName}.apk"
                 }
             }
 //        }
@@ -60,6 +60,15 @@ android {
 
         aws_trial{
             buildConfigField "String", BASE_URL, '"https://dev.oldee.co.kr"'
+            buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
+            buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
+            buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
+            buildConfigField "String", POST_NUM_PATH, '"/api/v1/address"'
+            buildConfigField "String", GOOGLE_PLAY, '"market://details?id=com.oldee.user"'
+        }
+
+        aws_real{
+            buildConfigField "String", BASE_URL, '"https://api.oldee.co.kr"'
             buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
             buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
             buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'

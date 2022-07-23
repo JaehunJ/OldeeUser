@@ -22,12 +22,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, Sign
     override fun initView(savedInstanceState: Bundle?) {
         binding.vm = viewModel
         binding.btnConfirm.setOnClickListener {
-            if(viewModel.isValidate){
-                viewModel.requestSignUp(navArgs.phone, navArgs.snsId)
+            if(viewModel.isValidateCheck){
+                if(viewModel.isValidate){
+                    viewModel.requestSignUp(navArgs.phone, navArgs.snsId)
+                }else{
+                    activityFuncFunction.showToast("누락된 정보가 있습니다.")
+                }
             }else{
-                activityFuncFunction.showToast("누락된 정보가 있습니다.")
+                activityFuncFunction.showToast("필수 약관에 동의해 주세요.")
             }
-
         }
         viewModel.phone = navArgs.phone.replace("-", "")
         viewModel.email = navArgs.email
