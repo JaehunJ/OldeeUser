@@ -160,6 +160,9 @@
             android:id="@+id/action_settingFragment_to_withdrawDoneFragment"
             app:destination="@id/withdrawDoneFragment" />
     </fragment>
+
+
+
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
@@ -175,4 +178,12 @@
     <action
         android:id="@+id/action_global_faqFragment"
         app:destination="@id/faqFragment" />
+    <fragment
+        android:id="@+id/networkErrorFragment"
+        android:name="com.oldee.user.ui.error.NetworkErrorFragment"
+        android:label="NetworkErrorFragment" />
+    <action
+        android:id="@+id/action_global_networkErrorFragment"
+        app:destination="@id/networkErrorFragment" />
+
 </navigation>

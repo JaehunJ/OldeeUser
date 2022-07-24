@@ -14,7 +14,6 @@ class SplashViewModel @Inject constructor(val getVersionInfoUseCase: GetVersionI
     val data = MutableLiveData<VersionInfoData?>()
 
     fun requestVersionInfo(){
-//        try{
             remote {
                 val result = getVersionInfoUseCase.invoke()
 
@@ -24,8 +23,5 @@ class SplashViewModel @Inject constructor(val getVersionInfoUseCase: GetVersionI
                     }
                 }
             }
-//        }catch (e:NoConnectionInterceptor.NoConnectivityException){
-//            throw NoConnectionInterceptor.NoConnectivityException()
-//        }
     }
 }

@@ -126,7 +126,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
 //    }
 
     private fun callNetworkErrorPage(){
-        Log.e("#debug", "show network connection error page")
+        findNavController().navigate(R.id.action_global_networkErrorFragment)
     }
 
     fun nextFragment(dir:NavDirections){
