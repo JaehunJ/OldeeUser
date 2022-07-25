@@ -71,6 +71,7 @@ open class BaseRepository @Inject constructor(
 
                                     serverError?.let { error ->
                                         if (error.contains("Naver Error")) {
+                                            Log.e("#debug", "naver token refresh exception")
                                             onError?.invoke(result)
                                             return null
                                         }

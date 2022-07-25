@@ -140,7 +140,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     }
 
     fun requestVersionInfo() {
-        viewModel.requestVersionInfo()
+        loadNext()
+        //TODO 나중에 처리
+//        viewModel.requestVersionInfo()
 
     }
 
