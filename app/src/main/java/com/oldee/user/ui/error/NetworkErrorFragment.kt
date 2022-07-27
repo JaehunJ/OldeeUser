@@ -18,6 +18,7 @@ class NetworkErrorFragment :
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.btnHome.setOnClickListener {
+            viewModel.logout()
             activityFuncFunction.logout()
         }
     }

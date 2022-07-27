@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     val expertList = MutableLiveData<List<ExpertListItem>>()
 
     fun call(onEnd: () -> Unit){
-        viewModelScope.launch {
+        remote {
             requestExpertListSuspend()
             requestDesignListSuspend()
             onEnd()
@@ -67,19 +67,14 @@ class HomeViewModel @Inject constructor(
 
     fun setImage(imageView: ImageView, path:String){
         remote(false) {
-//            val bitmap = getImageUseCase.invoke(path)
             imageView.clipToOutline = true
             setImageUseCase.invoke(imageView.context, imageView, path)
-
-//            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
         }
     }
 
     fun setImageCircle(imageView: ImageView, path: String) {
         remote(false) {
             setImageCircleUseCase.invoke(imageView.context, imageView, path)
-//            val bitmap = getImageUseCase.invoke(path)
-//            Glide.with(imageView).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
         }
     }
 }

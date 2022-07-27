@@ -65,14 +65,16 @@ open class BaseRepository @Inject constructor(
 
                                 if (re == null) {
                                     Log.e("#debug", "token refresh exception")
-                                    null
+                                    throw NoConnectionInterceptor.NoConnectivityException()
                                 } else {
                                     val serverError = re.errorMessage
 
                                     serverError?.let { error ->
                                         if (error.contains("Naver Error")) {
-                                            onError?.invoke(result)
-                                            return null
+                                            Log.e("#debug", "naver token refresh exception")
+                                            throw NoConnectionInterceptor.NoConnectivityException()
+//                                            onError?.invoke(result)
+//                                            return null
                                         }
                                     }
                                     setNewToken(re.data)
@@ -111,7 +113,7 @@ open class BaseRepository @Inject constructor(
     }
 
     fun getAccessToken(): String {
-        Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
+//        Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
         return "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
     }
 

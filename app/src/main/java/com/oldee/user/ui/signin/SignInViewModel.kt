@@ -106,6 +106,7 @@ class SignInViewModel @Inject constructor(
 
                 Log.e("#debug", "accessToken:${accessToken}")
                 Log.e("#debug", "refreshToken:${refreshToken}")
+                Log.e("#debug", "expireTime:${date}")
 
                 var errorData:RemoteData.ApiError? = null
                 val result = setNaverSignInUseCase.invoke(data) {

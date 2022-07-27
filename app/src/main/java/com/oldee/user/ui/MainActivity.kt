@@ -127,6 +127,7 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     }
 
     override fun logout(){
+        NaverIdLoginSDK.logout()
         this.finishAffinity()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
