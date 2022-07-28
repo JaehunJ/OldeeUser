@@ -94,6 +94,7 @@ class SignInViewModel @Inject constructor(
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         simpleDateFormat.timeZone = TimeZone.getDefault()
 
+
         if (accessToken != null && refreshToken != null && profile != null) {
             remote(true) {
                 val data = NaverSignInRequest(

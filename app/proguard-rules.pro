@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.oldee.user.network.request.*{*;}
+-keep class com.oldee.user.network.response.*{*;}
+-keep class com.google.android.gms.oss.licenses.*{*;}
