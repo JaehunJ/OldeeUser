@@ -72,8 +72,9 @@ open class BaseRepository @Inject constructor(
                                     serverError?.let { error ->
                                         if (error.contains("Naver Error")) {
                                             Log.e("#debug", "naver token refresh exception")
-                                            onError?.invoke(result)
-                                            return null
+//                                            onError?.invoke(result)
+                                            throw NoConnectionInterceptor.NoConnectivityException()
+//                                            return null
                                         }
                                     }
                                     setNewToken(re.data)
