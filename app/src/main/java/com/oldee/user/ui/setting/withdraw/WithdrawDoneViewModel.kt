@@ -14,7 +14,7 @@ class WithdrawDoneViewModel @Inject constructor(private val startLogoutUseCase: 
     val success = MutableLiveData<Boolean>()
 
     fun logout(){
-        viewModelScope.launch {
+        remote {
             startLogoutUseCase.invoke()
             success.postValue(true)
         }

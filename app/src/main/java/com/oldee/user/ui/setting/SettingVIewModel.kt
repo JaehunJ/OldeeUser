@@ -42,7 +42,7 @@ class SettingVIewModel @Inject constructor(
     }
 
     fun logout(){
-        viewModelScope.launch {
+        remote {
             startLogoutUseCase.invoke()
             success.postValue(true)
         }

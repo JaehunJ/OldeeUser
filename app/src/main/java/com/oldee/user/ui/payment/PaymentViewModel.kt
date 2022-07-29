@@ -109,7 +109,7 @@ class PaymentViewModel @Inject constructor(
     }
 
     fun requestPaymentProcess(onComplete: () -> Unit, onError: (String) -> Unit) {
-        viewModelScope.launch {
+        remote{
             if (isValidation()) {
                 //주소 먼저 등록할지 안할지
                 val addressId = getPaymentAddressId()

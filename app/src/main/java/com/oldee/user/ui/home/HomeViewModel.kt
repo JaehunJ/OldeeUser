@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     val expertList = MutableLiveData<List<ExpertListItem>>()
 
     fun call(onEnd: () -> Unit){
-        viewModelScope.launch {
+        remote {
             requestExpertListSuspend()
             requestDesignListSuspend()
             onEnd()

@@ -54,7 +54,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun postDelay(action: () -> Unit, milisec: Long) {
-        viewModelScope.launch {
+        remote {
             delay(milisec)
             action()
         }

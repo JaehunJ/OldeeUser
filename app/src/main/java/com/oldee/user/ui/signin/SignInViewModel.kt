@@ -43,7 +43,7 @@ class SignInViewModel @Inject constructor(
     fun setAutoLogin(boolean: Boolean) = setAutoLoginValue.invoke(boolean)
 
     fun startNaverLogin(context: Context) {
-        viewModelScope.launch {
+        remote {
             NaverIdLoginSDK.authenticate(context, object : OAuthLoginCallback {
                 override fun onError(errorCode: Int, message: String) {
                     onFailure(errorCode, message)
@@ -66,7 +66,7 @@ class SignInViewModel @Inject constructor(
     }
 
     fun getProfileData() {
-        viewModelScope.launch {
+        remote {
             NidOAuthLogin().callProfileApi(object : NidProfileCallback<NidProfileResponse> {
                 override fun onError(errorCode: Int, message: String) {
                     onFailure(errorCode, message)

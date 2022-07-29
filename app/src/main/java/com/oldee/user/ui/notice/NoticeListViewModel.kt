@@ -14,7 +14,7 @@ class NoticeListViewModel @Inject constructor(private val getNoticeListUseCase: 
     val noticeList = MutableLiveData<List<NoticeResponseData>>()
 
     fun requestNoticeList(){
-        viewModelScope.launch {
+        remote {
             val result = getNoticeListUseCase.invoke()
 
             result?.let{
