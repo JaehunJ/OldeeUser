@@ -1,10 +1,12 @@
 package com.oldee.user.ui.signin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.navercorp.nid.NaverIdLoginSDK
 import com.oldee.user.BuildConfig
 import com.oldee.user.R
@@ -23,9 +25,12 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
             viewModel.startNaverLogin(requireContext())
         }
 
-        val cId = getString(R.string.naver_client_id)
-        val sce = getString(R.string.naver_client_secret)
+        val remote = FirebaseRemoteConfig.getInstance()
+        val cId = remote.getString("NAVER_KEY")
+        val sce = remote.getString("NAVER_SECRECT")
         val name = getString(R.string.naver_app_name)
+
+        Log.e("#debug", "remote config ${cId}, ${sce}")
         NaverIdLoginSDK.initialize(requireContext(), cId, sce, name)
         NaverIdLoginSDK.showDevelopersLog(BuildConfig.DEBUG)
     }

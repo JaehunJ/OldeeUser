@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
@@ -59,7 +60,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showPermissionInfoDialog()
+        FirebaseRemoteConfig.getInstance().fetchAndActivate().addOnCompleteListener {
+            showPermissionInfoDialog()
+        }
     }
 
     fun showUpdateDialog() {

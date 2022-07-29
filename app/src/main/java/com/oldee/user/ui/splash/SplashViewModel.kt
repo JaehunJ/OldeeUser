@@ -13,6 +13,10 @@ class SplashViewModel @Inject constructor(val getVersionInfoUseCase: GetVersionI
 
     val data = MutableLiveData<VersionInfoData?>()
 
+    fun checkInit(){
+        
+    }
+
     fun requestVersionInfo(){
             remote {
                 val result = getVersionInfoUseCase.invoke()
