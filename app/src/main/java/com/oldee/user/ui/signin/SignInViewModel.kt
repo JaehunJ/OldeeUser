@@ -58,6 +58,7 @@ class SignInViewModel @Inject constructor(
 
                 override fun onSuccess() {
                     Log.e("#debug", "naver login success")
+
                     getProfileData()
                 }
             })
@@ -80,7 +81,12 @@ class SignInViewModel @Inject constructor(
                 }
 
                 override fun onSuccess(result: NidProfileResponse) {
-                    Log.e("#debug", "get profile data success")
+                    Log.e("#debug_sign", "get profile data success")
+                    Log.e("#debug_sign","AccessToken -> ${NaverIdLoginSDK.getAccessToken()}")
+                    Log.e("#debug_sign","RefreshToken -> ${NaverIdLoginSDK.getRefreshToken()}")
+                    Log.e("#debug_sign","Expires -> ${NaverIdLoginSDK.getExpiresAt()}")
+                    Log.e("#debug_sign","Type -> ${NaverIdLoginSDK.getTokenType()}")
+                    Log.e("#debug_sign","State -> ${NaverIdLoginSDK.getState()}")
                     nProfile.postValue(result.profile)
                 }
             })
@@ -105,8 +111,7 @@ class SignInViewModel @Inject constructor(
                     profile.id ?: ""
                 )
 
-                Log.e("#debug", "accessToken:${accessToken}")
-                Log.e("#debug", "refreshToken:${refreshToken}")
+                Log.e("#debug_sign","expires -> ${date.toString()}")
 
                 var errorData:RemoteData.ApiError? = null
                 val result = setNaverSignInUseCase.invoke(data) {
