@@ -8,6 +8,7 @@ import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentSettingBinding
@@ -53,6 +54,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
             }
             dialog.show(requireActivity().supportFragmentManager, "")
         }
+
+        binding.tvVersion.text = BuildConfig.VERSION_NAME
 
     }
 
