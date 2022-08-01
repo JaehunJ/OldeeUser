@@ -120,7 +120,7 @@
 
         <!-- 국민카드-->
         <package android:name="com.kbstar.reboot"/>
-        <package android:name="com.kbstar.kbbank "/>
+        <package android:name="com.kbstar.kbbank"/>
 
         <!--토스페이-->
         <package android:name="com.kbstar.reboot"/>
