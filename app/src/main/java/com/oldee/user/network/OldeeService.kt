@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface OldeeService {
-    @GET("/api/v1/user/version")
+    @GET("/api/v1/user/versions")
     suspend fun requestVersionInfo(
         @Header("Authorization") authorization: String = "clo",
         @Query("osType") osType: String = "android"

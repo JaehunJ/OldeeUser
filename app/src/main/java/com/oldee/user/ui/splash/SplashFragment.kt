@@ -19,6 +19,7 @@ import com.oldee.user.databinding.FragmentSplashBinding
 import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PermissionDialog
 import com.oldee.user.ui.dialog.TwoButtonDialog
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,6 +53,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
             it?.let {
                 if (it.version_id > BuildConfig.VERSION_CODE) {
                     showForceUpdateDialog()
+                }else{
+                    Logger.e("load next")
+                    loadNext()
                 }
             }
         }
@@ -143,9 +147,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     }
 
     fun requestVersionInfo() {
-        loadNext()
+//        loadNext()
         //TODO 나중에 처리
-//        viewModel.requestVersionInfo()
+        viewModel.requestVersionInfo()
 
     }
 
