@@ -92,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         }
 
         binding.btnExpertMore.setOnClickListener {
-            Log.e("#debug", "click btn")
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://bit.ly/oldeener")))
         }
 
@@ -178,7 +177,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
     fun showSkeleton(show: Boolean) {
         if (show) {
-            Log.e("#debug", "start")
             binding.llDesignListSkeleton.visibility = View.VISIBLE
             binding.llSkeletonExpertList.visibility = View.VISIBLE
             binding.llDesignList.visibility = View.GONE

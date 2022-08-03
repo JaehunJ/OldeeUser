@@ -251,7 +251,6 @@ class AddCartFragment :
             }
 
             if (list.isEmpty()) {
-                Log.e("#debug", "image list is null")
                 return
             }
 

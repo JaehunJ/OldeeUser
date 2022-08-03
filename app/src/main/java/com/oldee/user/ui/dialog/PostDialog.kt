@@ -61,7 +61,6 @@ class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e("#debug", BuildConfig.BASE_URL + "/api/v1/address")
         binding.wvPost.loadUrl(BuildConfig.BASE_URL + BuildConfig.POST_NUM_PATH)
 //        val script = StringBuilder()
 //

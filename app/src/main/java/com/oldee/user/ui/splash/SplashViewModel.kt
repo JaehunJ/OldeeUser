@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(val getVersionInfoUseCase: GetVersionInfoUseCase):BaseViewModel() {
+class SplashViewModel @Inject constructor(private val getVersionInfoUseCase: GetVersionInfoUseCase):BaseViewModel() {
 
     val data = MutableLiveData<VersionInfoData?>()
 

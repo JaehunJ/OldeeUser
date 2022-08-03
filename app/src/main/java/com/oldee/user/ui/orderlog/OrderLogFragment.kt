@@ -60,7 +60,6 @@ class OrderLogFragment : BaseFragment<FragmentOrderLogBinding, OrderLogViewModel
     override fun initViewCreated() {
         val idx = navArgs.selectedTab
 
-        Log.e("#debug", "selected tab $idx")
         binding.vpPage.setCurrentItem(idx, false)
     }
 

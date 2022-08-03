@@ -17,21 +17,6 @@ class FilUtil {
     companion object{
         val MAX_LENGTH = 1048
 
-//        fun optimizeBitmap(context:Context, uri: Uri):File?{
-//            try {
-//                val timeStamp: String = UUID.randomUUID().toString()
-//                val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//                val tempFile =  File.createTempFile(
-//                    "JPEG_${timeStamp}_",
-//                    ".jpg",
-//                    storageDir
-//                ).apply {
-//                    currentPhotoPath = absolutePath
-//                }
-//            }catch (e:IOException){
-//
-//            }
-//        }
 
         fun resizeBitmap(context: Context, uri:Uri): Bitmap?{
             val input = context.contentResolver.openInputStream(uri)

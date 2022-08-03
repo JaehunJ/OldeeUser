@@ -39,7 +39,6 @@ class ReformDetailFragment :
 
         binding.cbLike.setOnClickListener {
             if (it is CheckBox) {
-                Log.e("#debug", if (it.isChecked) "true" else "false")
             }
         }
 

@@ -39,8 +39,8 @@ class SignInViewModel @Inject constructor(
         nProfile.value = null
     }
 
-    fun getAutoLogin() = getAutoLoginValue.invoke()
-    fun setAutoLogin(boolean: Boolean) = setAutoLoginValue.invoke(boolean)
+    fun getAutoLogin() = getAutoLoginValue()
+    fun setAutoLogin(boolean: Boolean) = setAutoLoginValue(boolean)
 
     fun startNaverLogin(context: Context) {
         remote {
@@ -53,11 +53,9 @@ class SignInViewModel @Inject constructor(
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                     val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
 
-                    Log.e("#debug", "naver error code->${errorCode} \n msg->${errorMsg}")
                 }
 
                 override fun onSuccess() {
-                    Log.e("#debug", "naver login success")
 
                     getProfileData()
                 }
@@ -77,16 +75,9 @@ class SignInViewModel @Inject constructor(
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                     val errorMsg = NaverIdLoginSDK.getLastErrorDescription()
 
-                    Log.e("#debug", "profile error code->${errorCode} \n msg->${errorMsg}")
                 }
 
                 override fun onSuccess(result: NidProfileResponse) {
-                    Log.e("#debug_sign", "get profile data success")
-                    Log.e("#debug_sign","AccessToken -> ${NaverIdLoginSDK.getAccessToken()}")
-                    Log.e("#debug_sign","RefreshToken -> ${NaverIdLoginSDK.getRefreshToken()}")
-                    Log.e("#debug_sign","Expires -> ${NaverIdLoginSDK.getExpiresAt()}")
-                    Log.e("#debug_sign","Type -> ${NaverIdLoginSDK.getTokenType()}")
-                    Log.e("#debug_sign","State -> ${NaverIdLoginSDK.getState()}")
                     nProfile.postValue(result.profile)
                 }
             })
@@ -111,19 +102,16 @@ class SignInViewModel @Inject constructor(
                     profile.id ?: ""
                 )
 
-                Log.e("#debug_sign","expires -> ${date.toString()}")
 
                 var errorData:RemoteData.ApiError? = null
-                val result = setNaverSignInUseCase.invoke(data) {
-                    Log.e("#debug", "error")
+                val result = setNaverSignInUseCase(data) {
                     errorData = it
-                    return@invoke
+                    return@setNaverSignInUseCase
                 }
 
 
 
                 if (result == null) {
-                    Log.e("#debug", "error null")
                     if(errorData?.errorMessage?.contains("Match User") == true){
                         onError()
                     }else{
@@ -136,9 +124,8 @@ class SignInViewModel @Inject constructor(
                     }else{
                         val data = result.data
                         setAutoLogin(true)
-                        setTokenUseCase.invoke(accessToken, refreshToken)
-//                        setTokenUseCase.invoke(data)
-                        setUserData.invoke(
+                        setTokenUseCase(accessToken, refreshToken)
+                        setUserData(
                             data.userName,
                             data.userEmail,
                             data.userPhone,
@@ -154,7 +141,7 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun setUserData(name: String, email: String, phone: String, snsId: String) {
-        setUserData.invoke(name, email, phone, snsId)
-    }
+//    fun setUserData(name: String, email: String, phone: String, snsId: String) {
+//        setUserData.invoke(name, email, phone, snsId)
+//    }
 }

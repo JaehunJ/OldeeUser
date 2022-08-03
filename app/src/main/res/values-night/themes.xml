@@ -25,7 +25,8 @@
 
     <style name="Theme.OldeeUser.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/sky_1</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/Theme.OldeeUser</item>
     </style>
 </resources>

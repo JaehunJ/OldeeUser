@@ -30,7 +30,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel, NavA
         val sce = remote.getString("NAVER_SECRECT")
         val name = getString(R.string.naver_app_name)
 
-        Log.e("#debug", "remote config ${cId}, ${sce}")
         NaverIdLoginSDK.initialize(requireContext(), cId, sce, name)
         NaverIdLoginSDK.showDevelopersLog(BuildConfig.DEBUG)
     }

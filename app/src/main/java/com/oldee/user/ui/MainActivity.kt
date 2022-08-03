@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        setContentView(R.layout.activity_main)
-        Log.e("#debug", "call activity")
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val navController = navHostFragment!!.findNavController()

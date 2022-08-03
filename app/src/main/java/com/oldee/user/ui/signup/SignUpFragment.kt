@@ -67,7 +67,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, Sign
         viewModel.success.observe(viewLifecycleOwner){
             it?.let{
                 if(it){
-                    Log.e("#debug", "success signup")
                     findNavController().popBackStack()
                 }else{
                     activityFuncFunction.showToast("회원가입중 오류가 발생했습니다.")

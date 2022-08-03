@@ -64,14 +64,12 @@ open class BaseRepository @Inject constructor(
                                 val re = getNewToken()
 
                                 if (re == null) {
-                                    Log.e("#debug", "token refresh exception")
-                                    null
+                                    throw NoConnectionInterceptor.NoConnectivityException()
                                 } else {
                                     val serverError = re.errorMessage
 
                                     serverError?.let { error ->
                                         if (error.contains("Naver Error")) {
-                                            Log.e("#debug", "naver token refresh exception")
                                             throw NoConnectionInterceptor.NoConnectivityException()
                                         }
                                     }
@@ -90,7 +88,6 @@ open class BaseRepository @Inject constructor(
                     return null
                 }
                 is RemoteData.Error -> {
-                    Log.e("#debug", result.exception.printStackTrace().toString())
                     return null
                 }
             }
@@ -111,7 +108,6 @@ open class BaseRepository @Inject constructor(
     }
 
     fun getAccessToken(): String {
-        Log.e("#debug", "Bearer ${prefs.getString(ACCESS_TOKEN, "")}")
         return "Bearer ${prefs.getString(ACCESS_TOKEN, "")}"
     }
 
