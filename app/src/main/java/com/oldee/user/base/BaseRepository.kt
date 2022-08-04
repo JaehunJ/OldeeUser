@@ -1,9 +1,7 @@
 package com.oldee.user.base
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.core.content.edit
-import androidx.lifecycle.MutableLiveData
 import com.oldee.user.data.ACCESS_TOKEN
 import com.oldee.user.data.REFRESH_TOKEN
 import com.oldee.user.network.NoConnectionInterceptor
@@ -20,17 +18,12 @@ open class BaseRepository @Inject constructor(
     val api: OldeeService,
     val prefs: SharedPreferences
 ) {
-    private var isLoading = MutableLiveData<Boolean>()
-
     suspend fun <T : BaseResponse> call(
         onError: ((RemoteData.ApiError) -> Unit)? = null,
         apiCall: suspend () -> Response<T>
     ): T? {
         try {
-//            isLoading.postValue(true)
-
             val response = apiCall.invoke()
-//            isLoading.postValue(false)
 
             val result = if (response.isSuccessful) {
                 if (response.body() != null && !response.body()!!.errorMessage.isNullOrEmpty()) {

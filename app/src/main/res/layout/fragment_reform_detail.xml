@@ -246,8 +246,7 @@
                                     android:id="@+id/iv_before"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/test_img" />
+                                    android:scaleType="centerCrop" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
@@ -267,8 +266,7 @@
                                     android:id="@+id/iv_after"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/test_img" />
+                                    android:scaleType="centerCrop" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.constraintlayout.widget.ConstraintLayout

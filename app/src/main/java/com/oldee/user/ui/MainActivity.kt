@@ -3,12 +3,10 @@ package com.oldee.user.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -30,14 +28,16 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val navController = navHostFragment!!.findNavController()
         navController.addOnDestinationChangedListener { controller, destination, arguments -> hideProgress() }
 
         drawerBinding = binding.menuDrawer
+        bindDrawerMenu()
+    }
 
+    private fun bindDrawerMenu() {
         drawerBinding.llCart.setOnClickListener {
             hideDrawerMenu()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_cartFragment)
@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         drawerBinding.tvQna.setOnClickListener {
             hideDrawerMenu()
             findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_faqFragment)
-//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_QuRxmb")))
         }
         drawerBinding.tvSetting.setOnClickListener {
             hideDrawerMenu()
@@ -115,17 +114,18 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         super.onDestroy()
         NaverIdLoginSDK.logout()
     }
-//
+
+    //
     override fun hideSoftKeyboard() {
         val inputManger = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        if(inputManger.isAcceptingText){
-            if(currentFocus != null){
+        if (inputManger.isAcceptingText) {
+            if (currentFocus != null) {
                 inputManger.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             }
         }
     }
 
-    override fun logout(){
+    override fun logout() {
         this.finishAffinity()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

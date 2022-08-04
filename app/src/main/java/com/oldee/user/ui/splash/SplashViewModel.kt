@@ -1,6 +1,5 @@
 package com.oldee.user.ui.splash
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.oldee.user.base.BaseViewModel
 import com.oldee.user.network.response.VersionInfoData
@@ -14,14 +13,9 @@ class SplashViewModel @Inject constructor(private val getVersionInfoUseCase: Get
 
     val data = MutableLiveData<VersionInfoData?>()
 
-    fun checkInit() {
-
-    }
-
     fun requestVersionInfo() {
         remote {
             val result = getVersionInfoUseCase.invoke()
-            Log.e("#debug", "getData")
 
             result?.let {
 
