@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.oldee.user.CommonActivityFuncImpl
 import com.oldee.user.R
 import com.oldee.user.network.NoConnectionInterceptor
+import com.orhanobut.logger.Logger
 
 abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArgs> : Fragment() {
     var navController: NavController? = null
@@ -66,6 +67,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
 
         activityFuncFunction = activity as CommonActivityFuncImpl
         viewModel.isLoading.observe(viewLifecycleOwner) {
+            Logger.e(it.toString())
             if (it)
                 activityFuncFunction.showProgress()
             else
@@ -83,6 +85,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         setBaseError()
         initView(savedInstanceState)
         initDataBinding()
+        activityFuncFunction.hideProgress()
 
         return binding.root
     }

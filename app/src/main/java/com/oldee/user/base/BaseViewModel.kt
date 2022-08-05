@@ -24,6 +24,10 @@ abstract class BaseViewModel : ViewModel() {
     var baseOnError: ((String) -> Unit)? = null
     var connectionError: (() -> Unit)? = null
 
+    init {
+        _isLoading.value = false
+    }
+
     fun remote(useProgressBar: Boolean = true, action: suspend () -> Unit) {
         val connectionExceptionHandler = CoroutineExceptionHandler { _, e ->
             _isLoading.postValue(false)

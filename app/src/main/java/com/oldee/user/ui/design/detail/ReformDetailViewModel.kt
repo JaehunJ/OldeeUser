@@ -9,13 +9,17 @@ import com.oldee.user.base.BaseViewModel
 import com.oldee.user.network.response.DesignDetailData
 import com.oldee.user.usercase.GetDesignDetailUseCase
 import com.oldee.user.usercase.GetImageUseCase
+import com.oldee.user.usercase.SetImageCircleUseCase
+import com.oldee.user.usercase.SetImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ReformDetailViewModel @Inject constructor(
     private val getDesignDetailUseCase: GetDesignDetailUseCase,
-    private val getImageUseCase: GetImageUseCase
+    private val getImageUseCase: GetImageUseCase,
+    private val setImageUseCase: SetImageUseCase,
+    private val setImageCircleUseCase: SetImageCircleUseCase
 ) : BaseViewModel() {
 
     val res = MutableLiveData<DesignDetailData>()
@@ -34,23 +38,13 @@ class ReformDetailViewModel @Inject constructor(
 
     fun setImage(imageView:ImageView, path:String){
         remote(false) {
-            val bitmap = getImageUseCase.invoke(path)
-            Glide.with(imageView.context).load(bitmap).placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image).into(imageView)
+            setImageUseCase(imageView.context, imageView, path)
         }
     }
 
     fun setImageCircle(imageView: ImageView, path: String){
         remote(false) {
-            if(path.isEmpty()){
-                Glide.with(imageView.context).load(R.mipmap.ic_launcher_round).apply(RequestOptions().circleCrop()).into(imageView)
-            }else{
-                val bitmap = getImageUseCase.invoke(path)
-                if(bitmap == null){
-                    Glide.with(imageView.context).load(R.mipmap.ic_launcher_round).apply(RequestOptions().circleCrop()).into(imageView)
-                }else{
-                    Glide.with(imageView.context).load(bitmap).apply(RequestOptions().circleCrop()).into(imageView)
-                }
-            }
+            setImageCircleUseCase(imageView.context, imageView, path)
         }
     }
 }

@@ -31,7 +31,10 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val navController = navHostFragment!!.findNavController()
-        navController.addOnDestinationChangedListener { controller, destination, arguments -> hideProgress() }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            hideProgress()
+            hideSoftKeyboard()
+        }
 
         drawerBinding = binding.menuDrawer
         bindDrawerMenu()
