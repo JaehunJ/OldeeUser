@@ -116,21 +116,6 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
         useSkeleton: Boolean = true
     ) {
         if (useSkeleton) {
-//            val shimmer = Shimmer.AlphaHighlightBuilder()
-//                .setDuration(1800)
-//                .setBaseAlpha(0.7f)
-//                .setHighlightAlpha(0.6f)
-//                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-//                .build()
-//
-//            val shimmerDrawable = ShimmerDrawable().apply {
-//                setShimmer(shimmer)
-//            }
-//
-//            shimmerDrawable.startShimmer()
-//
-//            Glide.with(context).load(shimmer).into(imageView)
-
             val bitmap = getImageUseCase.invoke(path)
 
             Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
@@ -154,19 +139,6 @@ class SetImageCircleUseCase @Inject constructor(private val getImageUseCase: Get
         useSkeleton: Boolean = true
     ) {
         if (useSkeleton) {
-//            val shimmer = Shimmer.ColorHighlightBuilder()
-//                .setBaseColor(ContextCompat.getColor(context, R.color.purple_200))
-//                .setBaseAlpha(0.7f)
-//                .setDuration(1800)
-//                .setHighlightColor(ContextCompat.getColor(context, R.color.purple_700))
-//                .setHighlightAlpha(0.7f)
-//                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-//                .setAutoStart(true)
-//                .build()
-//
-//            val shimmerDrawable = ShimmerDrawable()
-//            shimmerDrawable.setShimmer(shimmer)
-
             val bitmap = getImageUseCase.invoke(path)
             Glide.with(context).load(bitmap).apply(RequestOptions().circleCrop())
                 .transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
