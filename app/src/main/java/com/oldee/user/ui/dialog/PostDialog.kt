@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.webkit.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.oldee.user.BuildConfig
 import com.oldee.user.R
@@ -85,7 +86,16 @@ class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogF
             handler: SslErrorHandler?,
             error: SslError?
         ) {
-            handler?.proceed()
+            val dialog = AlertDialog.Builder(requireContext())
+            dialog.setMessage("이 사이트의 보안 인증서는 신뢰하는 보안 인증서가 아닙니다. 계속하시겠습니까?")
+            dialog.setPositiveButton("계속하기"){d,i->
+                handler!!.proceed()
+            }
+            dialog.setNegativeButton("취소"){d,i->
+                handler?.cancel()
+            }
+            dialog.create().show()
+//            handler?.proceed()
         }
     }
 
