@@ -3,8 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    <string name="naver_client_id">G3Ip2_61nYwlMnC1BHXi</string>-->
-<!--    <string name="naver_client_secret">6FE4Sqlns9</string>-->
+    <!--    <string name="naver_client_id">G3Ip2_61nYwlMnC1BHXi</string>-->
+    <!--    <string name="naver_client_secret">6FE4Sqlns9</string>-->
     <string name="naver_app_name">올디(Oldee)</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <!-- Strings used for fragments for navigation -->

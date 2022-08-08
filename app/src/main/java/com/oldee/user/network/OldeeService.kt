@@ -18,8 +18,8 @@ interface OldeeService {
     @POST("/api/v1/token/refresh")
     suspend fun requestNewToken(
         @Header("Authorization") authorization: String = "clo",
-        @Body data:NewTokenRequest
-    ):Response<NewTokenResponse>
+        @Body data: NewTokenRequest
+    ): Response<NewTokenResponse>
 
     @Multipart
     @POST("/api/v1/user/image")
@@ -77,8 +77,8 @@ interface OldeeService {
     @POST("/api/v1/user/survey/reform")
     suspend fun requestAddCart(
         @Header("Authorization") token: String,
-        @Body data:AddCartRequest
-    ):Response<AddCartResponse>
+        @Body data: AddCartRequest
+    ): Response<AddCartResponse>
 
 //    @POST("/api/v1/user/reform/heart")
 //    suspend fun requestHeartSave(
@@ -102,6 +102,11 @@ interface OldeeService {
     suspend fun requestDeleteBasketDetailItem(
         @Header("Authorization") token: String,
         @Body data: BasketDetailDeleteRequest
+    ): Response<BaseStringResponse>
+
+    @GET("/api/v1/webview/payment")
+    suspend fun requestGetPaymentPage(
+        @Body data: PaymentPageRequest
     ): Response<BaseStringResponse>
 
     @POST("/api/v1/user/order")

@@ -1,6 +1,8 @@
 package com.oldee.user.ui.payment
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
@@ -10,11 +12,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentBinding
 import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
+import com.oldee.user.ui.TossWebActivity
 import com.oldee.user.ui.dialog.LatestAddressDialog
 import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PostDialog
@@ -60,26 +64,29 @@ class PaymentFragment :
                     contents = "",
                     okText = "신청",
                     cancelText = "취소", {
-                        viewModel.requestPaymentProcess({
-                            val dialog = OneButtonDialog(
-                                title = "주문이 완료되었습니다.",
-                                contents = "",
-                                okText = "확인"
-                            ) {
-                                val option = navOptions {
-                                    popUpTo(R.id.homeFragment)
-                                }
-                                val bundle = bundleOf("selectedTab" to 1)
-                                findNavController().navigate(
-                                    R.id.action_global_orderLogFragment,
-                                    bundle,
-                                    option
-                                )
-                            }
-                            dialog.show(requireActivity().supportFragmentManager, "")
-                        }) {
-                            activityFuncFunction.showToast(it)
+                        viewModel.requestPaymentPage{
+                            showTossWebView(it)
                         }
+//                        viewModel.requestPaymentProcess({
+//                            val dialog = OneButtonDialog(
+//                                title = "주문이 완료되었습니다.",
+//                                contents = "",
+//                                okText = "확인"
+//                            ) {
+//                                val option = navOptions {
+//                                    popUpTo(R.id.homeFragment)
+//                                }
+//                                val bundle = bundleOf("selectedTab" to 1)
+//                                findNavController().navigate(
+//                                    R.id.action_global_orderLogFragment,
+//                                    bundle,
+//                                    option
+//                                )
+//                            }
+//                            dialog.show(requireActivity().supportFragmentManager, "")
+//                        }) {
+//                            activityFuncFunction.showToast(it)
+//                        }
                     }
                 ) {
 
@@ -143,6 +150,12 @@ class PaymentFragment :
     override fun onDetach() {
         super.onDetach()
         backCallback.remove()
+    }
+
+    fun showTossWebView(html:String){
+        val intent = Intent(requireActivity(), TossWebActivity::class.java)
+        intent.putExtra("html", html)
+        startActivity(Intent(requireActivity(), TossWebActivity::class.java))
     }
 
     fun setContainer(datas: List<BasketListItem>) {

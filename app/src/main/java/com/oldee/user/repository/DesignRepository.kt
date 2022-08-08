@@ -4,10 +4,7 @@ import android.content.SharedPreferences
 import com.oldee.user.base.BaseRepository
 import com.oldee.user.network.OldeeService
 import com.oldee.user.network.RemoteData
-import com.oldee.user.network.request.AddCartRequest
-import com.oldee.user.network.request.AddShippingAddressRequest
-import com.oldee.user.network.request.BasketItemDeleteRequest
-import com.oldee.user.network.request.PaymentRequest
+import com.oldee.user.network.request.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,6 +28,18 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
 
     suspend fun requestCartList() = call {
         api.requestBasketList(getAccessToken())
+    }
+
+    suspend fun requestGetPaymentPage(data: PaymentPageRequest):String?{
+        val result = api.requestGetPaymentPage(data)
+
+        if(result.isSuccessful){
+            result.body()?.let{
+                return it.toString()
+            }
+        }
+
+        return null
     }
 
     suspend fun requestPaymentList(successYn:Int, limit:Int? = null, page:Int? = null) = call {

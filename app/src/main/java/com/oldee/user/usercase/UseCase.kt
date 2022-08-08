@@ -172,4 +172,8 @@ class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepositor
 
 }
 
+class GetPaymentPageUseCase @Inject constructor(private val repo:DesignRepository){
+    suspend operator fun invoke(data:PaymentPageRequest) = repo.requestGetPaymentPage(data)
+}
+
 //class GetFaqListUseCase @Inject constructor(private val repo:)

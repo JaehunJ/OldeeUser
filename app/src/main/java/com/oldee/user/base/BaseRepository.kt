@@ -11,6 +11,8 @@ import com.oldee.user.network.request.NewTokenRequest
 import com.oldee.user.network.response.BaseResponse
 import com.oldee.user.network.response.NewTokenData
 import com.oldee.user.network.response.NewTokenResponse
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -36,8 +38,9 @@ open class BaseRepository @Inject constructor(
             }
 
             when (result) {
-                is RemoteData.Success ->
+                is RemoteData.Success ->{
                     return result.output
+                }
                 is RemoteData.ApiError -> {
 
                     if (result.errorCode == "404") {

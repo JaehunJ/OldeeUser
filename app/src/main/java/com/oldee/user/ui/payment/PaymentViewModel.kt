@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.oldee.user.base.BaseViewModel
-import com.oldee.user.network.request.AddShippingAddressRequest
-import com.oldee.user.network.request.PaymentBasketItem
-import com.oldee.user.network.request.PaymentRequest
+import com.oldee.user.network.request.*
 import com.oldee.user.network.response.BasketListItem
 import com.oldee.user.network.response.ShippingAddressListItem
 import com.oldee.user.usercase.*
@@ -21,9 +19,10 @@ class PaymentViewModel @Inject constructor(
     val postPaymentUseCase: PostPaymentUseCase,
     val postAddressUseCase: PostAddressUseCase,
     val getAddressListUseCase: GetAddressListUseCase,
-    val getAddressByIdUserCase: GetAddressByIdUserCase
+    val getAddressByIdUserCase: GetAddressByIdUserCase,
+    val getPaymentPageUseCase: GetPaymentPageUseCase
 ) : BaseViewModel() {
-    companion object{
+    companion object {
         val ADDRESS_ALL = 0
         val ADDRESS_PREV = 1
     }
@@ -54,6 +53,26 @@ class PaymentViewModel @Inject constructor(
                 && !postNum.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
                 && !extendAddress.value.isNullOrEmpty()
 
+
+    fun requestPaymentPage(onNext:(String)->Unit) {
+        viewModelScope.launch {
+            val data = PaymentPageRequest(
+                90, listOf(PaymentPageRequestItem(358, "테스트", 1)),
+                181000,
+                3000,
+                184000
+            )
+            val html = getPaymentPageUseCase.invoke(data)
+
+            if(!html.isNullOrEmpty()){
+                onNext.invoke(html)
+            }
+        }
+//        remote {
+//
+//        }
+    }
+
     fun requestAddressLatest() {
         remote {
             val result = getAddressListUseCase.invoke(ADDRESS_PREV)
@@ -71,11 +90,11 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    fun requestAddressList(){
+    fun requestAddressList() {
         remote {
             val result = getAddressListUseCase.invoke(ADDRESS_ALL)
 
-            result?.let{
+            result?.let {
                 val data = it.data
 
                 allAddress.postValue(data)
@@ -109,7 +128,7 @@ class PaymentViewModel @Inject constructor(
     }
 
     fun requestPaymentProcess(onComplete: () -> Unit, onError: (String) -> Unit) {
-        remote{
+        remote {
             if (isValidation()) {
                 //주소 먼저 등록할지 안할지
                 val addressId = getPaymentAddressId()

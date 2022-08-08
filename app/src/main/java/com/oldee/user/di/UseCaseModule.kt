@@ -82,4 +82,6 @@ object UseCaseModule {
     @Provides
     fun providesGetAddressById(repo:DesignRepository) = GetAddressByIdUserCase(repo)
 
+    @Provides
+    fun provideGetPaymentPage(repo: DesignRepository) = GetPaymentPageUseCase(repo)
 }
