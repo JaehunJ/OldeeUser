@@ -64,29 +64,29 @@ class PaymentFragment :
                     contents = "",
                     okText = "신청",
                     cancelText = "취소", {
-                        viewModel.requestPaymentPage{
-                            showTossWebView(it)
-                        }
-//                        viewModel.requestPaymentProcess({
-//                            val dialog = OneButtonDialog(
-//                                title = "주문이 완료되었습니다.",
-//                                contents = "",
-//                                okText = "확인"
-//                            ) {
-//                                val option = navOptions {
-//                                    popUpTo(R.id.homeFragment)
-//                                }
-//                                val bundle = bundleOf("selectedTab" to 1)
-//                                findNavController().navigate(
-//                                    R.id.action_global_orderLogFragment,
-//                                    bundle,
-//                                    option
-//                                )
-//                            }
-//                            dialog.show(requireActivity().supportFragmentManager, "")
-//                        }) {
-//                            activityFuncFunction.showToast(it)
+//                        viewModel.requestPaymentPage{
+//                            showTossWebView(it)
 //                        }
+                        viewModel.requestPaymentProcess({
+                            val dialog = OneButtonDialog(
+                                title = "주문이 완료되었습니다.",
+                                contents = "",
+                                okText = "확인"
+                            ) {
+                                val option = navOptions {
+                                    popUpTo(R.id.homeFragment)
+                                }
+                                val bundle = bundleOf("selectedTab" to 1)
+                                findNavController().navigate(
+                                    R.id.action_global_orderLogFragment,
+                                    bundle,
+                                    option
+                                )
+                            }
+                            dialog.show(requireActivity().supportFragmentManager, "")
+                        }) {
+                            activityFuncFunction.showToast(it)
+                        }
                     }
                 ) {
 
