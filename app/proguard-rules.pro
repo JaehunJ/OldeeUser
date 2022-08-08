@@ -23,3 +23,12 @@
 -keep class com.oldee.user.network.request.*{*;}
 -keep class com.oldee.user.network.response.*{*;}
 -keep class com.google.android.gms.oss.licenses.*{*;}
+
+# To avoid obfuscation of https request and response
+-keep class com.example.apps.model.** { *; }
+
+# To use naver login with proguard
+-keep public class com.navercorp.nid.oauth.** {*;}
+
+# To use naver login profile with proguard
+-keep public class com.navercorp.nid.profile.data.** {*;}
