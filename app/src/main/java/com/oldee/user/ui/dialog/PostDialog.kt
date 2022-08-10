@@ -95,7 +95,6 @@ class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogF
                 handler?.cancel()
             }
             dialog.create().show()
-//            handler?.proceed()
         }
     }
 
