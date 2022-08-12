@@ -18,9 +18,6 @@ abstract class BaseViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    val pushingToast: LiveData<String>
-        get() = _pushingToast
-
     var baseOnError: ((String) -> Unit)? = null
     var connectionError: (() -> Unit)? = null
 

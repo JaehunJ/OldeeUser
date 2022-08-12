@@ -3,6 +3,7 @@ package com.oldee.user
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
@@ -14,6 +15,10 @@ class OldeeUserApplication : Application() {
         super.onCreate()
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        FirebaseCrashlytics.getInstance().apply {
+            setCrashlyticsCollectionEnabled(!com.google.firebase.crashlytics.BuildConfig.DEBUG)
+        }
 
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .methodCount(0)

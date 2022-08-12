@@ -115,12 +115,14 @@ class SignInViewModel @Inject constructor(
                     if(errorData?.errorMessage?.contains("Match User") == true){
                         onError()
                     }else{
-                        baseOnError?.invoke(errorData?.errorMessage?:"알수없는 에러")
+                        connectionError?.invoke()
+//                        baseOnError?.invoke(errorData?.errorMessage?:"알수없는 에러")
 //                        onError()
                     }
                 } else {
                     if(!isValidResponse(result)){
-                        baseOnError?.invoke(result.errorMessage?:"알수없는 에러")
+                        connectionError?.invoke()
+//                        baseOnError?.invoke(result.errorMessage?:"알수없는 에러")
                     }else{
                         val data = result.data
                         setAutoLogin(true)
