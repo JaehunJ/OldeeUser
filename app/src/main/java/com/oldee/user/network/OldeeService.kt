@@ -104,10 +104,10 @@ interface OldeeService {
         @Body data: BasketDetailDeleteRequest
     ): Response<BaseStringResponse>
 
-    @GET("/api/v1/webview/payment")
+    @POST("/api/v1/webview/payment")
     suspend fun requestGetPaymentPage(
         @Body data: PaymentPageRequest
-    ): Response<BaseStringResponse>
+    ): Response<ResponseBody>
 
     @POST("/api/v1/user/order")
     suspend fun requestPayment(

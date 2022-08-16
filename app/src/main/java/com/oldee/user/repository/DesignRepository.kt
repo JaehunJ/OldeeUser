@@ -35,7 +35,7 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
 
         if(result.isSuccessful){
             result.body()?.let{
-                return it.toString()
+                return it.string()
             }
         }
 

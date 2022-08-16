@@ -17,8 +17,10 @@ import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
 import com.oldee.user.ui.TossWebActivity
 import com.oldee.user.ui.dialog.LatestAddressDialog
+import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PostDialog
 import com.oldee.user.ui.dialog.TwoButtonDialog
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -39,7 +41,7 @@ class PaymentFragment :
                         moveNext()
                     }
                     else -> {
-                        showCancelDialog()
+                        showPaymentCancelDialog()
                     }
                 }
             }
@@ -205,10 +207,14 @@ class PaymentFragment :
     }
 
     fun moveNext() {
-
+        Logger.e("move next")
+        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToPaymentDoneFragment())
     }
 
     fun showPaymentCancelDialog() {
+        val dialog = OneButtonDialog("결제가 실패했어요.", "결제수단을 확인후\n다시 시도해주세요", "다시 시도하기"){
 
+        }
+        dialog.show(requireActivity().supportFragmentManager, "")
     }
 }

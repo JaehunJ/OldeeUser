@@ -127,7 +127,7 @@
         <activity
             android:theme="@style/Theme.OldeeUser"
             android:name=".ui.TossWebActivity"
-            android:exported="false" />
+            android:exported="true" />
         <!-- <activity -->
         <provider
             android:name="androidx.core.content.FileProvider"

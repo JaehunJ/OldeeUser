@@ -1,16 +1,36 @@
 package com.oldee.user.custom
 
 import android.content.ActivityNotFoundException
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.webkit.URLUtil
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import java.net.URISyntaxException
 
 class PaymentsWebClient(val context:Context) : WebViewClient() {
+
+    override fun shouldInterceptRequest(
+        view: WebView?,
+        request: WebResourceRequest?
+    ): WebResourceResponse? {
+        return super.shouldInterceptRequest(view, request)
+    }
+
+    fun getMimeType(url:String){
+        var type = ""
+        var extention = MimeTypeMap.getFileExtensionFromUrl(url)
+
+        when(extention){
+            "js"->{
+
+            }
+            else->{
+
+            }
+        }
+    }
+
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         url?.let {
