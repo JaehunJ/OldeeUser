@@ -134,7 +134,8 @@
             app:argType="com.oldee.user.network.response.BasketListItem[]" />
         <action
             android:id="@+id/action_paymentFragment_to_paymentDoneFragment"
-            app:destination="@id/paymentDoneFragment" />
+            app:destination="@id/paymentDoneFragment"
+            app:popUpTo="@id/cartFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_payment_done"
