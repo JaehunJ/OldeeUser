@@ -1,18 +1,15 @@
 package com.oldee.user.ui.payment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navOptions
-import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentBinding
@@ -20,7 +17,6 @@ import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
 import com.oldee.user.ui.TossWebActivity
 import com.oldee.user.ui.dialog.LatestAddressDialog
-import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PostDialog
 import com.oldee.user.ui.dialog.TwoButtonDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +30,20 @@ class PaymentFragment :
     override val navArgs: PaymentFragmentArgs by navArgs()
 
     lateinit var backCallback: OnBackPressedCallback
+
+    val activityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+            res?.let {
+                when (it.resultCode) {
+                    Activity.RESULT_OK -> {
+                        moveNext()
+                    }
+                    else -> {
+                        showCancelDialog()
+                    }
+                }
+            }
+        }
 
     override fun initView(savedInstanceState: Bundle?) {
         super.setOnInvokeBackAction {
@@ -51,10 +61,10 @@ class PaymentFragment :
         }
 
         binding.btnLatestAddress.setOnClickListener {
-            val dialog = LatestAddressDialog({},{ id->
+            val dialog = LatestAddressDialog({}, { id ->
 
-            }, viewModel.allAddress.value?: mutableListOf())
-            dialog.show(requireActivity().supportFragmentManager,"address")
+            }, viewModel.allAddress.value ?: mutableListOf())
+            dialog.show(requireActivity().supportFragmentManager, "address")
         }
 
         binding.btnConfirm.setOnClickListener {
@@ -64,8 +74,8 @@ class PaymentFragment :
                     contents = "",
                     okText = "신청",
                     cancelText = "취소", {
-                        viewModel.requestPaymentPage{
-                            showTossWebView(it)
+                        viewModel.requestPaymentPage {
+                            activityResult.launch(getWebViewIntent(it))
                         }
 //                        viewModel.requestPaymentProcess({
 //                            val dialog = OneButtonDialog(
@@ -152,10 +162,11 @@ class PaymentFragment :
         backCallback.remove()
     }
 
-    fun showTossWebView(html:String){
+    fun getWebViewIntent(html: String): Intent {
         val intent = Intent(requireActivity(), TossWebActivity::class.java)
         intent.putExtra("html", html)
-        startActivity(Intent(requireActivity(), TossWebActivity::class.java))
+        return intent
+//        startActivity(Intent(requireActivity(), TossWebActivity::class.java))
     }
 
     fun setContainer(datas: List<BasketListItem>) {
@@ -172,7 +183,9 @@ class PaymentFragment :
             }
 
             val imageList = it.getImageNameList()
-            (viewBinding.rvImage.adapter as PaymentImageAdapter).setData(imageList?.toList()?: listOf())
+            (viewBinding.rvImage.adapter as PaymentImageAdapter).setData(
+                imageList?.toList() ?: listOf()
+            )
         }
     }
 
@@ -189,5 +202,13 @@ class PaymentFragment :
         activity?.let {
             dialog.show(it.supportFragmentManager, "")
         }
+    }
+
+    fun moveNext() {
+
+    }
+
+    fun showPaymentCancelDialog() {
+
     }
 }

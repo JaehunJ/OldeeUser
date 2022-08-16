@@ -17,7 +17,9 @@ class PaymentDoneFragment :
     override val navArgs: NavArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
+        binding.btnConfirm.setOnClickListener {
 
+        }
     }
 
     override fun initDataBinding() {

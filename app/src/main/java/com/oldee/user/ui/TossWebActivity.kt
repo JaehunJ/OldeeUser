@@ -35,6 +35,7 @@ class TossWebActivity : AppCompatActivity() {
         webview.settings.apply {
             javaScriptEnabled = true
             javaScriptCanOpenWindowsAutomatically = true
+            domStorageEnabled = true
         }
         webview.webViewClient = PaymentsWebClient(this)
         com.orhanobut.logger.Logger.e("html null")

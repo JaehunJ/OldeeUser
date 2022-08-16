@@ -17,7 +17,7 @@ class OldeeUserApplication : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         FirebaseCrashlytics.getInstance().apply {
-            setCrashlyticsCollectionEnabled(!com.google.firebase.crashlytics.BuildConfig.DEBUG)
+            setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
         }
 
         val formatStrategy = PrettyFormatStrategy.newBuilder()
