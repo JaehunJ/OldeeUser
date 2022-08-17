@@ -38,7 +38,11 @@ class PaymentFragment :
             res?.let {
                 when (it.resultCode) {
                     Activity.RESULT_OK -> {
-                        moveNext()
+                        viewModel.requestPaymentProcess({
+                            moveNext()
+                        }){
+                            activityFuncFunction.showToast(it)
+                        }
                     }
                     else -> {
                         showPaymentCancelDialog()
@@ -79,26 +83,6 @@ class PaymentFragment :
                         viewModel.requestPaymentPage {
                             activityResult.launch(getWebViewIntent(it))
                         }
-//                        viewModel.requestPaymentProcess({
-//                            val dialog = OneButtonDialog(
-//                                title = "주문이 완료되었습니다.",
-//                                contents = "",
-//                                okText = "확인"
-//                            ) {
-//                                val option = navOptions {
-//                                    popUpTo(R.id.homeFragment)
-//                                }
-//                                val bundle = bundleOf("selectedTab" to 1)
-//                                findNavController().navigate(
-//                                    R.id.action_global_orderLogFragment,
-//                                    bundle,
-//                                    option
-//                                )
-//                            }
-//                            dialog.show(requireActivity().supportFragmentManager, "")
-//                        }) {
-//                            activityFuncFunction.showToast(it)
-//                        }
                     }
                 ) {
 
@@ -108,11 +92,6 @@ class PaymentFragment :
             } else {
                 activityFuncFunction.showToast("누락된 정보가 있습니다.")
             }
-//            viewModel.requestPaymentProcess({
-//
-//            }){
-//
-//            }
         }
     }
 
@@ -215,6 +194,9 @@ class PaymentFragment :
         val dialog = OneButtonDialog("결제가 실패했어요.", "결제수단을 확인후\n다시 시도해주세요", "다시 시도하기"){
 
         }
-        dialog.show(requireActivity().supportFragmentManager, "")
+        dialog.isCancelable = false
+        activity?.let{
+            dialog.show(it.supportFragmentManager, "")
+        }
     }
 }

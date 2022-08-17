@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.oldee.user.base.BaseViewModel
+import com.oldee.user.data.view.PaymentDoneViewData
 import com.oldee.user.network.request.*
 import com.oldee.user.network.response.BasketListItem
 import com.oldee.user.network.response.ShippingAddressListItem
@@ -48,6 +49,20 @@ class PaymentViewModel @Inject constructor(
 
     }
 
+    fun getPaymentDoneViewDataList():List<PaymentDoneViewData>{
+        val list = mutableListOf<PaymentDoneViewData>()
+
+        datas.value?.let{
+            it.forEach {
+//                list.add(PaymentDoneViewData(
+//                    it.imageName?:"", it.
+//                ))
+            }
+        }
+
+        return list
+    }
+
     fun isValidation() =
         !name.value.isNullOrEmpty() && !phone.value.isNullOrEmpty()
                 && !postNum.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
@@ -68,9 +83,6 @@ class PaymentViewModel @Inject constructor(
                 onNext.invoke(html)
             }
         }
-//        remote {
-//
-//        }
     }
 
     fun requestAddressLatest() {
