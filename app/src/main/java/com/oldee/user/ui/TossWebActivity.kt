@@ -1,5 +1,7 @@
 package com.oldee.user.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AlertDialog
@@ -76,7 +78,7 @@ class TossWebActivity : AppCompatActivity() {
         webview.webChromeClient = MyWeb(this)
         webview.clearCache(true)
         webview.clearHistory()
-        webview.addJavascriptInterface(TossInterface(), "OldeeAndroid")
+        webview.addJavascriptInterface(TossInterface(this), "OldeeAndroid")
         webview.loadDataWithBaseURL(null, html ?: "", "text/html; charset=utf-8", "UTF-8", null)
     }
 
@@ -119,11 +121,13 @@ class TossWebActivity : AppCompatActivity() {
         }
     }
 
-    inner class TossInterface(){
+    inner class TossInterface(val context: Context){
         @JavascriptInterface
-        fun paymentSuccess(){
-            Logger.e("result success")
-            setResult(RESULT_OK)
+        fun paymentSuccess(id:Int){
+            Logger.e("result success order id-> ${id}")
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("id", id)
+            setResult(RESULT_OK, intent)
             finish()
         }
 

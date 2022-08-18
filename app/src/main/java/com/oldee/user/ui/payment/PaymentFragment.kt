@@ -38,10 +38,10 @@ class PaymentFragment :
             res?.let {
                 when (it.resultCode) {
                     Activity.RESULT_OK -> {
-                        viewModel.requestPaymentProcess({
-                            moveNext()
-                        }){
-                            activityFuncFunction.showToast(it)
+                        val orderId = it.data?.getIntExtra("id", -1)?:-1
+
+                        if(orderId != -1){
+                            moveNext(orderId)
                         }
                     }
                     else -> {
@@ -185,9 +185,9 @@ class PaymentFragment :
         }
     }
 
-    fun moveNext() {
+    fun moveNext(orderId:Int) {
         Logger.e("move next")
-        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToPaymentDoneFragment())
+        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToPaymentDoneFragment(orderId))
     }
 
     fun showPaymentCancelDialog() {
