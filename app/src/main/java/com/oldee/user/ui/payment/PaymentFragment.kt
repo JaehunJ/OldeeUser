@@ -38,9 +38,9 @@ class PaymentFragment :
             res?.let {
                 when (it.resultCode) {
                     Activity.RESULT_OK -> {
-                        val orderId = it.data?.getIntExtra("id", -1)?:-1
+                        val orderId = it.data?.getIntExtra("id", -1) ?: -1
 
-                        if(orderId != -1){
+                        if (orderId != -1) {
                             moveNext(orderId)
                         }
                     }
@@ -185,17 +185,21 @@ class PaymentFragment :
         }
     }
 
-    fun moveNext(orderId:Int) {
+    fun moveNext(orderId: Int) {
         Logger.e("move next")
-        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToPaymentDoneFragment(orderId))
+        findNavController().navigate(
+            PaymentFragmentDirections.actionPaymentFragmentToPaymentDoneFragment(
+                orderId
+            )
+        )
     }
 
     fun showPaymentCancelDialog() {
-        val dialog = OneButtonDialog("결제가 실패했어요.", "결제수단을 확인후\n다시 시도해주세요", "다시 시도하기"){
+        val dialog = OneButtonDialog("결제가 실패했어요.", "결제수단을 확인후\n다시 시도해주세요", "다시 시도하기") {
 
         }
         dialog.isCancelable = false
-        activity?.let{
+        activity?.let {
             dialog.show(it.supportFragmentManager, "")
         }
     }
