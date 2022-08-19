@@ -109,6 +109,16 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
         }
     }
 
+    fun removeBackAction(){
+        val backView = _binding?.root?.findViewById<ConstraintLayout>(R.id.iv_back)
+
+        backView?.let {
+            it.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -141,6 +141,7 @@ class PaymentFragment :
     override fun onDetach() {
         super.onDetach()
         backCallback.remove()
+        super.removeBackAction()
     }
 
     fun getWebViewIntent(html: String): Intent {
