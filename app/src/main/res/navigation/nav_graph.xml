@@ -143,7 +143,11 @@
         tools:layout="@layout/fragment_payment_done"
         android:id="@+id/paymentDoneFragment"
         android:name="com.oldee.user.ui.payment.done.PaymentDoneFragment"
-        android:label="PaymentDoneFragment" />
+        android:label="PaymentDoneFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/orderLogDetailFragment"
         android:name="com.oldee.user.ui.orderlog.detail.OrderLogDetailFragment"

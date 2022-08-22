@@ -77,10 +77,4 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
     suspend fun requestAddAddress(data: AddShippingAddressRequest) = call {
         api.requestAddShippingAddress(getAccessToken(), data)
     }
-
-//    suspend fun requestReformRequest(data:)
-
-//    suspend fun requestHeartState(id:Int, checked:Int) = {
-//        call { api.request }
-//    }
 }

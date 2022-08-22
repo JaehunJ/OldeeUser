@@ -14,10 +14,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PaymentDoneFragment :
-    BaseFragment<FragmentPaymentDoneBinding, PaymentDoneViewModel, NavArgs>() {
+    BaseFragment<FragmentPaymentDoneBinding, PaymentDoneViewModel, PaymentDoneFragmentArgs>() {
     override val layoutId: Int = R.layout.fragment_payment_done
     override val viewModel: PaymentDoneViewModel by viewModels()
-    override val navArgs: NavArgs by navArgs()
+    override val navArgs: PaymentDoneFragmentArgs by navArgs()
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.btnConfirm.setOnClickListener {
@@ -31,10 +31,22 @@ class PaymentDoneFragment :
                 option
             )
         }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.orderId.postValue(navArgs.id)
     }
 
     override fun initDataBinding() {
-
+        viewModel.orderId.observe(viewLifecycleOwner, getObserver(viewLifecycleOwner) {
+            it?.let {
+                viewModel.requestOrder(it)
+            }
+        })
     }
 
     override fun initViewCreated() {
