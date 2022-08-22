@@ -1,7 +1,6 @@
 package com.oldee.user.network.request
 
 data class PaymentPageRequest(
-    val addressId:Int,
     val basketList:List<PaymentPageRequestItem>,
     val orderPrice:Int,
     val shippingFee:Int,

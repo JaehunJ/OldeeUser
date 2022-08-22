@@ -56,17 +56,28 @@ class PaymentViewModel @Inject constructor(
 
     fun requestPaymentPage(onNext:(String)->Unit) {
         viewModelScope.launch {
-            val data = PaymentPageRequest(
-                90, listOf(PaymentPageRequestItem(358, "테스트", 1)),
-                181000,
-                3000,
-                184000
-            )
-            val html = getPaymentPageUseCase.invoke(data)
+            datas.value?.let {
+                if(it.isNotEmpty()){
+                    val itemList = mutableListOf<PaymentPageRequestItem>()
 
-            if(!html.isNullOrEmpty()){
-                onNext.invoke(html)
+                    it.forEach { item->
+                        itemList.add(PaymentPageRequestItem(item.basketId, item.reformName, item.surveySeq))
+                    }
+
+                    val data = PaymentPageRequest(
+                        itemList.toList(),
+                        totalPrice.value?:0,
+                        3000,
+                        totalPrice.value?:0
+                    )
+                    val html = getPaymentPageUseCase.invoke(data)
+
+                    if(!html.isNullOrEmpty()){
+                        onNext.invoke(html)
+                    }
+                }
             }
+
         }
 //        remote {
 //

@@ -31,7 +31,7 @@ class DesignRepository @Inject constructor(api: OldeeService, preferences: Share
     }
 
     suspend fun requestGetPaymentPage(data: PaymentPageRequest):String?{
-        val result = api.requestGetPaymentPage(data)
+        val result = api.requestGetPaymentPage(getAccessToken(), data)
 
         if(result.isSuccessful){
             result.body()?.let{

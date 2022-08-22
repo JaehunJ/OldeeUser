@@ -121,15 +121,15 @@ class TossWebActivity : AppCompatActivity() {
 
     inner class TossInterface(){
         @JavascriptInterface
-        fun paymentSuccess(){
-            Logger.e("result success")
+        fun paymentSuccess(json:String){
+            Logger.e("result success->${json}")
             setResult(RESULT_OK)
             finish()
         }
 
         @JavascriptInterface
-        fun paymentFail(code:String, msg:String){
-            Logger.e("result fail->$code / $msg")
+        fun paymentFail(msg:String){
+            Logger.e("result fail->$msg")
             setResult(RESULT_CANCELED)
             finish()
         }
