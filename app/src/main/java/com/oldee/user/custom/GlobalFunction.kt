@@ -3,12 +3,14 @@ package com.oldee.user.custom
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.TypedValue
 import androidx.core.app.ActivityCompat
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -63,4 +65,14 @@ fun getBoldText(
     sb.setSpan(StyleSpan(Typeface.BOLD), 0, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
 
     return sb
+}
+
+fun dpToPx(context: Context?, dp: Float): Float {
+    val resources: Resources? = context?.resources
+
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        resources?.displayMetrics
+    )
 }

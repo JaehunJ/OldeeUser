@@ -27,6 +27,10 @@ object RepositoryModule {
 
     @Singleton
     @Provides
+    fun provideUserRepository(api: OldeeService, preferences: SharedPreferences) = UserRepository(api, preferences)
+
+    @Singleton
+    @Provides
     fun provideSignRepository(api: OldeeService, preferences: SharedPreferences) =
         SignRepository(api, preferences)
 

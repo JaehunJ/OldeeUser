@@ -119,7 +119,6 @@ class PaymentFragment :
                 viewModel.postNum.postValue(it.postalCode)
             }
         }
-
     }
 
     override fun initViewCreated() {
@@ -160,9 +159,10 @@ class PaymentFragment :
             val viewBinding = LayoutPaymentItemBinding.inflate(inflater, binding.llContainer, true)
 
             viewBinding.res = it
-            viewBinding.rvImage.adapter = PaymentImageAdapter { iv, path ->
-                viewModel.setImage(iv, path)
-            }
+            viewBinding.rvImage.adapter =
+                PaymentImageAdapter(requireContext()) { context, iv, path ->
+                    viewModel.setImage(context, iv, path)
+                }
 
             val imageList = it.getImageNameList()
             (viewBinding.rvImage.adapter as PaymentImageAdapter).setData(

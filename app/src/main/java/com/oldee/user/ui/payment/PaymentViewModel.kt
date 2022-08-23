@@ -1,10 +1,14 @@
 package com.oldee.user.ui.payment
 
+import android.content.Context
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.oldee.user.base.BaseViewModel
+import com.oldee.user.custom.dpToPx
 import com.oldee.user.data.view.PaymentDoneViewData
 import com.oldee.user.network.request.*
 import com.oldee.user.network.response.BasketListItem
@@ -263,11 +267,11 @@ class PaymentViewModel @Inject constructor(
 //        val result = postPaymentUseCase.invoke()
 //    }
 
-    fun setImage(imageView: ImageView, path: String) {
+    fun setImage(context: Context, imageView: ImageView, path: String) {
         remote(false) {
             val bitmap = getImageUseCase.invoke(path)
             imageView.clipToOutline = true
-            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
+            Glide.with(imageView).load(bitmap).transform(CenterCrop(), RoundedCorners(dpToPx(context, 8f).toInt())).into(imageView)
         }
     }
 }

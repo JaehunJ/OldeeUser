@@ -17,43 +17,45 @@ import dagger.hilt.android.AndroidEntryPoint
 class TossWebActivity : AppCompatActivity() {
     lateinit var binding: ActivityTossWebBinding
 
-    var html: String? = """<head>
-      <script src="https://js.tosspayments.com/v1"></script>
-    </head>
-    <body>
-    <script>
-    
-          let addressId = 90;
-          let basketList = [{"categoryCode":null,"classCode":null,"mainCategoryCode":null,"mainCategoryName":null,"subCategoryCode":null,"subCategoryName":null,"price":null,"mainOrder":null,"subOrder":null,"creationDate":null,"modifiedDate":null,"basketId":358,"userUUId":0,"surveySeq":1,"orderDetailTitle":"\uD14C\uC2A4\uD2B8"}];
-          let orderPrice = 181000;
-          let shippingFee = 3000;
-          let totalPrice = 184000;
- 
-    
-          let amount = "999";
-    
-          var orderId = new Date().getTime();
-          let orderName = "\uD14C\uC2A4\uD2B8 \uD488\uBAA9";
-          let customerName = "\uACB0\uC81C\uD14C\uC2A4\uD2B8\uC774\uB984";
-          let clientKey = "test_ck_JQbgMGZzorzzXdypGB7rl5E1em4d";
-    
-          var tossPayments = TossPayments(clientKey);
-          var button = document.getElementById('payment-button');
+    var html:String? = ""
 
-          console.log('url'+ window.location.origin)
-    
-          tossPayments.requestPayment('카드', {
-              amount: amount,
-              orderId: orderId,
-              orderName: orderName,
-              customerName: customerName,
-              successUrl: window.location.origin + '/api/v1/payment/success',
-              failUrl: window.location.origin + '/api/v1/payment/fail',
-          });
-    
-        </script>
-    </body>
-    </html>"""
+//    var html: String? = """<head>
+//      <script src="https://js.tosspayments.com/v1"></script>
+//    </head>
+//    <body>
+//    <script>
+//
+//          let addressId = 90;
+//          let basketList = [{"categoryCode":null,"classCode":null,"mainCategoryCode":null,"mainCategoryName":null,"subCategoryCode":null,"subCategoryName":null,"price":null,"mainOrder":null,"subOrder":null,"creationDate":null,"modifiedDate":null,"basketId":358,"userUUId":0,"surveySeq":1,"orderDetailTitle":"\uD14C\uC2A4\uD2B8"}];
+//          let orderPrice = 181000;
+//          let shippingFee = 3000;
+//          let totalPrice = 184000;
+//
+//
+//          let amount = "999";
+//
+//          var orderId = new Date().getTime();
+//          let orderName = "\uD14C\uC2A4\uD2B8 \uD488\uBAA9";
+//          let customerName = "\uACB0\uC81C\uD14C\uC2A4\uD2B8\uC774\uB984";
+//          let clientKey = "test_ck_JQbgMGZzorzzXdypGB7rl5E1em4d";
+//
+//          var tossPayments = TossPayments(clientKey);
+//          var button = document.getElementById('payment-button');
+//
+//          console.log('url'+ window.location.origin)
+//
+//          tossPayments.requestPayment('카드', {
+//              amount: amount,
+//              orderId: orderId,
+//              orderName: orderName,
+//              customerName: customerName,
+//              successUrl: window.location.origin + '/api/v1/payment/success',
+//              failUrl: window.location.origin + '/api/v1/payment/fail',
+//          });
+//
+//        </script>
+//    </body>
+//    </html>"""
 
 //    @Inject
 
@@ -125,15 +127,15 @@ class TossWebActivity : AppCompatActivity() {
         @JavascriptInterface
         fun paymentSuccess(json:String){
             Logger.e("result success->${json}")
-            setResult(RESULT_OK)
-            finish()
+//            setResult(RESULT_OK)
+//            finish()
         }
 
         @JavascriptInterface
         fun paymentFail(msg:String){
             Logger.e("result fail->$msg")
-            setResult(RESULT_CANCELED)
-            finish()
+//            setResult(RESULT_CANCELED)
+//            finish()
         }
     }
 }
