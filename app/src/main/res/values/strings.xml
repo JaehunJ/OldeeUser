@@ -29,5 +29,5 @@
 
     <string name="copyright">Copyrightⓒ Oldee. All Rights Reserved</string>
 
-
+    <string name="reform_detail_day">택배 수령 후 %d-%d일정도의 제작기간이 소요됩니다. 제작 완료 시 택배사 사정에 따라 배송시간이 달라질 수 있습니다.</string>
 </resources>

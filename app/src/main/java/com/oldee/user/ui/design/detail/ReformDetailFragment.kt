@@ -86,6 +86,8 @@ class ReformDetailFragment :
                 binding.cbLike.isChecked = it.heartCheck != 0
                 viewModel.setImageCircle(binding.ivAvatar, "")
 
+                it.maxDay
+
                 //image
                 val list = it.getImageNameList()
                 list?.let {

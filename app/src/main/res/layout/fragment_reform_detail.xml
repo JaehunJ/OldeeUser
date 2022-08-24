@@ -404,7 +404,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="14dp"
-                            android:text="택배 수령 후 2-5일정도의 제작기간이 소요됩니다. 제작 완료 시 택배사 사정에 따라 배송시간이 달라질 수 있습니다."/>
+                            android:text="@{@string/reform_detail_day(res.minDay, res.maxDay)}"/>
 
                         <TextView
                             android:layout_marginTop="32dp"
