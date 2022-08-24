@@ -10,11 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentBinding
 import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
+import com.oldee.user.network.response.PaymentFailResponse
 import com.oldee.user.ui.TossWebActivity
 import com.oldee.user.ui.dialog.LatestAddressDialog
 import com.oldee.user.ui.dialog.OneButtonDialog
@@ -45,7 +47,12 @@ class PaymentFragment :
                         }
                     }
                     else -> {
-                        showPaymentCancelDialog()
+                        val jsonStr = it.data?.getStringExtra("result")
+                        if(!jsonStr.isNullOrEmpty()){
+                            val gson = Gson()
+                            val obj = gson.fromJson(jsonStr, PaymentFailResponse::class.java)
+                            showPaymentCancelDialog()
+                        }
                     }
                 }
             }

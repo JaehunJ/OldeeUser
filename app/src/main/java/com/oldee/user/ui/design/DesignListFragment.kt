@@ -51,7 +51,6 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-//                adapter.submitList(it)
                 if(viewModel.page == 0){
                     adapter.setData(it)
                     binding.rvDesignList.scheduleLayoutAnimation()

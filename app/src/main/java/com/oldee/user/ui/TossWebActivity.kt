@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.oldee.user.custom.PaymentsWebClient
 import com.oldee.user.databinding.ActivityTossWebBinding
@@ -17,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TossWebActivity : AppCompatActivity() {
     lateinit var binding: ActivityTossWebBinding
 
-    var html:String? = ""
+    var html: String? = ""
 
 //    var html: String? = """<head>
 //      <script src="https://js.tosspayments.com/v1"></script>
@@ -85,9 +84,9 @@ class TossWebActivity : AppCompatActivity() {
     }
 
 
-    inner class MyWeb(private val activity:AppCompatActivity) : WebChromeClient() {
+    inner class MyWeb(private val activity: AppCompatActivity) : WebChromeClient() {
         override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
-            Logger.e(consoleMessage?.message()?:"")
+            Logger.e(consoleMessage?.message() ?: "")
 
             return true
         }
@@ -98,7 +97,7 @@ class TossWebActivity : AppCompatActivity() {
             message: String?,
             result: JsResult?
         ): Boolean {
-            val dialog = OneButtonDialog("", message?:"","확인"){
+            val dialog = OneButtonDialog("", message ?: "", "확인") {
                 result?.confirm()
             }
 
@@ -112,9 +111,9 @@ class TossWebActivity : AppCompatActivity() {
             message: String?,
             result: JsResult?
         ): Boolean {
-            val dialog = TwoButtonDialog("", message?:"","확인","취소",{
+            val dialog = TwoButtonDialog("", message ?: "", "확인", "취소", {
                 result?.confirm()
-            }){
+            }) {
                 result?.cancel()
             }
 
@@ -123,19 +122,23 @@ class TossWebActivity : AppCompatActivity() {
         }
     }
 
-    inner class TossInterface(val context: Context){
+    inner class TossInterface(val context: Context) {
         @JavascriptInterface
-        fun paymentSuccess(json:String){
+        fun paymentSuccess(json: String) {
             Logger.e("result success->${json}")
-//            setResult(RESULT_OK)
-//            finish()
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("result", json)
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
         @JavascriptInterface
-        fun paymentFail(msg:String){
+        fun paymentFail(msg: String) {
             Logger.e("result fail->$msg")
-//            setResult(RESULT_CANCELED)
-//            finish()
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("result", msg)
+            setResult(RESULT_CANCELED, intent)
+            finish()
         }
     }
 }
