@@ -10,12 +10,14 @@ import com.oldee.user.base.BaseViewModel
 import com.oldee.user.network.response.DesignListItem
 import com.oldee.user.usercase.GetDesignListUseCase
 import com.oldee.user.usercase.GetImageUseCase
+import com.oldee.user.usercase.SetImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
 @HiltViewModel
-class DesignListViewModel @Inject constructor(private val getDesignListUseCase: GetDesignListUseCase, private val getImageUseCase: GetImageUseCase):
+class DesignListViewModel @Inject constructor(private val getDesignListUseCase: GetDesignListUseCase, private val getImageUseCase: GetImageUseCase,
+private val setImageUseCase: SetImageUseCase):
     BaseViewModel() {
 
     var limit = 10
@@ -55,13 +57,14 @@ class DesignListViewModel @Inject constructor(private val getDesignListUseCase: 
         }
     }
 
-    fun setImage(imageView: ImageView, path:String){
+    fun setImage(imageView: ImageView, path:String, roundInt:Int){
         remote(false) {
-            val bitmap = getImageUseCase.invoke(path)
-
-            val requestOptions = RequestOptions()
-
-            Glide.with(imageView.context).load(bitmap).placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image).into(imageView)
+            setImageUseCase.invoke(imageView.context, imageView, path, roundInt)
+//            val bitmap = getImageUseCase.invoke(path)
+//
+//            val requestOptions = RequestOptions()
+//
+//            Glide.with(imageView.context).load(bitmap).placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image).into(imageView)
         }
     }
 }

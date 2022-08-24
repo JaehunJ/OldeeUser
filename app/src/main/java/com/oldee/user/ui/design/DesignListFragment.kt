@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.custom.OnScrollEndListener
+import com.oldee.user.custom.dpToPx
 import com.oldee.user.databinding.FragmentDesignListBinding
 import com.oldee.user.network.response.DesignListItem
 import com.oldee.user.network.response.DesignListResponse
@@ -34,7 +35,7 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
             val action = DesignListFragmentDirections.actionDesignListFragmentToReformDetailFragment(it)
             findNavController().navigate(action)
         }) { iv, str ->
-            viewModel.setImage(iv, str)
+            viewModel.setImage(iv, str, dpToPx(requireContext(), 8f).toInt())
         }
         adapter.removeAll()
         binding.rvDesignList.adapter = adapter
@@ -50,7 +51,6 @@ class DesignListFragment : BaseFragment<FragmentDesignListBinding, DesignListVie
     override fun initDataBinding() {
         viewModel.listResponse.observe(viewLifecycleOwner){
             it?.let{
-//                adapter.submitList(it)
                 if(viewModel.page == 0){
                     adapter.setData(it)
                     binding.rvDesignList.scheduleLayoutAnimation()

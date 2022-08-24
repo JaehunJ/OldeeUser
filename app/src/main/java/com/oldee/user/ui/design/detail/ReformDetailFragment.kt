@@ -1,7 +1,6 @@
 package com.oldee.user.ui.design.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
@@ -9,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
+import com.oldee.user.custom.dpToPx
 import com.oldee.user.databinding.FragmentReformDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,12 +74,20 @@ class ReformDetailFragment :
 
                 prepareAdapter.setData(prepareItemList.toList())
 
-                viewModel.setImage(binding.ivBefore, it.beforeImageName)
-                binding.ivBefore.setOnClickListener {v->
+                viewModel.setImage(
+                    binding.ivBefore,
+                    it.beforeImageName,
+                    dpToPx(requireContext(), 8f).toInt()
+                )
+                binding.ivBefore.setOnClickListener { v ->
                     showImageViewDialog(listOf(it.beforeImageName))
                 }
-                viewModel.setImage(binding.ivAfter, it.afterImageName)
-                binding.ivAfter.setOnClickListener { v->
+                viewModel.setImage(
+                    binding.ivAfter,
+                    it.afterImageName,
+                    dpToPx(requireContext(), 8f).toInt()
+                )
+                binding.ivAfter.setOnClickListener { v ->
                     showImageViewDialog(listOf(it.afterImageName))
                 }
 

@@ -1,12 +1,13 @@
 package com.oldee.user.ui.payment
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oldee.user.databinding.LayoutPaymentItemImageBinding
 
-class PaymentImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
+class PaymentImageAdapter(val context:Context, val imageCallback: (Context, ImageView, String) -> Unit) :
     RecyclerView.Adapter<PaymentImageAdapter.PaymentImageViewHolder>() {
 
     var dataSet = listOf<String>()
@@ -20,7 +21,7 @@ class PaymentImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
         PaymentImageViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: PaymentImageViewHolder, position: Int) {
-        holder.bind(imageCallback, dataSet[position])
+        holder.bind(context, imageCallback, dataSet[position])
     }
 
     override fun getItemCount() = dataSet.size
@@ -35,8 +36,8 @@ class PaymentImageAdapter(val imageCallback: (ImageView, String) -> Unit) :
             }
         }
 
-        fun bind(imageCallback: (ImageView, String) -> Unit, path: String) {
-            imageCallback(binding.ivImage, path)
+        fun bind(context: Context, imageCallback: (Context, ImageView, String) -> Unit, path: String) {
+            imageCallback(context, binding.ivImage, path)
         }
     }
 }

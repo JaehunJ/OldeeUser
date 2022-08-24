@@ -8,6 +8,7 @@
             type="com.oldee.user.network.response.DesignListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
         android:id="@+id/cl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,11 +95,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:src="@drawable/icon_empty_image"
                     android:clipToOutline="true"
-                    android:background="@drawable/bg_round_8dp_white"
+                    android:background="@drawable/bg_round_8dp_gray"
                     android:adjustViewBounds="true"
-                    android:backgroundTint="@color/gray_1"
                     android:id="@+id/iv_before"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -120,11 +119,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:background="@drawable/bg_round_8dp_white"
                     android:clipToOutline="true"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/icon_empty_image"
-                    android:backgroundTint="@color/gray_1"
+                    android:background="@drawable/bg_round_8dp_gray"
                     android:id="@+id/iv_after"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

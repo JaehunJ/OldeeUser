@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
+import com.oldee.user.custom.dpToPx
 import com.oldee.user.databinding.FragmentHomeBinding
 import com.oldee.user.ui.home.adapter.BannerAdapter
 import com.oldee.user.ui.home.adapter.DesignListAdapter
@@ -50,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
             val action = HomeFragmentDirections.actionHomeFragmentToReformDetailFragment(it)
             findNavController().navigate(action)
         }) { iv, path ->
-            viewModel.setImage(iv, path)
+            viewModel.setImage(iv, path, dpToPx(requireContext(), 10f).toInt())
         }
         expertAdapter = ExpertListAdapter { iv, path ->
             viewModel.setImageCircle(iv, path)

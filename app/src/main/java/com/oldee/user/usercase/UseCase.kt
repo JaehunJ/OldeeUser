@@ -3,6 +3,8 @@ package com.oldee.user.usercase
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.oldee.user.R
@@ -126,6 +128,22 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
             val bitmap = getImageUseCase.invoke(path)
             Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image)
+                .into(imageView)
+        }
+    }
+
+    suspend operator fun invoke(context: Context,
+                                imageView: ImageView,
+                                path: String,
+                                roundDp:Int,
+                                useSkeleton: Boolean = true){
+        if (useSkeleton) {
+            val bitmap = getImageUseCase.invoke(path)
+
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
+        } else {
+            val bitmap = getImageUseCase.invoke(path)
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).transform(CenterCrop(), RoundedCorners(roundDp))
                 .into(imageView)
         }
     }

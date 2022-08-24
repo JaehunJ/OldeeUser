@@ -42,6 +42,12 @@ class ReformDetailViewModel @Inject constructor(
         }
     }
 
+    fun setImage(imageView:ImageView, path:String, roundInt:Int){
+        remote(false) {
+            setImageUseCase(imageView.context, imageView, path, roundInt)
+        }
+    }
+
     fun setImageCircle(imageView: ImageView, path: String){
         remote(false) {
             setImageCircleUseCase(imageView.context, imageView, path)

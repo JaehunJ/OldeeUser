@@ -9,6 +9,7 @@
             type="com.oldee.user.network.response.DesignListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
         android:id="@+id/cl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,8 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:src="@drawable/bg_round_8dp_gray"
                     android:adjustViewBounds="true"
-                    android:background="@color/gray_0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

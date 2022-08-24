@@ -1,8 +1,10 @@
 package com.oldee.user.ui.home
 
+import android.content.res.Resources
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.oldee.user.R
 import com.oldee.user.base.BaseViewModel
 import com.oldee.user.network.response.DesignListItem
 import com.oldee.user.network.response.ExpertListItem
@@ -44,8 +46,6 @@ class HomeViewModel @Inject constructor(
         result?.let {
             expertList.postValue(it.data)
         }
-
-
     }
 
     suspend fun requestDesignListSuspend(){
@@ -72,6 +72,12 @@ class HomeViewModel @Inject constructor(
             setImageUseCase.invoke(imageView.context, imageView, path)
 
 //            Glide.with(imageView).load(bitmap).centerCrop().into(imageView)
+        }
+    }
+
+    fun setImage(imageView: ImageView, path:String, roundInt: Int){
+        remote(false) {
+            setImageUseCase.invoke(imageView.context, imageView, path, roundInt)
         }
     }
 
