@@ -20,3 +20,12 @@ data class PaymentFailResponse (
     val locatedView: String
 )
 
+data class PaymentSuccessResponse(
+    val type:String,
+    val code:String,
+    val msg :String,
+    val orderId:String,
+    val locatedView:String,
+    val paymentKey:String
+)
+

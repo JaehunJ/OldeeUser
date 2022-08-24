@@ -17,6 +17,7 @@ import com.oldee.user.databinding.FragmentPaymentBinding
 import com.oldee.user.databinding.LayoutPaymentItemBinding
 import com.oldee.user.network.response.BasketListItem
 import com.oldee.user.network.response.PaymentFailResponse
+import com.oldee.user.network.response.PaymentSuccessResponse
 import com.oldee.user.ui.TossWebActivity
 import com.oldee.user.ui.dialog.LatestAddressDialog
 import com.oldee.user.ui.dialog.OneButtonDialog
@@ -40,11 +41,24 @@ class PaymentFragment :
             res?.let {
                 when (it.resultCode) {
                     Activity.RESULT_OK -> {
-                        val orderId = it.data?.getIntExtra("id", -1) ?: -1
+                        val jsonStr = it.data?.getStringExtra("result")
+                        if(!jsonStr.isNullOrEmpty()){
+                            val gson = Gson()
+                            val obj = gson.fromJson(jsonStr, PaymentSuccessResponse::class.java)
 
-                        if (orderId != -1) {
-                            moveNext(orderId)
+                            obj?.let{
+                                viewModel.requestPaymentProcess({
+                                    moveNext(it.orderId.toInt())
+                                }){
+
+                                }
+                            }
                         }
+//                        val orderId = it.data?.getIntExtra("id", -1) ?: -1
+//
+//                        if (orderId != -1) {
+//                            moveNext(orderId)
+//                        }
                     }
                     else -> {
                         val jsonStr = it.data?.getStringExtra("result")
