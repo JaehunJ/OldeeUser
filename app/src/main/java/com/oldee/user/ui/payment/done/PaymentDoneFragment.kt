@@ -47,6 +47,12 @@ class PaymentDoneFragment :
                 viewModel.requestOrder(it)
             }
         })
+
+        viewModel.res.observe(viewLifecycleOwner, getObserver(viewLifecycleOwner){
+            it?.let {
+                
+            }
+        })
     }
 
     override fun initViewCreated() {
