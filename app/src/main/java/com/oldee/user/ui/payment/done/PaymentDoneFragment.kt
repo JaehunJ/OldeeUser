@@ -38,6 +38,7 @@ class PaymentDoneFragment :
         adapter = PaymentItemAdapter{imageView: ImageView, s: String ->
               viewModel.setImage(imageView, s)
         }
+        binding.rvItem.adapter = adapter
     }
 
     override fun onResume() {

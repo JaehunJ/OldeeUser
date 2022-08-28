@@ -34,7 +34,7 @@ android {
         buildConfigField "String", STORE_URL, '"https://www.oldee.kr/oldeener"'
         buildConfigField "String", TERM_PRIVACY, '"https://www.oldee.kr/policy/member"'
         buildConfigField "String", TERM_SERVICE, '"https://www.oldee.kr/terms"'
-        buildConfigField "String", POST_NUM_PATH, '"/api/v1/address"'
+        buildConfigField "String", POST_NUM_PATH, '"/api/v1/webview/address"'
         buildConfigField "String", GOOGLE_PLAY, '"market://details?id=com.oldee.user"'
     }
 
