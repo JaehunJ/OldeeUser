@@ -92,7 +92,7 @@ class ReformDetailFragment :
                 }
 
                 binding.cbLike.isChecked = it.heartCheck != 0
-                viewModel.setImageCircle(binding.ivAvatar, "")
+                viewModel.setImageCircle(binding.ivAvatar, it.profileImg?:"")
 
 
                 //image

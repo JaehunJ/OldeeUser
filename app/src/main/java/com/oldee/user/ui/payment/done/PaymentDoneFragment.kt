@@ -1,6 +1,7 @@
 package com.oldee.user.ui.payment.done
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
@@ -19,6 +20,8 @@ class PaymentDoneFragment :
     override val viewModel: PaymentDoneViewModel by viewModels()
     override val navArgs: PaymentDoneFragmentArgs by navArgs()
 
+    lateinit var adapter:PaymentItemAdapter
+
     override fun initView(savedInstanceState: Bundle?) {
         binding.btnConfirm.setOnClickListener {
             val option = navOptions {
@@ -32,7 +35,9 @@ class PaymentDoneFragment :
             )
         }
 
-
+        adapter = PaymentItemAdapter{imageView: ImageView, s: String ->
+              viewModel.setImage(imageView, s)
+        }
     }
 
     override fun onResume() {
@@ -50,7 +55,11 @@ class PaymentDoneFragment :
 
         viewModel.res.observe(viewLifecycleOwner, getObserver(viewLifecycleOwner){
             it?.let {
-                
+                if(it.data.isNotEmpty()){
+                    if(it.data[0].surveySeqList.isNotEmpty()){
+                        adapter.setData(it.data[0].surveySeqList)
+                    }
+                }
             }
         })
     }

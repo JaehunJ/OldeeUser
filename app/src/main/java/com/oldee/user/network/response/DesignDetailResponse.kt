@@ -26,6 +26,7 @@ data class DesignDetailData(
     val heartId: Int?,
     val minDay: Int,
     val reformItemName: String,
+    val storeName:String,
     val iconImageId: String,
     val reformItemId: String,
     val contents: String,

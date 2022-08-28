@@ -114,7 +114,7 @@ interface OldeeService {
     suspend fun requestPayment(
         @Header("Authorization") token: String,
         @Body data: PaymentRequest
-    ): Response<BaseStringResponse>
+    ): Response<PaymentDoneResponse>
 
     @GET("/api/v1/user/order/list")
     suspend fun requestPaymentList(

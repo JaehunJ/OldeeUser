@@ -38,7 +38,7 @@ class PaymentFragment :
 
     val activityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
-            res?.let {
+            res?.let { it ->
                 when (it.resultCode) {
                     Activity.RESULT_OK -> {
                         val jsonStr = it.data?.getStringExtra("result")
@@ -47,9 +47,7 @@ class PaymentFragment :
                             val obj = gson.fromJson(jsonStr, PaymentSuccessResponse::class.java)
 
                             obj?.let{
-                                viewModel.requestPaymentProcess({
-                                    moveNext(it.orderId.toInt())
-                                }){
+                                viewModel.requestPaymentProcess(it.paymentKey){
 
                                 }
                             }
@@ -138,6 +136,14 @@ class PaymentFragment :
                 viewModel.address.postValue(it.shippingAddress)
                 viewModel.extendAddress.postValue(it.shippingAddressDetail)
                 viewModel.postNum.postValue(it.postalCode)
+            }
+        }
+
+        viewModel.paymentDoneResponse.observe(viewLifecycleOwner){
+            it?.let {
+                if(it.message == "success"){
+                    moveNext(it.data.orderId)
+                }
             }
         }
     }

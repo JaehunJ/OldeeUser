@@ -5,7 +5,8 @@ data class PaymentRequest(
     val basketList:List<PaymentBasketItem>,
     val orderPrice:Int,
     val shippingFee:Int,
-    val totalPrice:Int
+    val totalPrice:Int,
+    val paymentKey:String
 )
 
 data class PaymentBasketItem(

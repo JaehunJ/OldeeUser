@@ -12,8 +12,10 @@ import com.oldee.user.custom.dpToPx
 import com.oldee.user.data.view.PaymentDoneViewData
 import com.oldee.user.network.request.*
 import com.oldee.user.network.response.BasketListItem
+import com.oldee.user.network.response.PaymentDoneResponse
 import com.oldee.user.network.response.ShippingAddressListItem
 import com.oldee.user.usercase.*
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,6 +47,8 @@ class PaymentViewModel @Inject constructor(
     //res data
     val latestAddress = MutableLiveData<ShippingAddressListItem?>()
     val allAddress = MutableLiveData<List<ShippingAddressListItem?>>()
+
+    val paymentDoneResponse = MutableLiveData<PaymentDoneResponse>()
 
     val id: Int?
         get() = latestAddress.value?.addressId
@@ -154,7 +158,7 @@ class PaymentViewModel @Inject constructor(
         return oldName != newName || oldPhone != newPhone || oldAdd != newAdd || oldAddDetail != newAddDetail
     }
 
-    fun requestPaymentProcess(onComplete: () -> Unit, onError: (String) -> Unit) {
+    fun requestPaymentProcess(paymentKey:String, onError: (String) -> Unit) {
         remote {
             if (isValidation()) {
                 //주소 먼저 등록할지 안할지
@@ -164,14 +168,16 @@ class PaymentViewModel @Inject constructor(
                     onError("주소 등록중 오류가 발생했습니다.")
                 }
 
-                val paymentData = getPaymentData(addressId ?: 0)
+                val paymentData = getPaymentData(paymentKey, addressId ?: 0)
 
                 val result = postPaymentUseCase.invoke(paymentData)
 
                 result?.let {
-                    if (it.data == "success") {
-                        onComplete()
-                    }
+                    Logger.e("response not null")
+                    paymentDoneResponse.postValue(it)
+//                    if(){
+//
+//                    }
                 }
             } else {
                 onError.invoke("누락된 정보가 있습니다.")
@@ -237,7 +243,7 @@ class PaymentViewModel @Inject constructor(
         return -1
     }
 
-    suspend fun getPaymentData(addressId: Int): PaymentRequest {
+    suspend fun getPaymentData(paymentKey: String, addressId: Int): PaymentRequest {
         var list = mutableListOf<PaymentBasketItem>()
 
         val oldList = datas.value
@@ -260,6 +266,7 @@ class PaymentViewModel @Inject constructor(
             orderPrice = this.totalPrice.value ?: 0,
             shippingFee = 0,
             totalPrice = this.totalPrice.value ?: 0,
+            paymentKey = paymentKey
         )
     }
 

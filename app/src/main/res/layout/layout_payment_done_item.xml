@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.oldee.user.data.view.PaymentDoneViewData" />
+            type="com.oldee.user.network.response.SurveySeqListItem" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                         android:layout_weight="2"
                         tools:text="서울시 종로구 광화문로, 233-40 (광화문 타워) 101-1234호"
                         android:textSize="14dp"
-                        android:text="@{data.expertAddress}"/>
+                        android:text="@{data.storeAddress}"/>
                 </TableRow>
                 <TableRow
                     android:layout_marginTop="12dp">
@@ -141,14 +141,14 @@
                         style="@style/NormalText"
                         android:layout_weight="1"
                         android:textSize="14dp"
-                        android:text="우편번호"/>
+                        android:text="휴대폰"/>
                     <TextView android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         style="@style/NormalText"
                         android:layout_weight="2"
                         tools:text="110-10"
                         android:textSize="14dp"
-                        android:text="@{data.expertPostNumber}"/>
+                        android:text="@{data.expertPhone}"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>

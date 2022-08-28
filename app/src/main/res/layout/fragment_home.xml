@@ -232,7 +232,7 @@
                         android:textSize="16dp"
                         android:text="자세히 보기"
                         android:stateListAnimator="@null"
-                        android:fontFamily="@font/spoqa"
+                        android:fontFamily="@font/pretendard_regular"
                         android:background="@drawable/bg_round_8dp_white_stroke_black">
                     </androidx.appcompat.widget.AppCompatButton>
                 </LinearLayout>

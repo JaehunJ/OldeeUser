@@ -29,3 +29,14 @@ data class PaymentSuccessResponse(
     val paymentKey:String
 )
 
+data class PaymentDoneResponse(
+    override var count: Int?,
+    override var status: Int?,
+    override var message: String?,
+    override var errorMessage: String?,
+    override var errorCode: String?,
+    val data: PaymentDoneData
+) :BaseResponse(){
+    data class PaymentDoneData(val orderId:Int, val bReturn:Boolean)
+}
+
