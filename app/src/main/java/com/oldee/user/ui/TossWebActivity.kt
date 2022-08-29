@@ -86,7 +86,7 @@ class TossWebActivity : AppCompatActivity() {
 
     inner class MyWeb(private val activity: AppCompatActivity) : WebChromeClient() {
         override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
-            Logger.e(consoleMessage?.message() ?: "")
+            Logger.e("myWeb->"+consoleMessage?.message() ?: "")
 
             return true
         }

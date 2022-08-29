@@ -25,7 +25,7 @@ class PaymentDoneViewModel @Inject constructor(
             val result = getOrderLogDetailUseCase.invoke(id)
 
             result?.let{
-                Logger.e("success order")
+                Logger.e("requestOrder->success order")
                 res.postValue(it)
             }
         }

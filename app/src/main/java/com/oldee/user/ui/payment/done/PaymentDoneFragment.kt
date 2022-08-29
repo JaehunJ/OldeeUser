@@ -11,6 +11,7 @@ import androidx.navigation.navOptions
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentPaymentDoneBinding
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,8 +57,10 @@ class PaymentDoneFragment :
 
         viewModel.res.observe(viewLifecycleOwner, getObserver(viewLifecycleOwner){
             it?.let {
+                Logger.e("post res value")
                 if(it.data.isNotEmpty()){
                     if(it.data[0].surveySeqList.isNotEmpty()){
+                        Logger.e("post res value2")
                         adapter.setData(it.data[0].surveySeqList)
                     }
                 }

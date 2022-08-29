@@ -41,6 +41,7 @@ class PaymentItemAdapter(val imageCallBack: (ImageView, String) -> Unit) :
 
         fun bind(data: SurveySeqListItem, imageCallBack: (ImageView, String) -> Unit) {
             imageCallBack(binding.ivImage, data.imagePath)
+            binding.data = data
         }
     }
 }
