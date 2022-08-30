@@ -1,11 +1,13 @@
 package com.oldee.user.ui.home
 
 import android.content.res.Resources
+import android.util.Size
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.oldee.user.R
 import com.oldee.user.base.BaseViewModel
+import com.oldee.user.custom.dpToPx
 import com.oldee.user.network.response.DesignListItem
 import com.oldee.user.network.response.ExpertListItem
 import com.oldee.user.usercase.*
@@ -77,7 +79,8 @@ class HomeViewModel @Inject constructor(
 
     fun setImage(imageView: ImageView, path:String, roundInt: Int){
         remote(false) {
-            setImageUseCase.invoke(imageView.context, imageView, path, roundInt)
+            val size = Size(dpToPx(imageView.context,150f).toInt(),dpToPx(imageView.context,150f).toInt())
+            setImageUseCase.invoke(imageView.context, imageView, path, roundInt, size)
         }
     }
 

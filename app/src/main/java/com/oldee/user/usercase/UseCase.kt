@@ -1,6 +1,7 @@
 package com.oldee.user.usercase
 
 import android.content.Context
+import android.util.Size
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -132,18 +133,31 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
         }
     }
 
-    suspend operator fun invoke(context: Context,
-                                imageView: ImageView,
-                                path: String,
-                                roundDp:Int,
-                                useSkeleton: Boolean = true){
+    suspend operator fun invoke(
+        context: Context,
+        imageView: ImageView,
+        path: String,
+        roundDp: Int,
+        size: Size? = null,
+        useSkeleton: Boolean = true,
+    ) {
         if (useSkeleton) {
             val bitmap = getImageUseCase.invoke(path)
 
-            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
+            if (size == null) {
+                Glide.with(context).load(bitmap)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
+            } else {
+                Glide.with(context).load(bitmap)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .override(size.width, size.height)
+                    .transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
+            }
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade()).transform(CenterCrop(), RoundedCorners(roundDp))
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
+                .transform(CenterCrop(), RoundedCorners(roundDp))
                 .into(imageView)
         }
     }
@@ -190,8 +204,8 @@ class SetHeartCheckUseCase @Inject constructor(private val repo: DesignRepositor
 
 }
 
-class GetPaymentPageUseCase @Inject constructor(private val repo:DesignRepository){
-    suspend operator fun invoke(data:PaymentPageRequest) = repo.requestGetPaymentPage(data)
+class GetPaymentPageUseCase @Inject constructor(private val repo: DesignRepository) {
+    suspend operator fun invoke(data: PaymentPageRequest) = repo.requestGetPaymentPage(data)
 }
 
 //class GetFaqListUseCase @Inject constructor(private val repo:)
