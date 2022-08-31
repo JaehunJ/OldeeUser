@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.oldee.user.databinding.LayoutHomeBannerItemBinding
 
-class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
+class BannerAdapter(val onClick:(Int)->Unit) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
     private var dataSet = listOf<Int>()
 
     fun setData(new: List<Int>) {
@@ -24,8 +24,11 @@ class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
             }
         }
 
-        fun bind(imageId: Int) {
+        fun bind(imageId: Int, position:Int, onClick: (Int) -> Unit) {
             binding.ivBanner.setImageResource(imageId)
+            binding.ivBanner.setOnClickListener {
+                onClick(position)
+            }
         }
     }
 
@@ -33,7 +36,7 @@ class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
         BannerViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
-        holder.bind(dataSet[position % dataSet.size])
+        holder.bind(dataSet[position % dataSet.size], position, onClick)
     }
 
     override fun getItemCount() = Int.MAX_VALUE

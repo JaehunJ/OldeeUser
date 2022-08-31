@@ -12,7 +12,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/banner" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_02" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

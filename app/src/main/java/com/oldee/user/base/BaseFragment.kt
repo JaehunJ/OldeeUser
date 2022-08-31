@@ -1,5 +1,7 @@
 package com.oldee.user.base
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -144,6 +146,10 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel, NA : NavArg
 
     fun nextFragment(dir:NavDirections){
         findNavController().navigate(dir)
+    }
+
+    fun openWebBrowser(url:String){
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     fun <T> getObserver(owner: LifecycleOwner, action:(T)->Unit)

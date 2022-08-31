@@ -56,9 +56,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         expertAdapter = ExpertListAdapter { iv, path ->
             viewModel.setImageCircle(iv, path)
         }
-        bannerAdapter = BannerAdapter()
-        bannerAdapter.setData(listOf(R.drawable.banner, R.drawable.banner_02))
-        binding.tvBannerTotal.text = "2"
+        bannerAdapter = BannerAdapter{
+            when(it){
+                0->{
+                    openWebBrowser("https://www.oldee.kr/oldeener")
+                }
+                1->{
+                    openWebBrowser("https://www.oldee.kr/fa7f4c9e-cbd5-4450-964a-dfe1696cdaa9")
+                }
+                else->{
+                    openWebBrowser("https://www.oldee.kr/cf85328b-95a4-485f-90be-50d5ef9865bc")
+                }
+            }
+        }
+        bannerAdapter.setData(listOf(R.drawable.banner_02, R.drawable.banner_03, R.drawable.banner_04))
+        binding.tvBannerTotal.text = "3"
 
 
         binding.rvDesignList.adapter = designAdapter
@@ -68,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         binding.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.tvBannerCurrent.text = ((position%2)+1).toString()
+                binding.tvBannerCurrent.text = ((position%3)+1).toString()
                 bannerPosition = position
             }
 
@@ -79,7 +91,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
                         if(!autoScrollJob.isActive) createScrollJob()
                     }
                     ViewPager2.SCROLL_STATE_DRAGGING->{
-                        autoScrollJob.cancel()
+                        if(!autoScrollJob.isCancelled)
+                            autoScrollJob.cancel()
                     }
                 }
             }
@@ -129,12 +142,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         showSkeleton(true)
 
         viewModel.call { showSkeleton(false) }
-        createScrollJob()
         backCallback.isEnabled = true
     }
 
     override fun onResume() {
         super.onResume()
+        createScrollJob()
         backCallback.isEnabled = true
     }
 
