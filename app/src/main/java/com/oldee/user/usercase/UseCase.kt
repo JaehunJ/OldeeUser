@@ -209,3 +209,7 @@ class GetPaymentPageUseCase @Inject constructor(private val repo: DesignReposito
 }
 
 //class GetFaqListUseCase @Inject constructor(private val repo:)
+
+class GetFooterUseCase @Inject constructor(private val repo:CommonRepository){
+    suspend operator fun invoke() = repo.requestFooter()
+}

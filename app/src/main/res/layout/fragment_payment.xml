@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="휴대폰번호"
+                        android:text="휴대전화번호"
                         android:textSize="16dp" />
 
                     <EditText
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_round_8dp_stroke_gray_1"
-                        android:hint="휴대폰번호를 입력하세요."
+                        android:hint="휴대전화번호 입력"
                         android:paddingStart="16dp"
                         android:paddingTop="12dp"
                         android:paddingEnd="12dp"
@@ -155,7 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="우편번호"
+                        android:text="기본주소"
                         android:textSize="16dp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,19 +186,20 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="8dp"
                             android:id="@+id/btn_post"
                             style="@style/NormalText"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="0dp"
                             android:background="@drawable/bg_round_8dp_white"
                             android:elevation="0dp"
                             android:minWidth="0dp"
                             app:layout_constraintHorizontal_bias="1"
                             android:stateListAnimator="@null"
-                            android:text="우편번호 검색"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
+                            android:text="검색"
+                            android:gravity="center"
+                            android:paddingStart="18.5dp"
+                            android:paddingEnd="18.5dp"
                             android:textColor="@android:color/white"
                             app:backgroundTint="@color/sky_3"
                             app:layout_constraintBottom_toBottomOf="@id/et_post"
@@ -207,13 +208,13 @@
                             app:layout_constraintTop_toTopOf="@id/et_post" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        style="@style/NormalText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="기본주소"
-                        android:textSize="16dp" />
+<!--                    <TextView-->
+<!--                        style="@style/NormalText"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        android:text="기본주소"-->
+<!--                        android:textSize="16dp" />-->
 
                     <EditText
                         android:text="@={vm.address}"
@@ -224,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_edit_text"
                         android:enabled="false"
-                        android:hint="기본주소를 입력하세요"
+                        android:hint="기본주소"
                         android:minHeight="0dp"
                         android:paddingStart="15dp"
                         android:paddingTop="16dp"

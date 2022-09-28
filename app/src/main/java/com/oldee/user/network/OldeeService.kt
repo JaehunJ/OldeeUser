@@ -195,6 +195,10 @@ interface OldeeService {
     ): Response<BaseResponse>
 
     //설정
+    @GET("/api/v1/footer")
+    suspend fun requestFooter(
+        @Header("Authorization") token: String = "clo"
+    ):Response<FooterResponse>
 
     //고객센터
 

@@ -17,5 +17,6 @@ data class VersionInfoData(
     val version_code:String,
     val version_id:Int,
     val creation_date:String,
-    val title:String
+    val title:String,
+    val appStatus:String
 )

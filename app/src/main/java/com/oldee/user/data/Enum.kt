@@ -25,6 +25,13 @@ enum class OrderStatus(val value: Int) {
     Cancel(-4)
 }
 
+enum class ServerStatus(val value:String){
+    None("0"),
+    Update("1"),
+    ForceUpdate("2"),
+    ServerCheck("9")
+}
+
 enum class Period(val value: Int) {
     MonthTotal(0),
     Month3(3),

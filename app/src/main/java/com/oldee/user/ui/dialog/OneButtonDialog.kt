@@ -3,11 +3,13 @@ package com.oldee.user.ui.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import com.oldee.user.custom.htmlToString
 import com.oldee.user.databinding.LayoutDialogOneButtonBinding
 
 class OneButtonDialog(val title:String, val contents:String, val okText:String, val onClick:()->Unit):DialogFragment() {
@@ -26,7 +28,8 @@ class OneButtonDialog(val title:String, val contents:String, val okText:String, 
         binding.tvTitle.text = title
         if(contents.isEmpty())
             binding.tvContents.visibility = View.GONE
-        binding.tvContents.text = contents
+//        binding.tvContents.text = contents
+        binding.tvContents.text = contents.htmlToString()
         binding.btnOk.text = okText
         binding.btnOk.setOnClickListener {
             dialog?.dismiss()

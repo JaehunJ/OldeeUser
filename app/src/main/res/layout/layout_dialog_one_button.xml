@@ -33,7 +33,7 @@
                 android:id="@+id/tv_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/BoldText"/>
+                style="@style/NormalText"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:minHeight="0dp"

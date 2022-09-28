@@ -5,6 +5,11 @@
 <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
+    <data>
+        <variable
+            name="data"
+            type="com.oldee.user.network.response.FooterResponse.FooterData" />
+    </data>
         <LinearLayout
             android:background="@color/sky_1"
             android:orientation="vertical"
@@ -183,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/gray_3"
-                    android:text="@string/settting_footer"/>
+                    android:text="@{@string/settting_footer(data.brNo, data.commNtslDclr, data.rprsv, data.addr, data.telNo, data.eml)}"/>
 
                 <TextView
                     android:layout_marginTop="8dp"

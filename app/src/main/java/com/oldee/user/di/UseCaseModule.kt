@@ -1,5 +1,6 @@
 package com.oldee.user.di
 
+import com.google.android.gms.common.internal.service.Common
 import com.oldee.user.repository.*
 import com.oldee.user.usercase.*
 import dagger.Module
@@ -84,4 +85,7 @@ object UseCaseModule {
 
     @Provides
     fun provideGetPaymentPage(repo: DesignRepository) = GetPaymentPageUseCase(repo)
+
+    @Provides
+    fun provideGetFooterUseCase(repo:CommonRepository) = GetFooterUseCase(repo)
 }

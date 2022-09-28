@@ -15,6 +15,7 @@ import com.oldee.user.BuildConfig
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.custom.checkPermission
+import com.oldee.user.data.ServerStatus
 import com.oldee.user.databinding.FragmentSplashBinding
 import com.oldee.user.ui.dialog.OneButtonDialog
 import com.oldee.user.ui.dialog.PermissionDialog
@@ -51,11 +52,32 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     override fun initDataBinding() {
         viewModel.data.observe(viewLifecycleOwner) {
             it?.let {
-                if (it.version_id > BuildConfig.VERSION_CODE) {
-                    showForceUpdateDialog()
-                }else{
-                    Logger.e("load next")
-                    loadNext()
+                //server check
+                when(it.appStatus){
+                    ServerStatus.ServerCheck.value->{
+                        showServiceCheckDialog(it.contents)
+                    }
+                    ServerStatus.ForceUpdate.value->{
+                        val showing = viewModel.isShowingUpdatePopup(it.version_code)
+
+                        if(showing){
+                            showForceUpdateDialog()
+                        }else{
+                            loadNext()
+                        }
+                    }
+                    ServerStatus.Update.value->{
+                        val showing = viewModel.isShowingUpdatePopup(it.version_code)
+
+                        if(showing){
+                            showUpdateDialog()
+                        }else{
+                            loadNext()
+                        }
+                    }
+                    else->{
+                        loadNext()
+                    }
                 }
             }
         }
@@ -72,7 +94,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     fun showUpdateDialog() {
         val dialog = TwoButtonDialog(
             title = "업데이트 안내",
-            contents = "중요한 업데이트가 있습니다.\\n서비스 이용을 위해 지금 바로 업데이트하세요.",
+            contents = "중요한 업데이트가 있습니다.\n서비스 이용을 위해 지금 바로 업데이트하세요.",
             okText = "업데이트",
             cancelText = "다음에",
             {
@@ -94,7 +116,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     fun showForceUpdateDialog() {
         val dialog = OneButtonDialog(
             title = "업데이트 안내",
-            contents = "중요한 업데이트가 있습니다.\\n서비스 이용을 위해 지금 바로 업데이트하세요.",
+            contents = "중요한 업데이트가 있습니다.\n서비스 이용을 위해 지금 바로 업데이트하세요.",
             okText = "업데이트"
         ) {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -107,10 +129,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
         }
     }
 
-    fun showServiceCheckDialog() {
+    fun showServiceCheckDialog(contents:String) {
+        //"서비스 안정화를 위한 점검이 진행중입니다.\n점검일시: YYYY년 MM월 DD일 HH:mm ~ HH:mm\n",
         val dialog = OneButtonDialog(
             title = "서비스 점검 안내",
-            contents = "서비스 안정화를 위한 점검이 진행중입니다.\\n점검일시: YYYY년 MM월 DD일 HH:mm ~ HH:mm\\n",
+            contents = contents,
             okText = "확인"
         ) {
             requireActivity().finish()
@@ -140,6 +163,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
     }
 
     fun loadNext() {
+        Logger.e("load next")
         viewModel.postDelay({
             val action = SplashFragmentDirections.actionSplashFragmentToSignInFragment()
             findNavController()?.navigate(action)

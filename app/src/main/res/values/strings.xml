@@ -25,7 +25,7 @@
     <string name="network_error_contents_0">\n이 오류는 잘못된 접근을 했거나\n인터넷 연결이 불안할 때 만날 수 있어요.\n인터넷 연결을 확인 후 다시 시도해 주세요.</string>
     <string name="network_error_contents_1">\n이 오류가 반복된다면\n고객센터를 통해 문제를 해결할 수 있습니다.</string>
 
-    <string name="settting_footer">사업자등록번호 : 406-13-02128\n통신판매신고 : \n대표자 : 심지현\n주소 : 서울특별시 서초구 바우뫼로 91\n전화 : \n이메일 : oldee.global@gamil.com</string>
+    <string name="settting_footer">사업자등록번호 : %s\n통신판매신고 : %s\n대표자 : %s\n주소 : %s\n전화 : %s\n이메일 : %s</string>
 
     <string name="copyright">Copyrightⓒ Oldee. All Rights Reserved</string>
 

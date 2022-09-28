@@ -35,7 +35,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
                 okText = "로그아웃",
                 cancelText = "취소",
                 {
-                    viewModel.logout()
+                    viewModel.logout{
+                        activityFuncFunction.logout()
+                    }
                 },{
 
                 }
@@ -67,10 +69,16 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingVIewModel, N
                 }
             }
         }
+
+        viewModel.footer.observe(viewLifecycleOwner, getObserver(viewLifecycleOwner){
+            it?.let {
+                binding.data = it
+            }
+        })
     }
 
     override fun initViewCreated() {
-
+        viewModel.requestFooter()
     }
 
 
