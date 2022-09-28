@@ -59,13 +59,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
         bannerAdapter = BannerAdapter{
             when(it){
                 0->{
-                    openWebBrowser("https://www.oldee.kr/oldeener")
+                    openWebBrowser("https://www.oldee.kr/62cd39e3-ac8b-4fd0-b643-063291d43274")
                 }
                 1->{
-                    openWebBrowser("https://www.oldee.kr/fa7f4c9e-cbd5-4450-964a-dfe1696cdaa9")
+                    openWebBrowser("https://www.oldee.kr/0ea20357-234a-49f4-9548-fbea79ca9019")
                 }
                 else->{
-                    openWebBrowser("https://www.oldee.kr/cf85328b-95a4-485f-90be-50d5ef9865bc")
+                    openWebBrowser("https://www.oldee.kr/dbf9f91a-589d-4110-8563-3ca9297dd716")
                 }
             }
         }

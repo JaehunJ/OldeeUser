@@ -35,7 +35,7 @@ private val setImageUseCase: SetImageUseCase):
     }
 
     fun requestDesignList(limit: Int, page: Int, isAdded:Boolean) {
-        remote{
+        remote(false){
             this.page = page
             val result = getDesignListUseCase.invoke(limit, page)
 

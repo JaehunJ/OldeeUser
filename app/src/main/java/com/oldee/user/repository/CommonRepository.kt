@@ -11,7 +11,6 @@ import com.oldee.user.data.REFRESH_TOKEN
 import com.oldee.user.network.OldeeService
 import com.oldee.user.network.response.SignInResponseData
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +31,7 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
         return null
     }
 
-    suspend fun postImageToServer(list:List<MultipartBody.Part>) = call{
+    suspend fun postImageToServer(list: List<MultipartBody.Part>) = call {
         api.requestPostImage(getAccessToken(), list, getTextBody("reform"))
     }
 
@@ -48,7 +47,7 @@ class CommonRepository @Inject constructor(api: OldeeService, prefs: SharedPrefe
         api.requestNoticeList(getAccessToken())
     }
 
-    suspend fun requestFaqList() = call{
+    suspend fun requestFaqList() = call {
         api.requestFAQList(getAccessToken())
     }
 }
