@@ -6,6 +6,8 @@ import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.custom.dpToPx
@@ -92,7 +94,13 @@ class ReformDetailFragment :
                 }
 
                 binding.cbLike.isChecked = it.heartCheck != 0
-                viewModel.setImageCircle(binding.ivAvatar, it.profileImg?:"")
+                if(it.profileImg.isNullOrEmpty()){
+                    Glide.with(binding.ivAvatar.context).load(R.mipmap.ic_launcher_round).apply(
+                        RequestOptions().circleCrop()).into(binding.ivAvatar)
+                }else{
+                    viewModel.setImageCircle(binding.ivAvatar, it.profileImg?:"")
+                }
+
 
 
                 //image
