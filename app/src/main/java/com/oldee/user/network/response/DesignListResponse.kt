@@ -10,6 +10,9 @@ data class DesignListResponse(
     override var message: String?
 ) : BaseResponse()
 
+/**
+ * TODO 프로필 이미지 내려와야댐
+ */
 data class DesignListItem(
     val mainImageName: String?,
     val expertName: String,

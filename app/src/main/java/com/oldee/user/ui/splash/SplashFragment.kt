@@ -149,7 +149,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel, NavA
         val check = checkPermission(requireContext(), *permissions)
 
         if (!check) {
-            val dialog = PermissionDialog {
+            val dialog = PermissionDialog(false) {
                 requestPermissionResult.launch(permissions)
             }
             dialog.isCancelable = false

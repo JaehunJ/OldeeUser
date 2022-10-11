@@ -22,6 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/main"
             android:layout_height="56dp">
 
             <TextView
@@ -67,18 +68,20 @@
                 android:layout_height="wrap_content"
                 >
                 <LinearLayout
+
                     android:id="@+id/ll_skeleton"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     >
                     <include layout="@layout/skeleton_reform_detail"
                         android:id="@+id/skeleton_detail"/>
 
                 </LinearLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:visibility="gone"
+                    android:background=""
+                    android:visibility="visible"
                     android:id="@+id/cl_design_detail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -87,19 +90,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/iv_avatar"
-                        android:translationZ="1dp"
-                        android:outlineProvider="@null"
-                        android:elevation="0dp"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="25dp"
-                        android:background="@drawable/bg_circle_white"
-                        android:backgroundTint="@color/gray_3"
-                        app:layout_constraintBottom_toBottomOf="@id/vp_image"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vp_image" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_avatar"-->
+<!--                        android:translationZ="1dp"-->
+<!--                        android:outlineProvider="@null"-->
+<!--                        android:elevation="0dp"-->
+<!--                        android:layout_width="48dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:layout_marginStart="25dp"-->
+<!--                        android:background="@drawable/bg_circle_white"-->
+<!--                        android:backgroundTint="@color/gray_3"-->
+<!--                        android:src="@drawable/ic_profile_default"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@id/vp_image"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/vp_image" />-->
 
 
                     <LinearLayout
@@ -108,13 +112,26 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/white"
                         android:orientation="vertical"
-                        android:padding="25dp"
+                        android:padding="24dp"
                         app:layout_constraintTop_toBottomOf="@id/vp_image">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical">
+
+                            <ImageView
+                                android:id="@+id/iv_avatar"
+                                android:translationZ="1dp"
+                                android:outlineProvider="@null"
+                                android:elevation="0dp"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="@drawable/bg_circle_white"
+                                android:backgroundTint="@color/gray_3"
+                                android:src="@drawable/ic_profile_default"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"/>
 
                             <androidx.appcompat.widget.AppCompatCheckBox
                                 android:visibility="gone"
@@ -136,9 +153,8 @@
                                 tools:text="test3"
                                 android:text="@{res.storeName}"
                                 android:textSize="14dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toBottomOf="@id/iv_avatar"/>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -146,7 +162,7 @@
                             style="@style/BoldText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="16dp"
                             tools:text="디자인 이름"
                             android:text="@{res.reformName}"
                             android:textSize="24dp" />
@@ -159,14 +175,21 @@
                             android:layout_marginTop="8dp"
                             tools:text="20.0000원"
                             wonText="@{res.price}"
-                            android:textColor="@color/sky_3"
+                            android:textColor="@color/navy"
                             android:textSize="24dp" />
+
+                        <View
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_3_n"/>
 
                         <TextView
                             style="@style/NormalText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:textSize="16dp"
                             tools:text="description"
                             android:text="@{res.contents}"/>
                     </LinearLayout>
@@ -194,7 +217,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="갖고있는 준비물 중 한가지를 골라 리폼할 수 있어요"
-                            android:textSize="14dp" />
+                            android:textSize="16dp" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:overScrollMode="never"
@@ -315,59 +338,78 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
                             <TextView
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp"
+                                android:textColor="@color/sky_7"
+                                android:background="@drawable/bg_round_4dp_white_stroke_sky_7"
                                 style="@style/BoldText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="24dp"
+                                android:textSize="12dp"
                                 android:text="1"/>
                             <TextView
                                 android:layout_marginStart="12dp"
                                 style="@style/NormalText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14dp"
+                                android:textSize="16dp"
                                 android:text="변화를 주고싶은 의류를 준비해주세요.\n옷, 신발, 가방, 파우치 무엇이든 좋아요!"/>
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="24dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
                             <TextView
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp"
+                                android:textColor="@color/sky_7"
+                                android:background="@drawable/bg_round_4dp_white_stroke_sky_7"
                                 style="@style/BoldText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="24dp"
+                                android:textSize="12dp"
                                 android:text="2"/>
                             <TextView
                                 android:layout_marginStart="12dp"
                                 style="@style/NormalText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14dp"
+                                android:textSize="16dp"
                                 android:text="세부항목을 작성하고 리폼을 신청해주세요."/>
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="24dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
                             <TextView
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp"
+                                android:textColor="@color/sky_7"
+                                android:background="@drawable/bg_round_4dp_white_stroke_sky_7"
                                 style="@style/BoldText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="24dp"
+                                android:textSize="12dp"
                                 android:text="3"/>
                             <TextView
                                 android:layout_marginStart="12dp"
                                 style="@style/NormalText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14dp"
+                                android:textSize="16dp"
                                 android:text="1:1 상담을 통해 더욱 자세한 상담이 가능해요."/>
                         </LinearLayout>
 
@@ -429,15 +471,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginEnd="25dp"
-                        android:layout_marginBottom="48dp"
+                        android:layout_marginTop="8dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:textAlignment="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_round_8dp_white"
+                        android:background="@color/sky_7"
                         android:text="리폼 신청하기"
-                        app:backgroundTint="@color/sky_3"
                         android:textColor="@android:color/white"
                         style="@style/BoldText"
                         android:elevation="0dp"
@@ -456,14 +497,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginEnd="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/bg_round_8dp_white"
                         android:backgroundTint="#66101010"
                         android:orientation="horizontal"
                         android:padding="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/vp_image">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:id="@+id/tv_banner_current"

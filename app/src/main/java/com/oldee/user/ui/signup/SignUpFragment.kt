@@ -13,6 +13,10 @@ import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * TODO 아직 인증번호 시스템 미적용임.
+ *
+ */
 @AndroidEntryPoint
 class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel, SignUpFragmentArgs>() {
     override val layoutId: Int = R.layout.fragment_sign_up
