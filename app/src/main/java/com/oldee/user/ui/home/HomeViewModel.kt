@@ -42,6 +42,12 @@ class HomeViewModel @Inject constructor(
         return data?:""
     }
 
+    fun getUserEmail():String{
+        val data = getUserData.invoke()?.userEmail
+
+        return data?:""
+    }
+
     suspend fun requestExpertListSuspend(){
         val result = expertListUseCase.invoke()
 

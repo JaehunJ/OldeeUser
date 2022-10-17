@@ -92,7 +92,7 @@ class PostDialog(val confirmCallback:(road:String, zone:String)->Unit) : DialogF
                 handler!!.proceed()
             }
             dialog.setNegativeButton("취소"){d,i->
-                handler?.cancel()
+                handler!!.cancel()
             }
             dialog.create().show()
         }

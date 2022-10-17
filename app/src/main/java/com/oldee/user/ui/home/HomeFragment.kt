@@ -17,6 +17,7 @@ import com.oldee.user.R
 import com.oldee.user.base.BaseFragment
 import com.oldee.user.custom.dpToPx
 import com.oldee.user.databinding.FragmentHomeBinding
+import com.oldee.user.ui.dialog.HomeMenuDialog
 import com.oldee.user.ui.home.adapter.BannerAdapter
 import com.oldee.user.ui.home.adapter.DesignListAdapter
 import com.oldee.user.ui.home.adapter.ExpertListAdapter
@@ -44,7 +45,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
     override fun initView(savedInstanceState: Bundle?) {
         binding.ivDrawer.setOnClickListener {
-            activityFuncFunction.openDrawerMenu()
+//            activityFuncFunction.openDrawerMenu()
+            val dialog = HomeMenuDialog(false){d,m->
+                m.tvName.text = viewModel.getUserName()
+                m.tvEmail.text = viewModel.getUserEmail()
+                activityFuncFunction.openMenu(d, m)
+            }
+            dialog.isCancelable = true
+            dialog.show(requireActivity().supportFragmentManager, "menu")
         }
 
         designAdapter = DesignListAdapter({
@@ -138,7 +146,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
     }
 
     override fun initViewCreated() {
-        activityFuncFunction.setDrawerName(viewModel.getUserName())
+//        activityFuncFunction.setDrawerName(viewModel.getUserName())
         showSkeleton(true)
 
         viewModel.call { showSkeleton(false) }
@@ -158,13 +166,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel, NavArgs>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+//
         backCallback = object :OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                if(activityFuncFunction.isDrawerOpen()){
-                    activityFuncFunction.hideDrawerMenu()
-                    return
-                }
+//                if(activityFuncFunction.isDrawerOpen()){
+//                    activityFuncFunction.hideDrawerMenu()
+//                    return
+//                }
 
                 if (System.currentTimeMillis() - backTime > 1500) {
                     //show toast

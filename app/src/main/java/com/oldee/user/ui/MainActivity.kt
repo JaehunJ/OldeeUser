@@ -1,5 +1,6 @@
 package com.oldee.user.ui
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,13 +15,13 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.oldee.user.CommonActivityFuncImpl
 import com.oldee.user.R
 import com.oldee.user.databinding.ActivityMainBinding
-import com.oldee.user.databinding.LayoutHomeRightSlideMenuBinding
+import com.oldee.user.databinding.LayoutHomeMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
     lateinit var binding: ActivityMainBinding
-    lateinit var drawerBinding: LayoutHomeRightSlideMenuBinding
+//    lateinit var drawerBinding: LayoutHomeRightSlideMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -36,37 +37,37 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
             hideSoftKeyboard()
         }
 
-        drawerBinding = binding.menuDrawer
-        bindDrawerMenu()
+//        drawerBinding = binding.menuDrawer
+//        bindDrawerMenu()
     }
 
-    private fun bindDrawerMenu() {
-        drawerBinding.llCart.setOnClickListener {
-            hideDrawerMenu()
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_cartFragment)
-        }
-        drawerBinding.llOrderLog.setOnClickListener {
-            hideDrawerMenu()
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_orderLogFragment)
-        }
-        drawerBinding.tvNotice.setOnClickListener {
-            hideDrawerMenu()
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_noticeListFragment)
-        }
-        drawerBinding.tvQna.setOnClickListener {
-            hideDrawerMenu()
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_faqFragment)
-        }
-        drawerBinding.tvSetting.setOnClickListener {
-            hideDrawerMenu()
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_settingFragment)
-        }
-        drawerBinding.tvSignUpExpert.setOnClickListener {
-            //https://www.oldee.kr/oldeener
-            hideDrawerMenu()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oldee.kr/oldeener")))
-        }
-    }
+//    private fun bindDrawerMenu() {
+//        drawerBinding.llCart.setOnClickListener {
+//            hideDrawerMenu()
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_cartFragment)
+//        }
+//        drawerBinding.llOrderLog.setOnClickListener {
+//            hideDrawerMenu()
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_orderLogFragment)
+//        }
+//        drawerBinding.tvNotice.setOnClickListener {
+//            hideDrawerMenu()
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_noticeListFragment)
+//        }
+//        drawerBinding.tvQna.setOnClickListener {
+//            hideDrawerMenu()
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_faqFragment)
+//        }
+//        drawerBinding.tvSetting.setOnClickListener {
+//            hideDrawerMenu()
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_settingFragment)
+//        }
+//        drawerBinding.tvSignUpExpert.setOnClickListener {
+//            //https://www.oldee.kr/oldeener
+//            hideDrawerMenu()
+//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oldee.kr/oldeener")))
+//        }
+//    }
 
     override fun showProgress() {
         binding.pb.visibility = View.VISIBLE
@@ -84,34 +85,34 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
 
     }
 
-    override fun openDrawerMenu() {
-        val drawer = binding.mainDrawer
-        val menu = binding.menuDrawer
-        if (!drawer.isDrawerOpen(menu.root)) {
-            drawer.openDrawer(menu.root)
-        }
-    }
+//    override fun openDrawerMenu() {
+////        val drawer = binding.mainDrawer
+////        val menu = binding.menuDrawer
+////        if (!drawer.isDrawerOpen(menu.root)) {
+////            drawer.openDrawer(menu.root)
+////        }
+//    }
 
-    override fun hideDrawerMenu() {
-        val drawer = binding.mainDrawer
-        val menu = binding.menuDrawer
-        drawer.closeDrawer(menu.root)
-    }
-
-    override fun setDrawerName(name: String) {
-        binding.menuDrawer.tvName.text = name
-    }
+//    override fun hideDrawerMenu() {
+////        val drawer = binding.mainDrawer
+////        val menu = binding.menuDrawer
+////        drawer.closeDrawer(menu.root)
+//    }
+//
+//    override fun setDrawerName(name: String) {
+//        binding.menuDrawer.tvName.text = name
+//    }
 
     override fun goFinish() {
         this.finish()
     }
 
-    override fun isDrawerOpen(): Boolean {
-        val drawer = binding.mainDrawer
-        val menu = binding.menuDrawer
-
-        return drawer.isDrawerOpen(menu.root)
-    }
+//    override fun isDrawerOpen(): Boolean {
+//        val drawer = binding.mainDrawer
+//        val menu = binding.menuDrawer
+//
+//        return drawer.isDrawerOpen(menu.root)
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -132,5 +133,39 @@ class MainActivity : AppCompatActivity(), CommonActivityFuncImpl {
         this.finishAffinity()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun openMenu(dialog: Dialog?, binding: LayoutHomeMenuBinding) {
+        binding.llCart.setOnClickListener {
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_cartFragment)
+        }
+        binding.llOrder.setOnClickListener {
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_orderLogFragment)
+        }
+        binding.llNotice.setOnClickListener {
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_noticeListFragment)
+        }
+        binding.llCs.setOnClickListener {
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_faqFragment)
+        }
+        binding.llSetting.setOnClickListener {
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_global_settingFragment)
+        }
+        binding.llExpert.setOnClickListener {
+            //https://www.oldee.kr/oldeener
+//            hideDrawerMenu()
+            dialog?.dismiss()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.oldee.kr/oldeener")))
+        }
     }
 }

@@ -95,7 +95,7 @@ class ReformDetailFragment :
 
                 binding.cbLike.isChecked = it.heartCheck != 0
                 if(it.profileImg.isNullOrEmpty()){
-                    Glide.with(binding.ivAvatar.context).load(R.mipmap.ic_launcher_round).apply(
+                    Glide.with(binding.ivAvatar.context).load(R.drawable.ic_profile_default).apply(
                         RequestOptions().circleCrop()).into(binding.ivAvatar)
                 }else{
                     viewModel.setImageCircle(binding.ivAvatar, it.profileImg?:"")

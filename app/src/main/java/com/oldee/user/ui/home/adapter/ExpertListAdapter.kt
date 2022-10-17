@@ -43,7 +43,7 @@ class ExpertListAdapter(val imageCallBack:(ImageView, String)->Unit) : RecyclerV
         fun bind(data: com.oldee.user.network.response.ExpertListItem, imageCallBack: (ImageView, String) -> Unit) {
             binding.res = data
             if(data.expertPrifileImg == null){
-                Glide.with(binding.ivAvatar.context).load(R.mipmap.ic_launcher_round).apply(RequestOptions().circleCrop()).into(binding.ivAvatar)
+                Glide.with(binding.ivAvatar.context).load(R.drawable.ic_profile_default).apply(RequestOptions().circleCrop()).into(binding.ivAvatar)
             }else{
                 imageCallBack(binding.ivAvatar, data.expertPrifileImg)
             }
