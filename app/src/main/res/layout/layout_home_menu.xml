@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="48dp"
             android:layout_height="4dp"
-            android:background="@color/gray_3_n"/>
+            android:background="@color/gray_3"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_profile"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/v_top"
             android:background="@drawable/bg_round_8dp_white"
-            android:backgroundTint="@color/gray_1_n">
+            android:backgroundTint="@color/gray_1">
 
             <ImageView
                 android:layout_marginTop="16dp"
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_round_8dp_white"
-            android:backgroundTint="@color/gray_1_n">
+            android:backgroundTint="@color/gray_1">
 
 <!--            <LinearLayout-->
 <!--                android:layout_margin="16dp"-->
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_round_8dp_white"
-            android:backgroundTint="@color/gray_1_n">
+            android:backgroundTint="@color/gray_1">
 
             <LinearLayout
                 android:id="@+id/ll_notice"

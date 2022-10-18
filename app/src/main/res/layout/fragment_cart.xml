@@ -11,7 +11,7 @@
     </data>
 
     <LinearLayout
-        android:background="@color/main"
+        android:background="@color/gray_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,76 +19,107 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/sky_2"
             android:layout_height="56dp">
+
+            <TextView
+                android:layout_marginStart="8dp"
+                style="@style/BoldText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="수선 바구니"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/iv_back"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_marginStart="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arr_left" />
+                    android:layout_marginStart="24dp"
+                    android:src="@drawable/ic_arr_left"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/BoldText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="수선바구니" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="visible"
             android:id="@+id/cl_empty"
+            android:background="@color/gray_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
+
+            <LinearLayout
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:includeFontPadding="false"
-                style="@style/NormalText"
-                android:textSize="16dp"
-                android:textAlignment="center"
-                android:textColor="@color/gray_3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수선바구니에 결과가 없어요."/>
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/iv_error"
+                    app:layout_constraintVertical_chainStyle="spread"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintBottom_toTopOf="@id/tv_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_error"/>
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tv_error"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_error"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:includeFontPadding="false"
+                    style="@style/BoldText"
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수선바구니에 결과가 없어요."/>
+            </LinearLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         <androidx.core.widget.NestedScrollView
             android:visibility="gone"
             android:id="@+id/ns_exist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:fillViewport="true"
             android:overScrollMode="never">
-
-
                 <LinearLayout
                     android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:background="@color/sky_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,7 +140,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:clickable="false"
-                                android:background="@drawable/selector_sign_up_checkbox" />
+                                android:background="@drawable/selector_check_blue" />
 
                             <TextView
                                 android:paddingTop="12dp"
@@ -117,7 +148,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="전체선택"
-                                style="@style/NormalText"
+                                style="@style/BoldText"
                                 android:textSize="16dp" />
                         </LinearLayout>
 
@@ -126,17 +157,39 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1" />
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatButton
+                            style="@style/NormalText"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_marginEnd="24dp"
                             android:id="@+id/tv_total_delete"
-                            android:paddingTop="12dp"
-                            android:paddingBottom="12dp"
-                            android:paddingEnd="12dp"
-                            android:paddingStart="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="삭제"
-                            style="@style/NormalText"
-                            android:textSize="16dp" />
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:textSize="12dp"
+                            android:text="선택삭제"
+                            android:enabled="false"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textColor="@color/selector_red_btn_color"
+                            android:background="@drawable/selector_btn_round_red_4dp"
+                            />
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_total_delete"-->
+<!--                            android:paddingTop="12dp"-->
+<!--                            android:paddingBottom="12dp"-->
+<!--                            android:paddingEnd="12dp"-->
+<!--                            android:paddingStart="20dp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="삭제"-->
+<!--                            style="@style/NormalText"-->
+<!--                            android:textSize="16dp" />-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -147,61 +200,62 @@
 
                     </LinearLayout>
 
-                    <!--                <androidx.recyclerview.widget.RecyclerView-->
-                    <!--                    android:id="@+id/rv_list"-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:orientation="vertical"-->
-                    <!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-                    <!--                    tools:itemCount="3"-->
-                    <!--                    tools:listitem="@layout/layout_cart_order_item"/>-->
-
                     <LinearLayout
                         android:padding="24dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             style="@style/BoldText"
                             android:textSize="20dp"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="총 결제금액" />
 
-                        <TextView
-                            android:textAlignment="textEnd"
-                            style="@style/BoldText"
-                            android:textSize="20dp"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_marginTop="24dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            wonText="@{vm.totalPrice}"
-                            tools:text="20,000원" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                style="@style/NormalText"
+                                android:textSize="16dp"
+                                android:text="합계"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                            <TextView
+                                android:textAlignment="textEnd"
+                                style="@style/BoldText"
+                                android:textSize="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                wonText="@{vm.totalPrice}"
+                                tools:text="20,000원" />
+                        </LinearLayout>
                     </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_confirm"
-                        style="@style/BoldText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginEnd="25dp"
-                        android:layout_marginBottom="48dp"
-                        android:background="@drawable/bg_round_8dp_white"
-                        app:backgroundTint="@color/sky_3"
-                        android:elevation="0dp"
-                        android:stateListAnimator="@null"
-                        android:text="구매하기"
-                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
 
 
         </androidx.core.widget.NestedScrollView>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:visibility="visible"
+            android:id="@+id/btn_confirm"
+            style="@style/BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="@drawable/selector_btn_flat_sky"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="선택상품 구매하기"
+            android:textColor="@color/selector_sky_btn_color" />
     </LinearLayout>
 </layout>

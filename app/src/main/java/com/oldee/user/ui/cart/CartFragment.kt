@@ -12,6 +12,7 @@ import com.oldee.user.base.BaseFragment
 import com.oldee.user.databinding.FragmentCartBinding
 import com.oldee.user.databinding.LayoutCartOrderItemBinding
 import com.oldee.user.network.response.BasketListItem
+import com.oldee.user.ui.dialog.CommonContentsButtonSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,8 +51,10 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
         }
 
         binding.tvTotalDelete.setOnClickListener {
-            if (checkedItemDataList.isNotEmpty()) {
-                viewModel.requestCartListItemDelete(checkedItemDataList)
+            showDeleteDialog{
+                if (checkedItemDataList.isNotEmpty()) {
+                    viewModel.requestCartListItemDelete(checkedItemDataList)
+                }
             }
         }
     }
@@ -64,9 +67,11 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                 if (it.isEmpty()) {
                     binding.clEmpty.visibility = View.VISIBLE
                     binding.nsExist.visibility = View.GONE
+                    binding.btnConfirm.visibility = View.GONE
                 } else {
                     binding.clEmpty.visibility = View.GONE
                     binding.nsExist.visibility = View.VISIBLE
+                    binding.btnConfirm.visibility = View.VISIBLE
                 }
 
                 setCartList(it)
@@ -88,6 +93,8 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
         checkedItemDataList.clear()
         childList.clear()
         checkCnt = 0
+
+        binding.btnConfirm.isEnabled = checkedItemDataList.isNotEmpty()
     }
 
     fun setCartList(datas: List<BasketListItem>) {
@@ -131,8 +138,31 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel, NavArgs>()
                     checkCnt--
                     binding.cbTotal.isChecked = false
                 }
+
+                binding.btnConfirm.isEnabled = checkedItemDataList.isNotEmpty()
+                binding.tvTotalDelete.isEnabled = checkedItemDataList.isNotEmpty()
+            }
+
+            it.ivDelete.setOnClickListener {v->
+                showDeleteDialog{
+                    val data = it.data
+
+                    data?.let{
+                        viewModel.requestCartListItemDelete(listOf(data))
+                    }
+
+                }
             }
         }
+    }
 
+    fun showDeleteDialog(onClickOk:()->Unit){
+        val dialog = CommonContentsButtonSheetDialog(false,"선택한 상품을 삭제하시겠습니까?", "확인","취소",{
+            onClickOk()
+        }){
+
+        }
+        dialog.isCancelable = false
+        dialog.show(requireActivity().supportFragmentManager, "delete")
     }
 }

@@ -23,7 +23,7 @@ import com.oldee.user.data.PrepareItemMappingStringList
 import com.oldee.user.databinding.FragmentAddCartBinding
 import com.oldee.user.databinding.LayoutOrderCheckPrepareItemBinding
 import com.oldee.user.ui.design.detail.PrepareItem
-import com.oldee.user.ui.dialog.TwoButtonDialog
+import com.oldee.user.ui.dialog.CommonContentsButtonSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
@@ -114,14 +114,22 @@ class AddCartFragment :
     }
 
     fun showSuccessDialog() {
-        val dialog = TwoButtonDialog(
-            "", "수선바구니에 담았어요", "보러가기", "닫기", {
-                val option = navOptions {
-                    popUpTo(R.id.homeFragment)
-                }
-                findNavController().navigate(R.id.action_global_cartFragment, null, option)
-            }, { findNavController().popBackStack(R.id.homeFragment, false) }
-        )
+        val dialog = CommonContentsButtonSheetDialog(false, "수선바구니에 담았어요.","보러가기","닫기",{
+            val option = navOptions {
+                popUpTo(R.id.homeFragment)
+            }
+            findNavController().navigate(R.id.action_global_cartFragment, null, option)
+        }){
+            findNavController().popBackStack(R.id.homeFragment, false)
+        }
+//        val dialog = TwoButtonDialog(
+//            "", "수선바구니에 담았어요", "보러가기", "닫기", {
+//                val option = navOptions {
+//                    popUpTo(R.id.homeFragment)
+//                }
+//                findNavController().navigate(R.id.action_global_cartFragment, null, option)
+//            }, { findNavController().popBackStack(R.id.homeFragment, false) }
+//        )
         dialog.isCancelable = false
         activity?.let { ay ->
             dialog.show(ay.supportFragmentManager, "success")

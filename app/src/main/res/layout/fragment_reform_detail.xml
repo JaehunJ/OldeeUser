@@ -17,22 +17,24 @@
         tools:context=".ui.design.detail.ReformDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main"
+        android:background="@color/gray_1"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/main"
+            android:background="@color/sky_2"
             android:layout_height="56dp">
 
             <TextView
+                android:layout_marginStart="8dp"
                 style="@style/BoldText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="디자인"
+                android:text="디자인 상세보기"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +48,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="24dp"
                     android:src="@drawable/ic_arr_left"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,14 +75,14 @@
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     >
                     <include layout="@layout/skeleton_reform_detail"
                         android:id="@+id/skeleton_detail"/>
 
                 </LinearLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/cl_design_detail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -182,7 +184,7 @@
                             android:layout_marginBottom="16dp"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/gray_3_n"/>
+                            android:background="@color/gray_3"/>
 
                         <TextView
                             style="@style/NormalText"
@@ -438,7 +440,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
-                            android:text="리폼 소요시간"/>
+                            android:text="소요시간"/>
                         <TextView
                             android:layout_marginTop="8dp"
                             style="@style/NormalText"

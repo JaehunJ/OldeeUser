@@ -14,20 +14,20 @@
 
     <color name="main">#ECF3F9</color>
     <color name="gray_0">#EFEFEF</color>
-    <color name="gray_1">#DADADA</color>
+    <color name="gray_1">#F9F9FA</color>
     <color name="gray_2">#EDEDEE</color>
-    <color name="gray_3">#999999</color>
+    <color name="gray_3">#E0E1E2</color>
 
-    <color name="gray_1_n">#F9F9FA</color>
-    <color name="gray_3_n">#E0E1E2</color>
+<!--    <color name="gray_1_n">#F9F9FA</color>-->
+<!--    <color name="gray_3">#E0E1E2</color>-->
 
     <color name="gray_4">#D2D3D5</color>
     <color name="gray_6">#B2B3B6</color>
     <color name="gray_7">#9EA0A4</color>
 
     <color name="sky_1">#ECF3F9</color>
-    <color name="sky_2">#BFD6EC</color>
-    <color name="sky_2_n">#E2EFFC</color>
+    <color name="sky_2">#E2EFFC</color>
+<!--    <color name="sky_2_n">#E2EFFC</color>-->
     <color name="sky_3">#90B7DE</color>
 
     <color name="sky_7">#73A4D5</color>

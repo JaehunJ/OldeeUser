@@ -50,7 +50,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@drawable/bg_round_8dp_white"
-                android:backgroundTint="@color/sky_2_n"
+                android:backgroundTint="@color/sky_2"
                 android:id="@+id/cl_add"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toTopOf="parent"
