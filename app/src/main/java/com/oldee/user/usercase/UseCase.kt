@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Size
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -122,17 +121,13 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
         if (useSkeleton) {
             val bitmap = getImageUseCase.invoke(path)
 
-            Glide.with(context).load(bitmap).diskCacheStrategy(
-                DiskCacheStrategy.RESOURCE
-            )
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(
                     R.drawable.icon_empty_image
                 ).error(R.drawable.icon_empty_image).into(imageView)
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).diskCacheStrategy(
-                DiskCacheStrategy.RESOURCE
-            )
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.icon_empty_image).error(R.drawable.icon_empty_image)
                 .into(imageView)
         }
@@ -150,25 +145,18 @@ class SetImageUseCase @Inject constructor(private val getImageUseCase: GetImageU
             val bitmap = getImageUseCase.invoke(path)
 
             if (size == null) {
-                Glide.with(context).load(bitmap).diskCacheStrategy(
-                    DiskCacheStrategy.RESOURCE
-                )
-                    //.transition(DrawableTransitionOptions.withCrossFade())
+                Glide.with(context).load(bitmap)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
             } else {
-                Glide.with(context).load(bitmap).diskCacheStrategy(
-                    DiskCacheStrategy.RESOURCE
-                )
-                    //.transition(DrawableTransitionOptions.withCrossFade())
+                Glide.with(context).load(bitmap)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .override(size.width, size.height)
                     .transform(CenterCrop(), RoundedCorners(roundDp)).into(imageView)
             }
         } else {
             val bitmap = getImageUseCase.invoke(path)
-            Glide.with(context).load(bitmap).diskCacheStrategy(
-                DiskCacheStrategy.RESOURCE
-            )
-                //.transition(DrawableTransitionOptions.withCrossFade())
+            Glide.with(context).load(bitmap).transition(DrawableTransitionOptions.withCrossFade())
                 .transform(CenterCrop(), RoundedCorners(roundDp))
                 .into(imageView)
         }
@@ -222,6 +210,6 @@ class GetPaymentPageUseCase @Inject constructor(private val repo: DesignReposito
 
 //class GetFaqListUseCase @Inject constructor(private val repo:)
 
-class GetFooterUseCase @Inject constructor(private val repo: CommonRepository) {
+class GetFooterUseCase @Inject constructor(private val repo:CommonRepository){
     suspend operator fun invoke() = repo.requestFooter()
 }
